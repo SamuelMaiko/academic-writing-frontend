@@ -10,12 +10,14 @@ const Bio = () => {
       "
     >
       <h1 className="text-lg font-semibold">Bio</h1>
+      <p id="contact" className=""></p>
       <p>
         My name is noobie and 💡 Embracing the wisdom encapsulated in the words,
         Continuous learning and adaptability are the keys to a successful career
         in the ever-evolving field of technology I am driven to not only
         navigate but thrive within the dynamic realm of software engineering.
       </p>
+      {/* contact tracking */}
     </div>
   );
 };

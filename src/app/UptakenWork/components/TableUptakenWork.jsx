@@ -38,7 +38,9 @@ const TableUptakenWork = () => {
         <TableHead className="min-w-[100px]" />
       </TableHeader>
       <TableBody className="divide-gray-25 divide-y">
-        <TableRowUptakenWork />
+        <TableRowUptakenWork isRead={false} />
+        <TableRowUptakenWork isRead={true} />
+        <TableRowUptakenWork isRead={true} />
       </TableBody>
     </Table>
   );

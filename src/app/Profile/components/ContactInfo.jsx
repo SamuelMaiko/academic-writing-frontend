@@ -5,7 +5,6 @@ import { Phone, EnvelopeSimple, LinkedinLogo } from "phosphor-react";
 const ContactInfo = () => {
   return (
     <div
-      id="contact"
       className="mt-3 min-h-[6rem] mx-auto flex flex-col justify-center p-5 
       shadow-[2px_2px_13px_rgba(0,0,0,0.3)] dark:shadow-gray-600 bg-white
        w-[95%] rounded-[1rem] dark:text-darkMode-text dark:bg-darkMode-body"

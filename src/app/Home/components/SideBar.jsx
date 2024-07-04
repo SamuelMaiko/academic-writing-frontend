@@ -37,12 +37,6 @@ const SideBar = () => {
         <p className={`${shrinkSideBar ? "hidden" : ""} text-xl`}>
           Uptake Writers
         </p>
-        {/* <button
-          className={`hover:bg-neutral-200  transition-colors duration-300 p-1 rounded-full`}
-          onClick={() => setShrinkSideBar((prev) => !prev)}
-        >
-          <List size={25} />
-        </button> */}
 
         {/* bars toggle button */}
         <Button
@@ -71,24 +65,21 @@ const SideBar = () => {
           shrinkSideBar ? "flex items-center flex-col" : ""
         } w-full h-full px-[2rem] mt-8 `}
       >
+        {/* home  button */}
         <Button
           onClick={() => navigate("/home")}
-          icon={<House size={20} />}
+          icon={
+            pathname === "/home" ? (
+              <House size={20} weight="fill" />
+            ) : (
+              <House size={20} />
+            )
+          }
           title={"Home"}
-          className={`${pathname === "/home" ? "text-sidebartext-hover" : ""}`}
+          className={`${
+            pathname === "/home" ? "text-sidebartext-hover" : ""
+          } w-full`}
         />
-        {/* <Button
-          onClick={() => navigate("/admin/users")}
-          icon={<UserGear size={20} />}
-          title={"Manage Users"}
-          className={`${pathname === "/admin/users" ? "text-sidebartext-hover" : ""}`}
-        /> */}
-        {/* <Button
-          onClick={() => navigate("/admin/work")}
-          icon={<UserGear size={20} />}
-          title={"Manage Work"}
-          className={`${pathname === "/admin/work" ? "text-sidebartext-hover" : ""}`}
-        /> */}
         <p
           className={`${
             shrinkSideBar ? "" : "hidden"
@@ -96,47 +87,99 @@ const SideBar = () => {
         >
           Pages
         </p>
-
-        <Button
-          onClick={() => navigate("/assigned-work")}
-          icon={<Pen size={20} />}
-          title={"Assigned Work"}
-          className={`${
-            pathname === "/assigned-work" ? "text-sidebartext-hover" : ""
-          }`}
-        />
-        <Button
-          onClick={() => navigate("/uptaken-work")}
-          icon={<Briefcase size={20} />}
-          title={"Uptaken Work"}
-          className={`${
-            pathname === "/uptaken-work" ? "text-sidebartext-hover" : ""
-          }`}
-        />
-        <Button
-          onClick={() => navigate("/revisions")}
-          icon={<Binoculars size={20} />}
-          title={"Revisions"}
-          className={`${
-            pathname === "/revisions" ? "text-sidebartext-hover" : ""
-          }`}
-        />
+        {/* assigned work button */}
+        <div className="relative">
+          <Button
+            onClick={() => navigate("/assigned-work")}
+            icon={
+              pathname === "/assigned-work" ? (
+                <Pen size={20} weight="fill" />
+              ) : (
+                <Pen size={20} />
+              )
+            }
+            title={"Assigned Work"}
+            className={`${
+              pathname === "/assigned-work" ? "text-sidebartext-hover" : ""
+            } w-full`}
+          />
+          {/* counter */}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+          >
+            2
+          </div>
+        </div>
+        {/* uptaken work button */}
+        <div className="relative">
+          <Button
+            onClick={() => navigate("/uptaken-work")}
+            icon={
+              pathname === "/uptaken-work" ? (
+                <Briefcase size={20} weight="fill" />
+              ) : (
+                <Briefcase size={20} />
+              )
+            }
+            title={"Uptaken Work"}
+            className={`${
+              pathname === "/uptaken-work" ? "text-sidebartext-hover" : ""
+            }  w-full`}
+          />
+          {/* counter */}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+          >
+            1
+          </div>
+        </div>
+        {/* revisions button */}
+        <div className="relative">
+          <Button
+            onClick={() => navigate("/revisions")}
+            icon={
+              pathname === "/revisions" ? (
+                <Binoculars size={20} weight="fill" />
+              ) : (
+                <Binoculars size={20} />
+              )
+            }
+            title={"Revisions"}
+            className={`${
+              pathname === "/revisions" ? "text-sidebartext-hover" : ""
+            } w-full`}
+          />
+          {/* counter */}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+          >
+            0
+          </div>
+        </div>
+        {/* bookmark button */}
         <Button
           onClick={() => navigate("/bookmarks")}
-          icon={<BookmarkSimple size={20} />}
+          icon={
+            pathname === "/bookmarks" ? (
+              <BookmarkSimple size={20} weight="fill" />
+            ) : (
+              <BookmarkSimple size={20} />
+            )
+          }
           title={"Bookmark"}
           className={`${
             pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
-          }`}
+          } w-full`}
         />
+        {/* signout button */}
         {/* <Button
-          onClick={() => navigate("/history")}
-          icon={<ClockCounterClockwise size={20} />}
-          title={"History"}
-          className={`${pathname === "/history" ? "text-sidebartext-hover" : ""}`}
+          icon={<SignOut size={20} />}
+          title={"Sign Out"}
+          className="w-full pl-3"
         /> */}
-        {/* <Button icon={<Gear size={20} />} title={"Settings"} className="" /> */}
-        <Button icon={<SignOut size={20} />} title={"Sign Out"} className="" />
       </div>
     </div>
   );
@@ -146,3 +189,33 @@ export default SideBar;
 
 // ui for empty notifications
 // add email in the footer
+
+{
+  /* <Button
+  onClick={() => navigate("/admin/users")}
+  icon={<UserGear size={20} />}
+  title={"Manage Users"}
+  className={`${pathname === "/admin/users" ? "text-sidebartext-hover" : ""}`}
+  /> */
+}
+
+{
+  /* <Button
+    onClick={() => navigate("/admin/work")}
+  icon={<UserGear size={20} />}
+  title={"Manage Work"}
+  className={`${pathname === "/admin/work" ? "text-sidebartext-hover" : ""}`}
+/> */
+}
+
+{
+  /* <Button
+      onClick={() => navigate("/history")}
+      icon={<ClockCounterClockwise size={20} />}
+      title={"History"}
+      className={`${pathname === "/history" ? "text-sidebartext-hover" : ""}`}
+    /> */
+}
+{
+  /* <Button icon={<Gear size={20} />} title={"Settings"} className="" /> */
+}

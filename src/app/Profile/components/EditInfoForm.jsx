@@ -37,7 +37,12 @@ const EditInfoForm = () => {
       {/* footer */}
       <div className=" h-[3.9rem] flex items-center justify-between px-5">
         <div></div>
-        <button className="bg-blue-500 text-white rounded-2xl font-semibold  py-1 px-5">
+        <button
+          className="bg-blue-500 hover:bg-blue-400 transition-colors duration-300
+         dark:bg-darkMode-cardButton dark:hover:bg-darkMode-cardButtonHover
+          dark:text-darkMode-cardButtonT dark:hover:text-darkMode-cardButtonTHov
+           rounded-2xl font-semibold  py-1 px-5 text-white"
+        >
           Save
         </button>
       </div>

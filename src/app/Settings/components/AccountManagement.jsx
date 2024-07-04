@@ -6,7 +6,7 @@ import { Divider } from "keep-react";
 const AccountManagement = () => {
   const { setShowEditInfoModal, setSettingsOpen } = useStateShareContext();
   return (
-    <div className=" bg-neutral-100 rounded-lg mt-3">
+    <div className=" bg-neutral-100 rounded-lg mt-3 dark:bg-darkMode-body dark:text-darkMode-text">
       <h1 className="p-2 pb-0 text-lg mb-2 font-semibold ">
         Account management
       </h1>
@@ -17,7 +17,9 @@ const AccountManagement = () => {
         }}
         title="Deactivate account"
       />
-      <Divider color="primary" />
+
+      <Divider className="dark:hidden" color="primary" />
+      <Divider className="hidden dark:block" color="secondary" />
       <SettingsBlock
         onClick={() => {
           //   setShowEditInfoModal(true);

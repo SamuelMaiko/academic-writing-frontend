@@ -38,7 +38,7 @@ const TableRevisions = () => {
       </TableHeader>
       <TableBody className="divide-gray-25 divide-y">
         <TableRowRevisions />
-        <TableRowRevisions />
+        <TableRowRevisions isOpen={true} />
       </TableBody>
     </Table>
   );

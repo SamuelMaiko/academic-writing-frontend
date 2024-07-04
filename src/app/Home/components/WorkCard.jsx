@@ -1,18 +1,22 @@
 import { Button, Divider } from "keep-react";
-import React from "react";
+import React, { useState } from "react";
 import { GraduationCap, BookmarkSimple } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
+import BookmarkToggle from "./BookmarkToggle";
 
-const WorkCard = () => {
+const WorkCard = ({ bookmark = false }) => {
   const navigate = useNavigate();
   const { darkMode } = useStateShareContext();
+  const [isBookmarked, setisBookmarked] = useState(bookmark);
+
   const handleTakeUpWork = (event) => {
     event.stopPropagation();
   };
 
   const handleBookmarkWork = (event) => {
     event.stopPropagation();
+    setisBookmarked((current) => !current);
   };
   return (
     <>
@@ -42,20 +46,28 @@ const WorkCard = () => {
         </div>
         <Button
           onClick={handleTakeUpWork}
-          className="bg-blue-500 hover:bg-blue-400 transition-colors duration-300 dark:bg-darkMode-cardButton dark:hover:bg-darkMode-cardButtonHover dark:text-darkMode-cardButtonT dark:hover:text-darkMode-cardButtonTHov mt-4 "
+          className="bg-blue-500 hover:bg-blue-400 transition-colors duration-300 dark:bg-darkMode-cardButton
+           dark:hover:bg-darkMode-cardButtonHover dark:text-darkMode-cardButtonT
+            dark:hover:text-darkMode-cardButtonTHov mt-4 "
         >
           <GraduationCap size={20} className="mr-1.5" />
           Take up work
         </Button>
         {/* Bookmark button */}
-        <button
+        <BookmarkToggle
+          onClick={handleBookmarkWork}
+          isBookmarked={isBookmarked}
+          setisBookmarked={setisBookmarked}
+        />
+        {/* <button
           onClick={handleBookmarkWork}
           className="absolute top-8 right-4 dark:text-white"
         >
           <BookmarkSimple size={25} className=" " />
-        </button>
+        </button> */}
       </div>
-      <Divider />
+      <Divider className="dark:hidden" color="primary" />
+      <Divider className="hidden dark:block" color="secondary" />
     </>
   );
 };

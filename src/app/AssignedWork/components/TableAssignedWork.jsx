@@ -39,8 +39,8 @@ const TableAssignedWork = () => {
         <TableHead className="min-w-[100px]" />
       </TableHeader>
       <TableBody className="divide-gray-25 divide-y">
-        <TableRowAssignedWork />
-        <TableRowAssignedWork />
+        <TableRowAssignedWork isRead={false} />
+        <TableRowAssignedWork isRead={true} />
       </TableBody>
     </Table>
   );

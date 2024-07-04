@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../CustomHooks/useLocalStorage";
 
 const ShareState = createContext();
 
@@ -12,8 +13,9 @@ const StateContext = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteWorkModal, setShowDeleteWorkModal] = useState(false);
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(true);
+  const [darkMode, setDarkMode] = useLocalStorage(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [showEditPFPModal, setShowEditPFPModal] = useState(false);
 
   // const [showModal, setShowModal] = useState(true);
 
@@ -34,6 +36,8 @@ const StateContext = ({ children }) => {
         setDarkMode,
         settingsOpen,
         setSettingsOpen,
+        showEditPFPModal,
+        setShowEditPFPModal,
       }}
     >
       {children}

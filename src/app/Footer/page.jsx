@@ -36,7 +36,7 @@ const Footer = ({ side = false }) => {
             return (
               <p key={index}>
                 <a
-                  className="hover:underline hover:text-blue-500 transition-all duration-300"
+                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300"
                   href={footer_link.link}
                 >
                   {footer_link.name}
@@ -66,7 +66,7 @@ const Footer = ({ side = false }) => {
             return (
               <p key={index}>
                 <a
-                  className="hover:underline hover:text-blue-500 transition-all duration-300"
+                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300"
                   href={footer_link.link}
                 >
                   {footer_link.name}

@@ -28,16 +28,22 @@ import WorkDetail from "./app/WorkDetail/page";
 import Settings from "./app/Settings/page";
 import Footer from "./app/Footer/page";
 import Notifications from "./app/Notifications/page";
+import EditPFPModal from "./app/Profile/components/EditPFPModal";
 
 const EntryPoint = () => {
-  const { showEditInfoModal, darkMode } = useStateShareContext();
+  const { showEditInfoModal, darkMode, showEditPFPModal } =
+    useStateShareContext();
   return (
     <>
       <div
-        className={`${showEditInfoModal ? "h-[98vh] overflow-hidden" : ""}
-         w-full h-full flex justify-between font-opensans ${
-           darkMode ? "dark" : ""
-         } dark:bg-darkMode-bars`}
+        // preventing scrolling on modal open
+        className={`${
+          showEditInfoModal | showEditPFPModal
+            ? "h-[97.8vh] overflow-hidden"
+            : ""
+        } w-full h-full flex justify-between font-opensans ${
+          darkMode ? "dark" : ""
+        } dark:bg-darkMode-bars`}
       >
         <SideBar />
         <div className=" w-full h-full">
@@ -75,6 +81,7 @@ const EntryPoint = () => {
         <DeleteWorkModal />
         <EditInfoModal />
         <Settings />
+        <EditPFPModal />
       </div>
     </>
   );

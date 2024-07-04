@@ -2,13 +2,16 @@ import { Table, Badge, TableRow, TableCell } from "keep-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const TableRowRevisions = () => {
+const TableRowRevisions = ({ isOpen = false }) => {
   const navigate = useNavigate();
-
   return (
     <TableRow
       onClick={() => navigate("/revisions/1")}
-      className="bg-white dark:bg-darkMode-cardBg dark:text-white cursor-pointer"
+      className={`bg-white dark:bg-darkMode-cardBg dark:text-white cursor-pointer ${
+        !isOpen
+          ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-700 hover:dark:bg-blue-800"
+          : "hover:bg-lightmode-cardBgHover"
+      } h-[4rem]`}
     >
       <TableCell>
         <div className="flex items-center gap-3">

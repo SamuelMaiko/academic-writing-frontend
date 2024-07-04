@@ -6,7 +6,8 @@ const SettingsBlock = ({ title, onClick = () => {} }) => {
     <>
       <div
         onClick={onClick}
-        className="flex justify-between items-center p-3 cursor-pointer hover:bg-neutral-200 transition-colors duration-300"
+        className="flex justify-between items-center p-3 cursor-pointer hover:bg-neutral-200
+         transition-colors duration-300 dark:hover:bg-darkMode-cardHover"
       >
         <p>{title}</p>
         <p>

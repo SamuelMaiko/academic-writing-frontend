@@ -1,10 +1,11 @@
-import React from "react";
-import { Pencil } from "phosphor-react";
+import React, { useState } from "react";
+import { Pencil, NotePencil } from "phosphor-react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import Vini from "../../../assets/Vinijr.jpeg";
 
 const UserInfo = () => {
-  const { setShowEditInfoModal } = useStateShareContext();
+  const { setShowEditInfoModal, setShowEditPFPModal } = useStateShareContext();
+  const [showImageEditIcon, setShowImageEditIcon] = useState(false);
   return (
     <div
       className="absolute left-1/2 -translate-x-1/2 top-[11rem] flex items-center  
@@ -20,12 +21,25 @@ const UserInfo = () => {
         >
           <Pencil size={27} />
         </button>
-        <div className="size-[4.5rem] bg-neutral-300 overflow-hidden rounded-lg">
+        <div
+          onMouseOver={() => setShowImageEditIcon(true)}
+          onMouseOut={() => setShowImageEditIcon(false)}
+          className="relative size-[4.5rem] bg-neutral-300 overflow-hidden rounded-lg"
+        >
           <img
             src={Vini}
             alt=""
             className="w-full h-full object-cover object-top"
           />
+          {/* Floating edit icon */}
+          <button
+            onClick={() => setShowEditPFPModal(true)}
+            className={`${
+              showImageEditIcon ? "" : "hidden"
+            } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-200`}
+          >
+            <NotePencil size={28} />
+          </button>
         </div>
         <div className="">
           <p className="font-bold text-lg">Samuel Maiko</p>

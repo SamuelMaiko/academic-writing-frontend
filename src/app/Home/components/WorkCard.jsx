@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import BookmarkToggle from "./BookmarkToggle";
 import { toast } from "react-toastify";
+import Countdown from "react-countdown";
+import CountdownToDate from "./CountdownToDate";
 
-const WorkCard = ({ bookmark = false }) => {
+const WorkCard = ({ bookmark = false, deadline = "2024-07-08T01:02:03" }) => {
   const navigate = useNavigate();
   const { darkMode } = useStateShareContext();
   const [isBookmarked, setisBookmarked] = useState(bookmark);
@@ -16,7 +18,10 @@ const WorkCard = ({ bookmark = false }) => {
     toast.success(
       <p className="relative pr-2">
         Work added to your uptaken tasks.{" "}
-        <button className="absolute right-0 top-1/2 -translate-y-1/2 text-sm text-metal-800 underline">
+        <button
+          className="absolute right-0 top-1/2 -translate-y-1/2 text-sm p-[1px] px-[3px] bg-white rounded-xl
+         text-metal-800"
+        >
           undo
         </button>
       </p>
@@ -28,6 +33,7 @@ const WorkCard = ({ bookmark = false }) => {
     toast.success("Work has been bookmarked successfully.");
     setisBookmarked((current) => !current);
   };
+
   return (
     <>
       <div
@@ -45,13 +51,16 @@ const WorkCard = ({ bookmark = false }) => {
         <p className="text-[15px] my-2 text-[#676767] dark:text-darkMode-cardText">
           1500 words
         </p>
-        <p className=" my-2 text-[#181818] dark:text-darkMode-cardText">
+        <p className=" mt-2 text-[#181818] text-sm font-medium dark:text-darkMode-cardText">
           Due on 21st June 2024
         </p>
-        <p className="text-xs font-bold my-2 text-[#181818] dark:text-darkMode-cardText">
-          01:23:03 to deadline
+        <p>
+          <CountdownToDate deadline={deadline} />
         </p>
-        <div className="px-2 py-1 w-fit rounded-2xl bg-[#E9E9E9] dark:bg-neutral-500 text-[#676767] dark:text-darkMode-cardText">
+        {/* <p className="text-xs font-bold my-2 text-[#181818] dark:text-darkMode-cardText">
+          01:23:03 to deadline
+        </p> */}
+        <div className="px-2 py-1 mt-1 w-fit rounded-2xl bg-[#E9E9E9] dark:bg-neutral-500 text-[#676767] dark:text-darkMode-cardText">
           MK345
         </div>
         <Button

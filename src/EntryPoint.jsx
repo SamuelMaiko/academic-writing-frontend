@@ -30,6 +30,8 @@ import Footer from "./app/Footer/page";
 import Notifications from "./app/Notifications/page";
 import EditPFPModal from "./app/Profile/components/EditPFPModal";
 import LandingPage from "./app/LandingPage/page";
+import DeleteProfilePhotoModal from "./app/Profile/components/DeleteProfilePhotoModal";
+import RevokeWorkModal from "./app/WorkDetail/components/RevokeWorkModal";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
@@ -84,6 +86,8 @@ const EntryPoint = () => {
         <EditInfoModal />
         <Settings />
         <EditPFPModal />
+        <DeleteProfilePhotoModal />
+        <RevokeWorkModal />
       </div>
     </>
   );

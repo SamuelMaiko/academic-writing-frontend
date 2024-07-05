@@ -13,8 +13,11 @@ import {
 import { Badge } from "keep-react";
 import WorkImages from "./components/WorkImages";
 import WorkFiles from "./components/WorkFiles";
+import { useStateShareContext } from "../../Context/StateContext";
+import CountdownToDate from "../Home/components/CountdownToDate";
 
 const WorkDetail = () => {
+  const { setShowRevokeWorkModal } = useStateShareContext();
   const IsTakeUp = false;
   return (
     <div className="w-full px-[2rem] dark:bg-darkMode-body ">
@@ -29,9 +32,17 @@ const WorkDetail = () => {
             <button
               className={`${
                 IsTakeUp ? "hidden" : ""
-              } bg-green-500 text-white rounded-lg text-sm py-1 px-3 ml-8`}
+              } bg-green-500 hover:bg-green-600 transition-colors duration-300 text-white rounded-lg text-sm py-1 px-3 ml-8`}
             >
               Take Up
+            </button>
+            <button
+              onClick={() => setShowRevokeWorkModal(true)}
+              className={`${
+                IsTakeUp ? "hidden" : ""
+              } bg-red-500 hover:bg-red-600 transition-colors duration-300 text-white rounded-lg text-sm py-1 px-3 ml-8`}
+            >
+              Revoke
             </button>
           </div>
           <WorkDetailBlock icon={<Hash size={22} />} detail="W725" />
@@ -49,7 +60,7 @@ const WorkDetail = () => {
           />
           <WorkDetailBlock
             icon={<HourglassMedium size={22} />}
-            detail={<p className="text-red-400">00:20:30</p>}
+            detail={<CountdownToDate deadline="2024-07-08T01:02:03" />}
           />
           <WorkDetailBlock
             icon={<ChartPieSlice size={22} />}

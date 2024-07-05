@@ -19,7 +19,7 @@ const Home = () => {
           }
         />
         <Loader loading={loading} />
-        <WorkCard bookmark={true} />
+        <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
         <WorkCard />
         <WorkCard />
       </div>

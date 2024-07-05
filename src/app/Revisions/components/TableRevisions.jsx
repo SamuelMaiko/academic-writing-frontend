@@ -42,11 +42,11 @@ const TableRevisions = () => {
           <TableHead className="min-w-[200px]">Status</TableHead>
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          {/* <TableRowRevisions /> */}
-          {/* <TableRowRevisions isOpen={true} /> */}
+          <TableRowRevisions />
+          <TableRowRevisions isOpen={true} />
         </TableBody>
       </Table>
-      <div className="pb-[8rem]">
+      <div className="pb-[8rem] hidden">
         <img
           className="mx-auto w-[16rem]"
           src={darkMode ? UnavailableDark : UnavailableLight}

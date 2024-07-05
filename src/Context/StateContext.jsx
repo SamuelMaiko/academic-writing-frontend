@@ -16,6 +16,9 @@ const StateContext = ({ children }) => {
   const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [showEditPFPModal, setShowEditPFPModal] = useState(false);
+  const [showDeleteProfilePhotoModal, setShowDeleteProfilePhotoModal] =
+    useState(false);
+  const [showRevokeWorkModal, setShowRevokeWorkModal] = useState(false);
   const [show, setShow] = useState(false);
 
   // const [showModal, setShowModal] = useState(true);
@@ -41,6 +44,10 @@ const StateContext = ({ children }) => {
         setShowEditPFPModal,
         show,
         setShow,
+        showDeleteProfilePhotoModal,
+        setShowDeleteProfilePhotoModal,
+        showRevokeWorkModal,
+        setShowRevokeWorkModal,
       }}
     >
       {children}

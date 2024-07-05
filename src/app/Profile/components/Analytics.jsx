@@ -45,7 +45,7 @@ const Analytics = () => {
         />
         <AnalyticsBlock
           icon={<XCircle size={32} weight="fill" />}
-          title="0 declined work"
+          title="0 revoked work"
           detail="Tasks that were accepted but later declined or returned by the user due to difficulty or change of mind."
         />
       </div>

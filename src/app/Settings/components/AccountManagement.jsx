@@ -27,6 +27,15 @@ const AccountManagement = () => {
         }}
         title="Delete account"
       />
+      <Divider className="dark:hidden" color="primary" />
+      <Divider className="hidden dark:block" color="secondary" />
+      <SettingsBlock
+        onClick={() => {
+          //   setShowEditInfoModal(true);
+          setSettingsOpen(false);
+        }}
+        title="Sign Out"
+      />
     </div>
   );
 };

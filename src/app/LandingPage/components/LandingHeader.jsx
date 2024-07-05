@@ -12,8 +12,12 @@ const LandingHeader = () => {
   };
   return (
     <div className="h-screen w-full">
-      <div className=" w-[90%] margin-auto h-full flex lg:static justify-center">
-        <section className="z-[2] h-[28rem] lg:h-fit relative bg-[rgba(245,245,220,0.5)] lg:absolute pt-[4.8rem] md:pt-0 mt-[8.5rem] md:mt-[16rem] lg:mt-0 w-[95%] mx-auto md:w-[48rem] md:bg-transparent flex-wrap lg:flex-nowrap lg:m-0 lg:left-24 bottom-24 lg:top-80  lg:w-[45%]">
+      <div className=" w-[90%] m-auto h-full flex lg:static justify-center">
+        <section
+          className="z-[2] h-[28rem] lg:h-fit relative bg-[rgba(245,245,220,0.5)] lg:absolute 
+        pt-[4.8rem] md:pt-0 mt-[8.5rem] md:mt-[16rem] lg:mt-0 w-[95%] mx-auto md:w-[48rem] md:bg-transparent
+         flex-wrap lg:flex-nowrap lg:m-0 lg:left-24 -bottom-44 lg:top-80  lg:w-[45%]"
+        >
           <p className="md:text-[2.5rem] text-[2rem] font-bold font-prompt text-chocolate">
             Welcome to Techwave writers self-Service Portal
           </p>
@@ -21,7 +25,7 @@ const LandingHeader = () => {
             Access our services easily and quickly. Create an account and get to
             enjoy Techwave writers online services.
           </small>
-          <div className="md:ml-20 lg:ml-0">
+          <div className="md:ml-20 lg:ml-0 flex flex-col items  md:block">
             <button
               className="rounded-3xl lg:hidden px-5 py-3 mt-4 bg-chocolate text-white text-xl
              hover:bg-green-700 transition-colors duration-300"
@@ -38,7 +42,10 @@ const LandingHeader = () => {
           </div>
         </section>
 
-        <Div className="absolute   w-[28rem] h-[28rem] right-20 lg:right-24 top-52 lg:top-36 rounded-full p-4  lg:inline-block "></Div>
+        <Div
+          className="absolute   w-[28rem] h-[28rem] right-20 lg:right-24 top-52 lg:top-36 
+        rounded-full p-4  lg:inline-block "
+        ></Div>
         <Div2 className="absolute left-64 top-10 opacity-[0.2] w-[28rem] h-[28rem] "></Div2>
       </div>
     </div>

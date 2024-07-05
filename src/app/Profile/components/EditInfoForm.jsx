@@ -17,7 +17,7 @@ const EditInfoForm = () => {
       {/* header */}
       <div className="flex justify-between items-center py-3 px-4 border-b-neutral-300 border-b-[1px]">
         <p className="text-xl font-semibold">Edit info</p>
-        {/* cancel button */}
+        {/* close button */}
         <button
           onClick={() => setShowEditInfoModal(false)}
           className="rounded-full hover:bg-neutral-200 dark:hover:bg-gray-600 p-2"

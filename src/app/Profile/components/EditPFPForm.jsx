@@ -4,7 +4,8 @@ import { ImageSquare, Trash, X } from "phosphor-react";
 import Vini from "../../../assets/Vinijr.jpeg";
 
 const EditPFPForm = () => {
-  const { setShowEditPFPModal } = useStateShareContext();
+  const { setShowEditPFPModal, setShowDeleteProfilePhotoModal } =
+    useStateShareContext();
   return (
     <div
       className="absolute w-[56%] h-[30rem] rounded-lg  px-2 left-[50%]
@@ -45,6 +46,7 @@ const EditPFPForm = () => {
             <span>Upload new</span>
           </button>
           <button
+            onClick={() => setShowDeleteProfilePhotoModal(true)}
             className="h-full px-2 flex flex-col items-center hover:bg-neutral-200
            dark:hover:bg-gray-600 justify-center rounded-lg font-medium  py-1"
           >

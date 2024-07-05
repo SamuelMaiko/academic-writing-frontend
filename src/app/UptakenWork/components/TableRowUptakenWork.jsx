@@ -1,6 +1,7 @@
 import { Button, TableRow, Badge, TableCell } from "keep-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CountdownToDate from "../../Home/components/CountdownToDate";
 
 const TableRowUptakenWork = ({ isRead = false }) => {
   const navigate = useNavigate();
@@ -39,7 +40,9 @@ const TableRowUptakenWork = ({ isRead = false }) => {
         <p>1500</p>
       </TableCell>
       <TableCell>21st June 2024</TableCell>
-      <TableCell>00:34:00</TableCell>
+      <TableCell className="lowercase">
+        <CountdownToDate deadline="2024-07-08T01:02:03" />
+      </TableCell>
       <TableCell>
         <Badge color="warning" showIcon={true} className="dark:text-orange-500">
           In progress

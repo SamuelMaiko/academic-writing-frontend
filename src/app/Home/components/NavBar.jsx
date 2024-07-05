@@ -3,6 +3,7 @@ import Button from "./ui/Button";
 import { User, Bell, Gear } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
+import Vini from "../../../assets/Vinijr.jpeg";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -42,9 +43,14 @@ const NavBar = () => {
         <Button
           onClick={() => navigate("/profile")}
           buttonType="roundedIconBtn"
-          className="dark:hover:bg-gray-600 dark:hover:text-white"
+          className="dark:hover:bg-gray-600 size-[2.1rem] ml-1 p-0 overflow-hidden bg-black dark:hover:text-white"
         >
-          <User size={22} />
+          <img
+            className="w-full h-full object-cover object-top"
+            src={Vini}
+            alt=""
+          />
+          {/* <User size={22} /> */}
         </Button>
       </div>
     </div>

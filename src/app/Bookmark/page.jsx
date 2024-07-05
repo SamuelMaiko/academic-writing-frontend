@@ -2,8 +2,13 @@ import React from "react";
 import PageHeader from "../../SharedComponents/PageHeader";
 import WorkCard from "../Home/components/WorkCard";
 import Footer from "../Footer/page";
+import { useStateShareContext } from "../../Context/StateContext";
+import BookmarkDark from "../../assets/BookmarkDark.png";
+import BookmarkLight from "../../assets/BookmarkLight.png";
 
 const Bookmark = () => {
+  const { darkMode } = useStateShareContext();
+
   return (
     <div className="relative w-full px-[2rem] pb-[5rem] dark:bg-darkMode-body">
       <div className="h-full w-[70%]">
@@ -11,11 +16,22 @@ const Bookmark = () => {
           title={"Bookmarks"}
           subTitle={"See the work that you saved to keep tabs on."}
         />
+        {/* <WorkCard />
         <WorkCard />
         <WorkCard />
         <WorkCard />
-        <WorkCard />
-        <WorkCard />
+        <WorkCard /> */}
+        <div className="pb-[8rem] ">
+          <img
+            className="mx-auto w-[16rem]"
+            src={darkMode ? BookmarkDark : BookmarkLight}
+            alt=""
+          />
+          <p className="font-bold text-2xl text-center">No bookmarks yet!</p>
+          <p className="font-medium text-sm text-center mt-2">
+            Any bookmarks will appear here.
+          </p>
+        </div>
       </div>
       <div className="fixed top-[5rem] w-[21%] right-[2rem] z-40">
         <Footer side={true} />

@@ -4,7 +4,7 @@ import SubmitForm from "../../SharedComponents/SubmitForm";
 
 const RevisionsDetails = () => {
   return (
-    <div className="w-full px-[2rem] pb-[5rem] flex justify-between dark:bg-darkMode-body">
+    <div className="w-full px-[2rem] pb-[5rem] flex justify-between dark:bg-darkMode-body dark:text-black">
       <div className="flex-1">
         <RevisionComment
           time="5pm"

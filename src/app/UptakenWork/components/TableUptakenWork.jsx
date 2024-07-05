@@ -43,12 +43,12 @@ const TableUptakenWork = () => {
           <TableHead className="min-w-[100px]" />
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          {/* <TableRowUptakenWork isRead={false} />
+          <TableRowUptakenWork isRead={false} />
           <TableRowUptakenWork isRead={true} />
-          <TableRowUptakenWork isRead={true} /> */}
+          <TableRowUptakenWork isRead={true} />
         </TableBody>
       </Table>
-      <div className="pb-[8rem] ">
+      <div className="pb-[8rem] hidden ">
         <img
           className="mx-auto w-[16rem]"
           src={darkMode ? UnavailableDark : UnavailableLight}

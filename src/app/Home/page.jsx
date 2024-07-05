@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Divider } from "keep-react";
 import WorkCard from "./components/WorkCard";
 import PageHeader from "../../SharedComponents/PageHeader";
 import Footer from "../Footer/page";
+import Loader from "../../SharedComponents/Loader";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <div
       className={`relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
@@ -16,6 +18,7 @@ const Home = () => {
             "Browse work that matches your experience. Ordered by closest to deadline."
           }
         />
+        <Loader loading={loading} />
         <WorkCard bookmark={true} />
         <WorkCard />
         <WorkCard />

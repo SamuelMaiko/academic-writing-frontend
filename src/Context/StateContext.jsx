@@ -13,9 +13,10 @@ const StateContext = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteWorkModal, setShowDeleteWorkModal] = useState(false);
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
-  const [darkMode, setDarkMode] = useLocalStorage(false);
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [showEditPFPModal, setShowEditPFPModal] = useState(false);
+  const [show, setShow] = useState(false);
 
   // const [showModal, setShowModal] = useState(true);
 
@@ -38,6 +39,8 @@ const StateContext = ({ children }) => {
         setSettingsOpen,
         showEditPFPModal,
         setShowEditPFPModal,
+        show,
+        setShow,
       }}
     >
       {children}

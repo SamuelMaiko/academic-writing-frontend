@@ -4,6 +4,7 @@ import { GraduationCap, BookmarkSimple } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import BookmarkToggle from "./BookmarkToggle";
+import { toast } from "react-toastify";
 
 const WorkCard = ({ bookmark = false }) => {
   const navigate = useNavigate();
@@ -12,10 +13,19 @@ const WorkCard = ({ bookmark = false }) => {
 
   const handleTakeUpWork = (event) => {
     event.stopPropagation();
+    toast.success(
+      <p className="relative pr-2">
+        Work added to your uptaken tasks.{" "}
+        <button className="absolute right-0 top-1/2 -translate-y-1/2 text-sm text-metal-800 underline">
+          undo
+        </button>
+      </p>
+    );
   };
 
   const handleBookmarkWork = (event) => {
     event.stopPropagation();
+    toast.success("Work has been bookmarked successfully.");
     setisBookmarked((current) => !current);
   };
   return (

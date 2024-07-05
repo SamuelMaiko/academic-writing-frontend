@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Outlet } from "react-router-dom";
+import { Route, Routes, Outlet, useLocation } from "react-router-dom";
 import Home from "./app/Home/page";
 import NotFound from "./app/NotFound/page";
 import AssignedWork from "./app/AssignedWork/page";
@@ -29,10 +29,12 @@ import Settings from "./app/Settings/page";
 import Footer from "./app/Footer/page";
 import Notifications from "./app/Notifications/page";
 import EditPFPModal from "./app/Profile/components/EditPFPModal";
+import LandingPage from "./app/LandingPage/page";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
     useStateShareContext();
+  const { pathname } = useLocation();
   return (
     <>
       <div
@@ -43,7 +45,7 @@ const EntryPoint = () => {
             : ""
         } w-full h-full flex justify-between font-opensans ${
           darkMode ? "dark" : ""
-        } dark:bg-darkMode-bars`}
+        } dark:bg-darkMode-bars `}
       >
         <SideBar />
         <div className=" w-full h-full">
@@ -69,7 +71,7 @@ const EntryPoint = () => {
             <Route path="/admin/users/:id" element={<SpecificUserDetails />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className={` overflow-x-hidden`}>
+          <div className={` overflow-x-hidden `}>
             <Outlet />
             <Footer />
           </div>

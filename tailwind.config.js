@@ -16,11 +16,14 @@ export default {
         primary: "#800020",
         secondary: "#ffffff",
         chocolate: "#333333",
-        hover: "#666666",
+        hover: colors.neutral[600],
+        // hover: "#666666",
         btlinks: "#799c79",
         tcolor: "#333333",
-        bgcolor: "#f5f5f5",
+        bgcolor: "#ffffff",
+        // bgcolor: "#f5f5f5",
         textLinks: "#0374b5",
+
         darkMode: {
           DEFAULT: "#2c3e50",
           body: "#2c3e50",

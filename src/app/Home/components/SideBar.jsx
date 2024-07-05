@@ -16,6 +16,8 @@ import {
 import { useStateShareContext } from "../../../Context/StateContext";
 import Button from "./ui/Button";
 import Vini from "../../../assets/Vinijr.jpeg";
+import LogoDark from "../../../assets/LogoDark.png";
+import LogoLight from "../../../assets/LogoLight.png";
 
 const SideBar = () => {
   const { shrinkSideBar, setShrinkSideBar, darkMode } = useStateShareContext();
@@ -34,9 +36,16 @@ const SideBar = () => {
           shrinkSideBar ? "justify-center" : "justify-between"
         } items-center px-[2rem]`}
       >
-        <p className={`${shrinkSideBar ? "hidden" : ""} text-xl`}>
-          Uptake Writers
-        </p>
+        <div className={`${shrinkSideBar ? "hidden" : ""} text-xl flex-1`}>
+          {/* Logo */}
+          <div className="h-[2.5rem] w-full ">
+            <img
+              className="w-full h-full object-cover object-center"
+              src={darkMode ? LogoDark : LogoLight}
+              alt=""
+            />
+          </div>
+        </div>
 
         {/* bars toggle button */}
         <Button
@@ -66,20 +75,22 @@ const SideBar = () => {
         } w-full h-full px-[2rem] mt-8 `}
       >
         {/* home  button */}
-        <Button
-          onClick={() => navigate("/home")}
-          icon={
-            pathname === "/home" ? (
-              <House size={20} weight="fill" />
-            ) : (
-              <House size={20} />
-            )
-          }
-          title={"Home"}
-          className={`${
-            pathname === "/home" ? "text-sidebartext-hover" : ""
-          } w-full`}
-        />
+        <div>
+          <Button
+            onClick={() => navigate("/home")}
+            icon={
+              pathname === "/home" ? (
+                <House size={20} weight="fill" />
+              ) : (
+                <House size={20} />
+              )
+            }
+            title={"Home"}
+            className={`${
+              pathname === "/home" ? "text-sidebartext-hover" : ""
+            } w-full`}
+          />
+        </div>
         <p
           className={`${
             shrinkSideBar ? "" : "hidden"
@@ -153,27 +164,29 @@ const SideBar = () => {
           />
           {/* counter */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
-           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+            className={`absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px] `}
           >
             0
           </div>
         </div>
         {/* bookmark button */}
-        <Button
-          onClick={() => navigate("/bookmarks")}
-          icon={
-            pathname === "/bookmarks" ? (
-              <BookmarkSimple size={20} weight="fill" />
-            ) : (
-              <BookmarkSimple size={20} />
-            )
-          }
-          title={"Bookmark"}
-          className={`${
-            pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
-          } w-full`}
-        />
+        <div>
+          <Button
+            onClick={() => navigate("/bookmarks")}
+            icon={
+              pathname === "/bookmarks" ? (
+                <BookmarkSimple size={20} weight="fill" />
+              ) : (
+                <BookmarkSimple size={20} />
+              )
+            }
+            title={"Bookmark"}
+            className={`${
+              pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
+            } w-full`}
+          />
+        </div>
         {/* signout button */}
         {/* <Button
           icon={<SignOut size={20} />}

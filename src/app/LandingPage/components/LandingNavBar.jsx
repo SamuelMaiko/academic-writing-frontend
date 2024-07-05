@@ -2,6 +2,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import LogoLight from "../../../assets/LogoLight.png";
 import LogoDark from "../../../assets/LogoDark.png";
+import { List } from "phosphor-react";
 
 const NAV_LINKS = [
   {
@@ -22,23 +23,19 @@ const NAV_LINKS = [
   },
 ];
 const LandingNavBar = () => {
-  const { show, setShow, darkMode } = useStateShareContext();
+  const { setShowMobileNavBar, darkMode } = useStateShareContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const handleLogin = () => {
-    setShow((current) => !current);
+    setShowMobileNavBar((current) => !current);
     navigate("/login");
-  };
-  const handleNavLinkClick = (e) => {
-    e.preventDefault();
-    setShow(!show);
   };
 
   return (
-    <div className="relative w-full h-[5.7rem] bg-secondary text-tcolor shadow-[0_0_4px_rgba(0,0,0,0.2)]">
-      <div className="w-[90%] h-full mx-auto flex justify-between items-center lg:pr-6 ">
-        <div className="h-[2.7rem] w-[11rem] ">
+    <div className="relative z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]">
+      <div className="w-full md:w-[90%] h-full mx-auto flex justify-between items-center lg:pr-6 ">
+        <div className="h-[2.7rem] w-[9rem] md:w-[11rem] ">
           <img
             className="w-full h-full object-cover object-center"
             src={darkMode ? LogoDark : LogoLight}
@@ -46,15 +43,14 @@ const LandingNavBar = () => {
           />
         </div>
         <ul
-          className={`${
-            show ? "visible" : "invisible "
-          } lg:visible transition-all duration-500 absolute left-10 top-[8rem] right-10 z-10 lg:w-fit
-           lg:flex lg:static gap-20 items-center font-semibold text-[1rem] `}
+          className={` lg:visible hidden md:block transition-all duration-500 absolute left-10 h-[100vh] w-[30rem] lg:h-fit top-0 
+          right-0 bottom-0 z-10 lg:w-fit lg:flex lg:static gap-20 items-center font-semibold text-[1rem]
+           bg-black md:bg-transparent`}
         >
           {NAV_LINKS.map((navLink, index) => {
             return (
               <li
-                onClick={() => setShow(!show)}
+                onClick={() => setShowMobileNavBar((current) => !current)}
                 className="mb-0 lg:mb-0 mt-0 lg:mt-0 lg:p-0 py-3 px-3  rounded-md lg:hover:text-hover
                  hover:bg-gray-200 lg:hover:bg-transparent cursor-pointer transition-colors duration-300"
                 key={index}
@@ -81,18 +77,9 @@ const LandingNavBar = () => {
         </button>
         <div className="lg:hidden absolute cursor-pointer right-0 text-3xl duration-500 mr-7">
           {/* nav menu icon */}
-          <div>
-            <input
-              onClick={handleNavLinkClick}
-              id="checkbox"
-              type="checkbox"
-            ></input>
-            <label className="toggle" htmlFor="checkbox">
-              <div id="bar1" className="bars"></div>
-              <div id="bar2" className="bars"></div>
-              <div id="bar3" className="bars"></div>
-            </label>
-          </div>
+          <button onClick={() => setShowMobileNavBar(true)}>
+            <List size={30} />
+          </button>
         </div>
       </div>
     </div>

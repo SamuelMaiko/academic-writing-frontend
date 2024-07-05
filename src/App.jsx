@@ -9,6 +9,7 @@ import Loader from "./SharedComponents/Loader";
 import LandingPage from "./app/LandingPage/page";
 import Login from "./app/Login/page";
 import SignUp from "./app/SignUp/page";
+import MobileNavBar from "./app/LandingPage/components/MobileNavBar";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -41,6 +42,7 @@ const App = () => {
           </Routes>
           {/* <EntryPoint /> */}
           <ToastContainer position="bottom-left" theme="colored" />
+          <MobileNavBar />
         </StateContext>
       </BrowserRouter>
     </>

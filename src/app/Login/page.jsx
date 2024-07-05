@@ -24,7 +24,7 @@ const Login = () => {
       ></div>
       <div className="w-[90%] h-[screen-6rem] mx-auto flex justify-between">
         <section className="relative w-[50%] hidden lg:flex">
-          <LowerImage className="absolute w-[28rem] h-[28rem] left-2 top-24 rounded-full p-4 "></LowerImage>
+          <LowerImage className="absolute w-[28rem] h-[28rem] left-2 top-[5.6rem] rounded-full p-4 "></LowerImage>
         </section>
         <section className="lg:w-[50%] w-[95%] md:w-[80%] mx-auto lg:mx-0 h-full flex justify-center lg:mt-20 mt-7">
           <LoginForm />

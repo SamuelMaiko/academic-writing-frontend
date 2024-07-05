@@ -19,7 +19,7 @@ const StateContext = ({ children }) => {
   const [showDeleteProfilePhotoModal, setShowDeleteProfilePhotoModal] =
     useState(false);
   const [showRevokeWorkModal, setShowRevokeWorkModal] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showMobileNavBar, setShowMobileNavBar] = useState(false);
 
   // const [showModal, setShowModal] = useState(true);
 
@@ -42,8 +42,8 @@ const StateContext = ({ children }) => {
         setSettingsOpen,
         showEditPFPModal,
         setShowEditPFPModal,
-        show,
-        setShow,
+        showMobileNavBar,
+        setShowMobileNavBar,
         showDeleteProfilePhotoModal,
         setShowDeleteProfilePhotoModal,
         showRevokeWorkModal,

@@ -2,7 +2,6 @@
 import { styled } from "styled-components";
 import homePicture from "../../../assets/images/home-picture1.jpg";
 import UnderBg from "../../../assets/images/bg-banner.png";
-import { useStateShareContext } from "../../../Context/StateContext";
 import { useNavigate } from "react-router-dom";
 const HOME_PICTURE = homePicture;
 const LandingHeader = () => {
@@ -12,13 +11,14 @@ const LandingHeader = () => {
   };
   return (
     <div className="h-screen w-full">
-      <div className=" w-[90%] m-auto h-full flex lg:static justify-center">
+      <div className=" w-[100%] md:w-[90%] m-auto h-full flex lg:static justify-center">
+        {/* <div className="absolute top-[12.2rem] z-50 bg-[rgba(245,245,220,0.5)]  h-[13rem] w-[95%] left-1/2 -translate-x-1/2"></div> */}
         <section
-          className="z-[2] h-[28rem] lg:h-fit relative bg-[rgba(245,245,220,0.5)] lg:absolute 
-        pt-[4.8rem] md:pt-0 mt-[8.5rem] md:mt-[16rem] lg:mt-0 w-[95%] mx-auto md:w-[48rem] md:bg-transparent
-         flex-wrap lg:flex-nowrap lg:m-0 lg:left-24 -bottom-44 lg:top-80  lg:w-[45%]"
+          className="z-[2] h-screen lg:h-fit relative bg-[rgba(245,245,220,0.5)] lg:absolute 
+        pt-[17.2rem] md:pt-0 mt-[8.5rem] md:mt-[16rem] lg:mt-0 w-[100%] mx-auto md:w-[48rem] md:bg-transparent
+         flex-wrap lg:flex-nowrap lg:m-0 lg:left-24 -top-[8.5rem] lg:top-80  lg:w-[45%] px-[2rem] md:px-0 "
         >
-          <p className="md:text-[2.5rem] text-[2rem] font-bold font-prompt text-chocolate">
+          <p className="md:text-[2.5rem] text-[34px] font-bold font-opensans lg:font-opensans text-chocolate">
             Welcome to Techwave writers self-Service Portal
           </p>
           <small className="text-[1rem] leading-9">
@@ -27,7 +27,8 @@ const LandingHeader = () => {
           </small>
           <div className="md:ml-20 lg:ml-0 flex flex-col items  md:block">
             <button
-              className="rounded-3xl lg:hidden px-5 py-3 mt-4 bg-chocolate text-white text-xl
+              onClick={() => navigate("/login")}
+              className="rounded-3xl lg:hidden px-5 py-2 mt-4 bg-green-600 text-white text-[19px]
              hover:bg-green-700 transition-colors duration-300"
             >
               Login
@@ -35,7 +36,7 @@ const LandingHeader = () => {
             <button
               onClick={handleCreateAccount}
               className="md:ml-7 rounded-3xl px-5 py-2 mt-4 border-chocolate border-[1px] text-chocolate
-               font-semibold text-[1.05rem] hover:bg-gray-200 transition-colors duration-300"
+               font-semibold text-[19px] lg:text-[1.05rem] hover:bg-gray-200 transition-colors duration-300"
             >
               Create account
             </button>

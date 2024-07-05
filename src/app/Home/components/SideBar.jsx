@@ -68,7 +68,7 @@ const SideBar = () => {
         <p className={`font-extrabold text-[1.5rem] mt-4`}>Samuel Maiko</p>
         <p className={`font-semibold text-[16px]`}>Techwave Writer</p>
         <button
-          onClick={navigate("/profile")}
+          onClick={() => navigate("/profile")}
           className="text-sm text-blue-500 bg-gray-200 hover:bg-gray-300 dark:bg-white
          dark:hover:bg-gray-200 py-1 px-3 rounded-2xl mt-1 font-medium transition-colors duration-300"
         >

@@ -51,7 +51,7 @@ const LoginForm = () => {
           Login
         </button>
       </div>
-      <div className="md:flex justify-between px-12 md:px-4">
+      <div className="flex flex-col md:flex-row items-center md:justify-between px-12 md:px-4">
         <a
           className="text-[1rem] md:inline block underline mb-2 md:mb-0 hover:text-blue-700 transition-colors duration-300"
           href="#"

@@ -27,7 +27,7 @@ const SettingsBlock = ({ title, onClick = () => {} }) => {
 
 SettingsBlock.propTypes = {
   title: PropTypes.string.isRequired,
-  onClick: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SettingsBlock;

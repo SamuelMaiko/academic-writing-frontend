@@ -3,6 +3,7 @@ import { useStateShareContext } from "../../../Context/StateContext";
 import LogoLight from "../../../assets/LogoLight.png";
 import LogoDark from "../../../assets/LogoDark.png";
 import { List } from "phosphor-react";
+import MobileNavBar from "./MobileNavBar";
 
 const NAV_LINKS = [
   {
@@ -33,7 +34,7 @@ const LandingNavBar = () => {
   };
 
   return (
-    <div className="relative z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]">
+    <div className=" z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]">
       <div className="w-full md:w-[90%] h-full mx-auto flex justify-between items-center lg:pr-6 ">
         <div className="h-[2.7rem] w-[9rem] md:w-[11rem] ">
           <img
@@ -70,18 +71,22 @@ const LandingNavBar = () => {
         <button
           className={`${
             pathname == "/login" || pathname == "/signup" ? " " : "hidden"
-          }t hidden text-white hover:bg-primary rounded-3xl md:px-5 py-2 font-normal text-md lg:text-lg
+          } hidden text-white hover:bg-primary rounded-3xl md:px-5 py-2 font-normal text-md lg:text-lg
            underline bg-[rgba(128,0,0,0.7)] mr-16 lg:mr-0`}
         >
           Back to home
         </button>
-        <div className="lg:hidden absolute cursor-pointer right-0 text-3xl duration-500 mr-7">
+        <div
+          onClick={() => setShowMobileNavBar(true)}
+          className="lg:hidden  z-20 cursor-pointer right-0 text-3xl duration-500 mr-7 p-1"
+        >
           {/* nav menu icon */}
-          <button onClick={() => setShowMobileNavBar(true)}>
-            <List size={30} />
+          <button className=" p-1">
+            <List size={32} />
           </button>
         </div>
       </div>
+      <MobileNavBar />
     </div>
   );
 };

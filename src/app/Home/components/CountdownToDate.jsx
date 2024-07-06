@@ -20,7 +20,7 @@ const CountdownToDate = ({ deadline }) => {
         <span
           className={`${
             isLessThan8Hours ? "text-red-500 dark:text-red-400" : ""
-          } text-xs font-medium my-2 text-green-500 dark:text-green-400 mb-2 `}
+          } text-xs font-medium my-2 text-green-500 dark:text-green-400 mb-2 font-prompt`}
         >
           {days} d {hours} h {minutes} m {seconds} s
         </span>

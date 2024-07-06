@@ -11,7 +11,7 @@ const Home = () => {
     <div
       className={`relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
     >
-      <div className="h-full w-[70%]">
+      <div className="h-full w-[100%] md:w-[70%]">
         <PageHeader
           title={"Available work"}
           subTitle={
@@ -23,7 +23,7 @@ const Home = () => {
         <WorkCard />
         <WorkCard />
       </div>
-      <div className="fixed top-[5rem] right-[2rem] w-[21%] z-40 overflow-hidden">
+      <div className="fixed top-[5rem] right-[2rem] md:w-[21%] z-40 overflow-hidden hidden md:block">
         <Footer side={true} />
       </div>
     </div>

@@ -29,7 +29,7 @@ const SideBar = () => {
       sticky top-0 h-[98vh] overflow-y-scroll overflow-x-hidden
       ${shrinkSideBar ? "w-[5rem]" : "w-[22rem]"} border-r border-[#f5f4f4] ${
         darkMode ? "sidebar" : ""
-      } transition-width duration-500 h-full pt-[2rem] dark:bg-darkMode-bars dark:text-darkMode-text`}
+      } transition-width duration-500 h-full pt-[2rem] dark:bg-darkMode-bars dark:text-darkMode-text hidden md:block`}
     >
       <div
         className={`flex ${

@@ -57,7 +57,7 @@ const Button = ({
           <span
             className={`${
               shrinkSideBar ? "hidden" : ""
-            } ml-4 text-sm font-semibold `}
+            } ml-4 text-sm font-medium `}
           >
             {title}
           </span>

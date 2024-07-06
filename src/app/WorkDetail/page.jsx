@@ -32,7 +32,8 @@ const WorkDetail = () => {
             <button
               className={`${
                 IsTakeUp ? "hidden" : ""
-              } bg-green-500 hover:bg-green-600 transition-colors duration-300 text-white rounded-lg text-sm py-1 px-3 ml-8`}
+              } bg-green-500 hover:bg-green-600 transition-colors duration-300 text-white
+               rounded-lg text-sm py-1 px-3 ml-2 w-[6rem] md:w-fit md:ml-8`}
             >
               Take Up
             </button>
@@ -40,7 +41,8 @@ const WorkDetail = () => {
               onClick={() => setShowRevokeWorkModal(true)}
               className={`${
                 IsTakeUp ? "hidden" : ""
-              } bg-red-500 hover:bg-red-600 transition-colors duration-300 text-white rounded-lg text-sm py-1 px-3 ml-8`}
+              } bg-red-500 hover:bg-red-600 transition-colors duration-300 text-white
+               rounded-lg text-sm py-1 px-3 ml-2 md:ml-8`}
             >
               Revoke
             </button>

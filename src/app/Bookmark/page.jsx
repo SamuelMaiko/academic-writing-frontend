@@ -10,8 +10,8 @@ const Bookmark = () => {
   const { darkMode } = useStateShareContext();
 
   return (
-    <div className="relative w-full px-[2rem] pb-[5rem] dark:bg-darkMode-body">
-      <div className="h-full w-[70%]">
+    <div className="relative w-full min-h-screen px-[2rem] pb-[5rem] dark:bg-darkMode-body">
+      <div className="h-full w-full md:w-[70%]">
         <PageHeader
           title={"Bookmarks"}
           subTitle={"See the work that you saved to keep tabs on."}
@@ -33,7 +33,7 @@ const Bookmark = () => {
           </p>
         </div>
       </div>
-      <div className="fixed top-[5rem] w-[21%] right-[2rem] z-40">
+      <div className="fixed top-[5rem] w-0 md:w-[21%] hidden md:block right-[2rem] z-40">
         <Footer side={true} />
       </div>
     </div>

@@ -19,7 +19,9 @@ const StateContext = ({ children }) => {
   const [showDeleteProfilePhotoModal, setShowDeleteProfilePhotoModal] =
     useState(false);
   const [showRevokeWorkModal, setShowRevokeWorkModal] = useState(false);
+  // I mean the one gliding from the right after nenu icon clik
   const [showMobileNavBar, setShowMobileNavBar] = useState(false);
+  const [showMobileSideBar, setShowMobileSideBar] = useState(false);
 
   // const [showModal, setShowModal] = useState(true);
 
@@ -48,6 +50,8 @@ const StateContext = ({ children }) => {
         setShowDeleteProfilePhotoModal,
         showRevokeWorkModal,
         setShowRevokeWorkModal,
+        showMobileSideBar,
+        setShowMobileSideBar,
       }}
     >
       {children}

@@ -13,9 +13,9 @@ const NotificationCard = ({ isRead = true }) => {
         className={`flex relative w-full gap-2 p-5 pr-3 ${
           !isRead
             ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-700 hover:dark:bg-blue-800"
-            : "hover:bg-lightmode-cardBgHover"
-        }  cursor-pointer transition-colors duration-300 dark:bg-darkMode-cardBg dark:text-darkMode-cardText
-        hover:dark:bg-darkMode-cardHover
+            : "hover:bg-lightmode-cardBgHover dark:bg-darkMode-cardBg hover:dark:bg-darkMode-cardHover"
+        }  cursor-pointer transition-colors duration-300  dark:text-darkMode-cardText
+        
         `}
       >
         <div className="relative">
@@ -49,7 +49,7 @@ const NotificationCard = ({ isRead = true }) => {
           className={`${
             dropDownOpen ? "" : "hidden"
           } absolute top-[85%] right-0 z-30 overflow-hidden shadow-[-2px_2px_5px_rgba(0,0,0,0.3)] dark:shadow-gray-600 bg-white w-[65%]
-           rounded-lg min-h-[6rem] dark:bg-darkMode-cardBg dark:text-darkMode-cardText`}
+           rounded-lg min-h-[6rem] dark:bg-darkMode-bars dark:text-darkMode-cardText`}
         >
           <NotificationDropDownBlock
             onClick={() => setDropDownOpen(false)}

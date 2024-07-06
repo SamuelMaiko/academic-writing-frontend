@@ -4,12 +4,14 @@ import WorkCard from "./components/WorkCard";
 import PageHeader from "../../SharedComponents/PageHeader";
 import Footer from "../Footer/page";
 import Loader from "../../SharedComponents/Loader";
+import { useStateShareContext } from "../../Context/StateContext";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+
   return (
     <div
-      className={`relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
+      className={` relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
     >
       <div className="h-full w-[100%] md:w-[70%]">
         <PageHeader

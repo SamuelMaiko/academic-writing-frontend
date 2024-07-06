@@ -1,13 +1,13 @@
 import React from "react";
 import Button from "./ui/Button";
-import { User, Bell, Gear } from "phosphor-react";
+import { User, Bell, Gear, List } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import Vini from "../../../assets/Vinijr.jpeg";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { setSettingsOpen } = useStateShareContext();
+  const { setSettingsOpen, setShowMobileSideBar } = useStateShareContext();
   return (
     <div
       className={`w-full h-[5rem] px-[2rem] flex  items-center justify-between sticky
@@ -22,6 +22,14 @@ const NavBar = () => {
           className="dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <Gear size={22} />
+        </Button>
+        {/* sidebar toggle button -- mobile view */}
+        <Button
+          onClick={() => setShowMobileSideBar(true)}
+          buttonType="roundedIconBtn"
+          className="dark:hover:bg-gray-600 dark:hover:text-white md:hidden"
+        >
+          <List size={22} />
         </Button>
 
         {/* notifications icon */}

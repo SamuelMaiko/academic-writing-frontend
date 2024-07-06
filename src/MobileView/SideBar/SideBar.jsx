@@ -1,67 +1,43 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useStateShareContext } from "../../Context/StateContext";
+import Button from "../../app/Home/components/ui/Button";
 import {
-  List,
-  House,
-  // UserGear,
-  // Gear,
-  BookmarkSimple,
-  Pen,
-  Briefcase,
   Binoculars,
-  // ClockCounterClockwise,
-  // TrolleySuitcase,
-  SignOut,
+  BookmarkSimple,
+  Briefcase,
+  House,
+  Pen,
+  X,
 } from "phosphor-react";
-import { useStateShareContext } from "../../../Context/StateContext";
-import Button from "./ui/Button";
-import Vini from "../../../assets/Vinijr.jpeg";
-import LogoDark from "../../../assets/LogoDark.png";
-import LogoLight from "../../../assets/LogoLight.png";
+import LogoDark from "../../assets/LogoDark.png";
+import LogoLight from "../../assets/LogoLight.png";
+import Vini from "../../assets/Vinijr.jpeg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SideBar = () => {
-  const { shrinkSideBar, setShrinkSideBar, darkMode } = useStateShareContext();
-  const { pathname } = useLocation();
+  const { setShowMobileSideBar, darkMode } = useStateShareContext();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   return (
-    <div
-      className={`
-      sticky top-0 h-[98vh] overflow-y-scroll overflow-x-hidden
-      ${shrinkSideBar ? "w-[5rem]" : "w-[22rem]"} border-r border-[#f5f4f4] ${
-        darkMode ? "sidebar" : ""
-      } transition-width duration-500 h-full pt-[2rem] dark:bg-darkMode-bars dark:text-darkMode-text hidden md:block`}
-    >
-      <div
-        className={`flex ${
-          shrinkSideBar ? "justify-center" : "justify-between"
-        } items-center px-[2rem]`}
+    <div className=" absolute left-[5%]  bg-white dark:bg-darkMode-bars w-[60%] h-[96%] top-1/2 -translate-y-1/2 rounded-3xl">
+      {/* close button */}
+      <Button
+        onClick={() => setShowMobileSideBar((current) => !current)}
+        buttonType="roundedIconBtn"
+        className={`dark:text-white dark:hover:text-white dark:hover:bg-gray-600 absolute right-4 top-2`}
       >
-        <div className={`${shrinkSideBar ? "hidden" : ""} text-xl flex-1`}>
-          {/* Logo */}
-          <div className="h-[2.5rem] w-full ">
-            <img
-              className="w-full h-full object-cover object-center"
-              src={darkMode ? LogoDark : LogoLight}
-              alt=""
-            />
-          </div>
-        </div>
-
-        {/* bars toggle button */}
-        <Button
-          onClick={() => setShrinkSideBar((current) => !current)}
-          buttonType="roundedIconBtn"
-          className={`dark:text-white dark:hover:text-white dark:hover:bg-gray-600 `}
-        >
-          <List size={24} />
-        </Button>
+        <X size={24} />
+      </Button>
+      {/* logo */}
+      <div className="h-[2.5rem] ml-2 mt-[3.7rem] ">
+        <img
+          className="w-[10rem] h-full object-cover object-center"
+          src={darkMode ? LogoDark : LogoLight}
+          alt=""
+        />
       </div>
       {/* profile preview */}
-      <div
-        className={`${
-          shrinkSideBar ? "hidden" : ""
-        } flex flex-col items-center mt-10 `}
-      >
+      <div className={` flex flex-col items-center mt-10 `}>
         <div className={`size-[7rem] rounded-full overflow-hidden`}>
           <img src={Vini} alt="" />
         </div>
@@ -76,15 +52,14 @@ const SideBar = () => {
         </button>
       </div>
       {/* button links */}
-      <div
-        className={`${
-          shrinkSideBar ? "flex items-center flex-col" : ""
-        } w-full h-full px-[2rem] mt-8 `}
-      >
+      <div className={` w-full h-full mt-8 px-4`}>
         {/* home  button */}
         <div>
           <Button
-            onClick={() => navigate("/home")}
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/home");
+            }}
             icon={
               pathname === "/home" ? (
                 <House size={20} weight="fill" />
@@ -98,17 +73,14 @@ const SideBar = () => {
             } w-full`}
           />
         </div>
-        <p
-          className={`${
-            shrinkSideBar ? "" : "hidden"
-          } text-center text-sm my-5`}
-        >
-          Pages
-        </p>
+        <p className={` text-left pl-3 text-sm my-5 hidden`}>Pages</p>
         {/* assigned work button */}
         <div className="relative">
           <Button
-            onClick={() => navigate("/assigned-work")}
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/assigned-work");
+            }}
             icon={
               pathname === "/assigned-work" ? (
                 <Pen size={20} weight="fill" />
@@ -132,7 +104,10 @@ const SideBar = () => {
         {/* uptaken work button */}
         <div className="relative">
           <Button
-            onClick={() => navigate("/uptaken-work")}
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/uptaken-work");
+            }}
             icon={
               pathname === "/uptaken-work" ? (
                 <Briefcase size={20} weight="fill" />
@@ -156,7 +131,10 @@ const SideBar = () => {
         {/* revisions button */}
         <div className="relative">
           <Button
-            onClick={() => navigate("/revisions")}
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/revisions");
+            }}
             icon={
               pathname === "/revisions" ? (
                 <Binoculars size={20} weight="fill" />
@@ -180,7 +158,10 @@ const SideBar = () => {
         {/* bookmark button */}
         <div>
           <Button
-            onClick={() => navigate("/bookmarks")}
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/bookmarks");
+            }}
             icon={
               pathname === "/bookmarks" ? (
                 <BookmarkSimple size={20} weight="fill" />
@@ -206,36 +187,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
-// ui for empty notifications
-// add email in the footer
-
-{
-  /* <Button
-  onClick={() => navigate("/admin/users")}
-  icon={<UserGear size={20} />}
-  title={"Manage Users"}
-  className={`${pathname === "/admin/users" ? "text-sidebartext-hover" : ""}`}
-  /> */
-}
-
-{
-  /* <Button
-    onClick={() => navigate("/admin/work")}
-  icon={<UserGear size={20} />}
-  title={"Manage Work"}
-  className={`${pathname === "/admin/work" ? "text-sidebartext-hover" : ""}`}
-/> */
-}
-
-{
-  /* <Button
-      onClick={() => navigate("/history")}
-      icon={<ClockCounterClockwise size={20} />}
-      title={"History"}
-      className={`${pathname === "/history" ? "text-sidebartext-hover" : ""}`}
-    /> */
-}
-{
-  /* <Button icon={<Gear size={20} />} title={"Settings"} className="" /> */
-}

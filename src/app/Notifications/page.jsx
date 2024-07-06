@@ -5,10 +5,10 @@ import Footer from "../Footer/page";
 import notifications from "../../assets/notifications.png";
 
 const Notifications = () => {
-  const notif = false;
+  const notif = true;
   return (
-    <div className={`relative w-full px-[2rem] dark:bg-darkMode-body`}>
-      <div className="w-[55%] h-full">
+    <div className={`relative w-full px-4 md:px-[2rem] dark:bg-darkMode-body`}>
+      <div className="w-full md:w-[55%] h-full">
         <PageHeader
           title={"Notifications"}
           subTitle={"Stay updated with the latest notifications and alerts."}
@@ -51,7 +51,7 @@ const Notifications = () => {
             Any new notifications will appear here.
           </p>
         </div>
-        <div className="fixed top-[5rem] w-[30%] bg-blue-200 right-[2rem] z-40">
+        <div className="fixed top-[5rem] w-0 md:w-[30%] bg-blue-200 right-[2rem] hidden md:block z-40">
           <Footer side={true} />
         </div>
       </div>

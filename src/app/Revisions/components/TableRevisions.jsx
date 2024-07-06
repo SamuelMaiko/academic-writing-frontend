@@ -37,7 +37,7 @@ const TableRevisions = () => {
             </p>
           </TableHead>
           <TableHead className="min-w-[122px]">Reviewer</TableHead>
-          <TableHead className="min-w-[82px]">Time reviewed</TableHead>
+          <TableHead className="min-w-[150px]">Time reviewed</TableHead>
           <TableHead className="min-w-[200px]">Submit before</TableHead>
           <TableHead className="min-w-[200px]">Status</TableHead>
         </TableHeader>

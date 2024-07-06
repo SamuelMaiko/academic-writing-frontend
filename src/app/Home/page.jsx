@@ -24,6 +24,16 @@ const Home = () => {
         <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
         <WorkCard />
         <WorkCard />
+        <WorkCard />
+        <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
+        <WorkCard />
       </div>
       <div className="fixed top-[5rem] right-[2rem] md:w-[21%] z-40 overflow-hidden hidden md:block">
         <Footer side={true} />

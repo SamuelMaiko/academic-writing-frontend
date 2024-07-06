@@ -22,7 +22,7 @@ const TableAssignedWork = () => {
           <div className="my-5 flex items-center justify-between px-6">
             <div className="flex items-center gap-5">
               <p className="text-body-1 font-semibold text-metal-600 dark:text-white">
-                Uptaken work
+                Assigned work
               </p>
               <Badge size="sm" color="secondary" className="dark:text-black">
                 1 assignment
@@ -40,15 +40,15 @@ const TableAssignedWork = () => {
           <TableHead className="min-w-[82px]">Words</TableHead>
           <TableHead className="min-w-[200px]">Deadline</TableHead>
           <TableHead className="min-w-[140px]">Timer</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead className="min-w-[150px]">Status</TableHead>
           <TableHead className="min-w-[100px]" />
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          {/* <TableRowAssignedWork isRead={false} />
-        <TableRowAssignedWork isRead={true} /> */}
+          <TableRowAssignedWork isRead={false} />
+          <TableRowAssignedWork isRead={true} />
         </TableBody>
       </Table>
-      <div className="pb-[8rem]">
+      <div className="pb-[8rem] hidden">
         <img
           className="mx-auto w-[16rem]"
           src={darkMode ? UnavailableDark : UnavailableLight}

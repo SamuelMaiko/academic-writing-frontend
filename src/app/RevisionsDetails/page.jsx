@@ -4,8 +4,11 @@ import SubmitForm from "../../SharedComponents/SubmitForm";
 
 const RevisionsDetails = () => {
   return (
-    <div className="w-full px-[2rem] pb-[5rem] flex justify-between dark:bg-darkMode-body dark:text-black">
-      <div className="flex-1">
+    <div
+      className="w-full px-4 md:px-[2rem] pb-[5rem] flex flex-col md:flex-row justify-between
+     dark:bg-darkMode-body dark:text-black gap-20 md:gap-0"
+    >
+      <div className="md:flex-1 w-full">
         <RevisionComment
           time="5pm"
           comment="You need to get rid of all this plagiarism ASAP!"

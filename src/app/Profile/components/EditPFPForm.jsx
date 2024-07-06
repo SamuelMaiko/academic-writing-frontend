@@ -8,7 +8,7 @@ const EditPFPForm = () => {
     useStateShareContext();
   return (
     <div
-      className="absolute w-[56%] h-[30rem] rounded-lg  px-2 left-[50%]
+      className="absolute w-full md:w-[56%] h-[30rem] rounded-lg  px-2 left-[50%]
  translate-x-[-50%] top-[5%] bg-bgcolor dark:bg-darkMode-body
   dark:text-darkMode-text     
  "

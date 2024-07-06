@@ -6,7 +6,7 @@ const EditContactInfo = () => {
       <h1 className="text-2xl font-semibold">Contact info</h1>
       <div className="mb-8">
         <label className="text-base text-neutral-500 dark:text-darkMode-gray">
-          Phone number
+          Phone number*
         </label>
         <div className="mt-1">
           <input
@@ -19,7 +19,7 @@ const EditContactInfo = () => {
       </div>
       <div className="mb-8">
         <label className="text-base text-neutral-500 dark:text-darkMode-gray">
-          Email
+          Email*
         </label>
         <div className="mt-1">
           <input

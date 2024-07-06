@@ -9,7 +9,7 @@ const EditInfoForm = () => {
   const { setShowEditInfoModal } = useStateShareContext();
   return (
     <div
-      className="absolute w-[60%] h-[34rem] rounded-lg  px-2 left-[50%]
+      className="absolute w-full md:w-[60%] h-[34rem] rounded-lg  px-2 left-[50%]
      translate-x-[-50%] top-[50%] translate-y-[-50%] bg-bgcolor dark:bg-darkMode-body
       dark:text-darkMode-text     
      "

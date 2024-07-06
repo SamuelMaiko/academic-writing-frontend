@@ -37,7 +37,7 @@ const UserInfo = () => {
           <button
             onClick={() => setShowEditPFPModal(true)}
             className={`${
-              showImageEditIcon ? "" : "hidden"
+              showImageEditIcon ? "" : "md:hidden"
             } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-200`}
           >
             <NotePencil size={28} />

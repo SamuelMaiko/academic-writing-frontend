@@ -39,7 +39,7 @@ const TableUptakenWork = () => {
           <TableHead className="min-w-[82px]">Words</TableHead>
           <TableHead className="min-w-[200px]">Deadline</TableHead>
           <TableHead className="min-w-[140px]">Timer</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead className="min-w-[150px]">Status</TableHead>
           <TableHead className="min-w-[100px]" />
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">

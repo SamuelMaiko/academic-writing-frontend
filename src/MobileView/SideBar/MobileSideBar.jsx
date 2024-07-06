@@ -22,7 +22,7 @@ const MobileSideBar = () => {
   return (
     <div
       className={`${
-        showMobileSideBar ? "delay-75" : "-translate-x-[27rem]"
+        showMobileSideBar ? "delay-75 translate-x-[27rem]" : ""
       } absolute left-[5%]  bg-white dark:bg-darkMode-bars w-[60%] h-[96%]
        top-1/2 -translate-y-1/2 rounded-3xl transition-transform duration-500  z-[50] md:hidden `}
     >
@@ -50,7 +50,10 @@ const MobileSideBar = () => {
         <p className={`font-extrabold text-[1.5rem] mt-4`}>Samuel Maiko</p>
         <p className={`font-semibold text-[16px]`}>Techwave Writer</p>
         <button
-          onClick={() => navigate("/profile")}
+          onClick={() => {
+            setShowMobileSideBar(false);
+            // navigate("/profile");
+          }}
           className="text-sm text-blue-500 bg-gray-200 hover:bg-gray-300 dark:bg-white
          dark:hover:bg-gray-200 py-1 px-3 rounded-2xl mt-1 font-medium transition-colors duration-300"
         >
@@ -61,23 +64,25 @@ const MobileSideBar = () => {
       <div className={` w-full h-full mt-8 px-4`}>
         {/* home  button */}
         <div>
-          <Button
-            onClick={() => {
-              setShowMobileSideBar(false);
-              navigate("/home");
-            }}
-            icon={
-              pathname === "/home" ? (
-                <House size={20} weight="fill" />
-              ) : (
-                <House size={20} />
-              )
-            }
-            title={"Home"}
-            className={`${
-              pathname === "/home" ? "text-sidebartext-hover" : ""
-            } w-full`}
-          />
+          <a href="/home">
+            <Button
+              onClick={() => {
+                setShowMobileSideBar(false);
+                // navigate("/home");
+              }}
+              icon={
+                pathname === "/home" ? (
+                  <House size={20} weight="fill" />
+                ) : (
+                  <House size={20} />
+                )
+              }
+              title={"Home"}
+              className={`${
+                pathname === "/home" ? "text-sidebartext-hover" : ""
+              } w-full`}
+            />
+          </a>
         </div>
         <p className={` text-left pl-3 text-sm my-5 hidden`}>Pages</p>
         {/* assigned work button */}

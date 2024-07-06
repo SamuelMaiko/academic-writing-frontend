@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider } from "keep-react";
 import WorkCard from "./components/WorkCard";
 import PageHeader from "../../SharedComponents/PageHeader";
 import Footer from "../Footer/page";
 import Loader from "../../SharedComponents/Loader";
 import { useStateShareContext } from "../../Context/StateContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,7 @@ const Home = () => {
     <div
       className={` relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
     >
+      <p id="top"></p>
       <div className="h-full w-[100%] md:w-[70%]">
         <PageHeader
           title={"Available work"}

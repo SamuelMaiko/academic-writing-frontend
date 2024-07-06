@@ -1,7 +1,6 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import LogoLight from "../../../assets/LogoLight.png";
-import LogoDark from "../../../assets/LogoDark.png";
 import { List } from "phosphor-react";
 import MobileNavBar from "./MobileNavBar";
 
@@ -36,10 +35,11 @@ const LandingNavBar = () => {
   return (
     <div className=" z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]">
       <div className="w-full md:w-[90%] h-full mx-auto flex justify-between items-center lg:pr-6 ">
+        {/* logo */}
         <div className="h-[2.7rem] w-[9rem] md:w-[11rem] ">
           <img
             className="w-full h-full object-cover object-center"
-            src={darkMode ? LogoDark : LogoLight}
+            src={LogoLight}
             alt=""
           />
         </div>

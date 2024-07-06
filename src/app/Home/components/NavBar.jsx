@@ -33,33 +33,34 @@ const NavBar = () => {
         </Button>
 
         {/* notifications icon */}
-        <div
-          onClick={() => navigate("/notifications")}
-          className="notification"
-        >
-          <div className="relative bell-container">
-            <div className="bell border-[2.17px] border-black dark:border-white before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white"></div>
-            <div
-              className="absolute -top-[0.4rem] -right-[0.4rem] size-[13px] flex items-center
-             justify-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
-            >
-              <span>1</span>
+        <a href="/notifications">
+          <div onClick={() => {}} className="notification">
+            <div className="relative bell-container">
+              <div className="bell border-[2.17px] border-black dark:border-white before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white"></div>
+              <div
+                className="absolute -top-[0.4rem] -right-[0.4rem] size-[13px] flex items-center
+              justify-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+              >
+                <span>1</span>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
         {/* user profile button */}
-        <Button
-          onClick={() => navigate("/profile")}
-          buttonType="roundedIconBtn"
-          className="dark:hover:bg-gray-600 size-[2.1rem] ml-1 p-0 overflow-hidden bg-black dark:hover:text-white"
-        >
-          <img
-            className="w-full h-full object-cover object-top"
-            src={Vini}
-            alt=""
-          />
-          {/* <User size={22} /> */}
-        </Button>
+        <a href="/profile">
+          <Button
+            onClick={() => {}}
+            buttonType="roundedIconBtn"
+            className="dark:hover:bg-gray-600 size-[2.1rem] ml-1 p-0 overflow-hidden bg-black dark:hover:text-white"
+          >
+            <img
+              className="w-full h-full object-cover object-top"
+              src={Vini}
+              alt=""
+            />
+            {/* <User size={22} /> */}
+          </Button>
+        </a>
       </div>
     </div>
   );

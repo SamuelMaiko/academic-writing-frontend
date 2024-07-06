@@ -6,8 +6,9 @@ const ContactInfo = () => {
   return (
     <div
       className="mt-3 min-h-[6rem] mx-auto flex flex-col justify-center p-5 
-      shadow-[2px_2px_13px_rgba(0,0,0,0.3)] dark:shadow-gray-600 bg-white
-       w-[95%] rounded-[1rem] dark:text-darkMode-text dark:bg-darkMode-body"
+      md:shadow-[2px_2px_13px_rgba(0,0,0,0.1)] shadow-[2px_2px_13px_rgba(0,0,0,0.07)]
+       dark:shadow-gray-600 bg-white md:rounded-[1rem]
+       w-full md:w-[95%] dark:text-darkMode-text dark:bg-darkMode-body px-6 md:px-5"
     >
       <h1 className="text-lg font-semibold mb-3">Contact Information</h1>
       <ContactInfoDetail

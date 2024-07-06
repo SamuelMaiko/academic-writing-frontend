@@ -1,6 +1,5 @@
 import React from "react";
 import { useStateShareContext } from "../../Context/StateContext";
-import SideBar from "./SideBar";
 
 const SideBarModal = () => {
   const { showMobileSideBar } = useStateShareContext();
@@ -8,10 +7,8 @@ const SideBarModal = () => {
     <div
       className={`${
         showMobileSideBar ? "" : "hidden"
-      } bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.3)] fixed z-50 inset-0 md:hidden`}
-    >
-      <SideBar />
-    </div>
+      } bg-[rgba(0,0,0,0.4)] dark:bg-[rgba(0,0,0,0.3)] fixed z-40 inset-0 md:hidden transition-transform duration-500`}
+    ></div>
   );
 };
 

@@ -9,8 +9,8 @@ import Analytics from "./components/Analytics";
 const Profile = () => {
   // const { showEditInfoModal } = useStateShareContext();
   return (
-    <div className="w-full px-[1rem] pb-5 dark:bg-darkMode-body">
-      <div className="relative bg-black w-full h-[17rem] rounded-[2rem]">
+    <div className="w-full md:px-[1rem] pb-5 dark:bg-darkMode-body">
+      <div className="relative bg-black w-full h-[12rem] md:h-[17rem] md:rounded-[2rem]">
         {/* user info */}
         <UserInfo />
       </div>

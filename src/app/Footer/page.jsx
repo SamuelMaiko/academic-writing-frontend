@@ -29,14 +29,16 @@ const Footer = ({ side = false }) => {
   if (side) {
     return (
       <div
-        className={` bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray py-5 h-screen w-full px-[2rem]`}
+        className={` bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray
+           py-5 h-screen w-full px-[2rem]`}
       >
         <div className="grid grid-cols-2 px-2 gap-y-1 text-xs font-semibold pt-4">
           {FOOTER_LINKS.map((footer_link, index) => {
             return (
               <p key={index}>
                 <a
-                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300"
+                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400
+                   transition-all duration-300"
                   href={footer_link.link}
                 >
                   {footer_link.name}
@@ -59,14 +61,16 @@ const Footer = ({ side = false }) => {
           (pathname === "/notifications")
             ? "hidden"
             : ""
-        } bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray h-[5rem] w-full px-[2rem]`}
+        } bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray
+         md:h-[5rem] w-full md:px-[2rem] pb-4 md:pb-0`}
       >
-        <div className="flex justify-around px-8 text-xs font-semibold  pt-4">
+        <div className="md:flex grid grid-cols-3 justify-around px-8 text-xs font-semibold pt-4">
           {FOOTER_LINKS.map((footer_link, index) => {
             return (
               <p key={index}>
                 <a
-                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300"
+                  className="hover:underline hover:text-blue-500 dark:hover:text-blue-400
+                   transition-all duration-300"
                   href={footer_link.link}
                 >
                   {footer_link.name}
@@ -75,7 +79,7 @@ const Footer = ({ side = false }) => {
             );
           })}
         </div>
-        <p className=" text-[13px] pl-[83px] mt-4">
+        <p className=" text-[13px] text-center md:text-left md:pl-[83px]  mt-4">
           Techwave Writers &copy; 2024
         </p>
       </div>

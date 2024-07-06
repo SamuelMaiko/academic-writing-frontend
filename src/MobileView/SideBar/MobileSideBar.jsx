@@ -14,12 +14,18 @@ import LogoLight from "../../assets/LogoLight.png";
 import Vini from "../../assets/Vinijr.jpeg";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SideBar = () => {
-  const { setShowMobileSideBar, darkMode } = useStateShareContext();
+const MobileSideBar = () => {
+  const { showMobileSideBar, setShowMobileSideBar, darkMode } =
+    useStateShareContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
-    <div className=" absolute left-[5%]  bg-white dark:bg-darkMode-bars w-[60%] h-[96%] top-1/2 -translate-y-1/2 rounded-3xl">
+    <div
+      className={`${
+        showMobileSideBar ? "delay-75" : "-translate-x-[27rem]"
+      } absolute left-[5%]  bg-white dark:bg-darkMode-bars w-[60%] h-[96%]
+       top-1/2 -translate-y-1/2 rounded-3xl transition-transform duration-500  z-[50] md:hidden`}
+    >
       {/* close button */}
       <Button
         onClick={() => setShowMobileSideBar((current) => !current)}
@@ -186,4 +192,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default MobileSideBar;

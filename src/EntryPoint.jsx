@@ -32,6 +32,7 @@ import EditPFPModal from "./app/Profile/components/EditPFPModal";
 import DeleteProfilePhotoModal from "./app/Profile/components/DeleteProfilePhotoModal";
 import RevokeWorkModal from "./app/WorkDetail/components/RevokeWorkModal";
 import SideBarModal from "./MobileView/SideBar/SideBarModal";
+import MobileSideBar from "./MobileView/SideBar/MobileSideBar";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
@@ -89,6 +90,7 @@ const EntryPoint = () => {
         <DeleteProfilePhotoModal />
         <RevokeWorkModal />
         <SideBarModal />
+        <MobileSideBar />
       </div>
     </>
   );

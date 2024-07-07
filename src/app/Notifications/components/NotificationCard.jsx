@@ -4,8 +4,10 @@ import Button from "../../Home/components/ui/Button";
 import { Divider } from "keep-react";
 import PropTypes from "prop-types";
 import NotificationDropDownBlock from "./NotificationDropDownBlock";
+import Woman from "../../../assets/images/home-picture1.jpg";
+import { CalendarDays, FileSearch, TextSearch, UserCog } from "lucide-react";
 
-const NotificationCard = ({ isRead = true }) => {
+const NotificationCard = ({ isRead = true, type }) => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
   return (
     <>
@@ -19,7 +21,34 @@ const NotificationCard = ({ isRead = true }) => {
         `}
       >
         <div className="relative">
-          <div className="size-[3.1rem] rounded-full bg-black"></div>
+          {/* notification icon */}
+          <div className="size-[3.1rem] rounded-full bg-white overflow-hidden grid place-items-center">
+            <img
+              className={`${
+                type == "ASSIGNED_WORK" ? "" : "hidden"
+              } h-full w-full object-cover object-center`}
+              src={Woman}
+              alt="admin"
+            />
+            <CalendarDays
+              className={`${
+                type == "NEARING_DEADLINE" ? "" : "hidden"
+              } text-orange-500`}
+              size={24}
+            />
+            <FileSearch
+              className={`${
+                type == "NEW_REVISION" ? "" : "hidden"
+              } text-blue-500 `}
+              size={24}
+            />
+            <UserCog
+              className={`${
+                type == "UPDATE_PROFILE" ? "" : "hidden"
+              } text-green-500 `}
+              size={24}
+            />
+          </div>
           {/* is not read blue dot */}
           <div
             className={`${
@@ -66,7 +95,8 @@ const NotificationCard = ({ isRead = true }) => {
 };
 
 NotificationCard.propTypes = {
-  isRead: PropTypes.bool,
+  isRead: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default NotificationCard;

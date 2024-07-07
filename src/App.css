@@ -273,3 +273,7 @@
     transform: rotate(0deg);
   }
 }
+
+.placeholder-custom::placeholder {
+  @apply text-sm; /* Adjust the size as needed */
+}

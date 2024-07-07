@@ -18,12 +18,12 @@ const Notifications = () => {
             !notif ? "hidden" : ""
           } rounded-lg min-h-screen pb-[7rem] dark:bg-darkMode-cardBg overflow-hidden mt-2  bg-neutral-50`}
         >
-          <NotificationCard isRead={false} />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
+          <NotificationCard isRead={false} type="NEARING_DEADLINE" />
+          <NotificationCard type="ASSIGNED_WORK" />
+          <NotificationCard type="NEW_REVISION" />
+          <NotificationCard type="UPDATE_PROFILE" />
+          <NotificationCard type="NEARING_DEADLINE" />
+          <NotificationCard type="ASSIGNED_WORK" />
           <NotificationCard />
           <NotificationCard />
           <NotificationCard />

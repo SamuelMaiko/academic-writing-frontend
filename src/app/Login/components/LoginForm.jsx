@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LoginForm = () => {
@@ -52,12 +52,13 @@ const LoginForm = () => {
         </button>
       </div>
       <div className="flex flex-col md:flex-row items-center md:justify-between px-12 md:px-4">
-        <a
+        <NavLink
+          to="/forgot-password"
           className="text-[1rem] md:inline block underline mb-2 md:mb-0 hover:text-blue-700 transition-colors duration-300"
           href="#"
         >
           Forgot Password?
-        </a>
+        </NavLink>
         <a
           onClick={() => navigate("/signup")}
           className="text-[1rem] underline hover:text-blue-700 transition-colors duration-300 "

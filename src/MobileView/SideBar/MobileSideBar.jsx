@@ -64,25 +64,23 @@ const MobileSideBar = () => {
       <div className={` w-full h-full mt-8 px-4`}>
         {/* home  button */}
         <div>
-          <a href="/home">
-            <Button
-              onClick={() => {
-                setShowMobileSideBar(false);
-                // navigate("/home");
-              }}
-              icon={
-                pathname === "/home" ? (
-                  <House size={20} weight="fill" />
-                ) : (
-                  <House size={20} />
-                )
-              }
-              title={"Home"}
-              className={`${
-                pathname === "/home" ? "text-sidebartext-hover" : ""
-              } w-full`}
-            />
-          </a>
+          <Button
+            onClick={() => {
+              setShowMobileSideBar(false);
+              navigate("/home");
+            }}
+            icon={
+              pathname === "/home" ? (
+                <House size={20} weight="fill" />
+              ) : (
+                <House size={20} />
+              )
+            }
+            title={"Home"}
+            className={`${
+              pathname === "/home" ? "text-sidebartext-hover" : ""
+            } w-full`}
+          />
         </div>
         <p className={` text-left pl-3 text-sm my-5 hidden`}>Pages</p>
         {/* assigned work button */}

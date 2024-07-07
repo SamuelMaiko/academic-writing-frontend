@@ -9,6 +9,7 @@ import Loader from "./SharedComponents/Loader";
 import LandingPage from "./app/LandingPage/page";
 import Login from "./app/Login/page";
 import SignUp from "./app/SignUp/page";
+import ScrollToTop from "./SharedComponents/ScrollToTop ";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <StateContext>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />

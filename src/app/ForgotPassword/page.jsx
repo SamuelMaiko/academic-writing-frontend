@@ -5,9 +5,9 @@ import Footer from "../Footer/page";
 
 const ForgotPassword = () => {
   return (
-    <div>
+    <div className="">
       <LandingNavBar />
-      <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="min-h-[80vh] flex md:items-center justify-center px-2 md:px-0">
         <ForgotPasswordForm />
       </div>
       <Footer />

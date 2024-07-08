@@ -11,7 +11,7 @@ const NewPasswordForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-[27%] p-6 rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
+      className="w-full md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
     >
       <h1 className="text-[25px] font-semibold mb-2">Choose a new password</h1>
       <p className="text-[13px] my-5 text-gray-600">

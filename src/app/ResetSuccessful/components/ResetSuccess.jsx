@@ -6,7 +6,7 @@ const ResetSuccess = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[27%] p-6 rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.2)]">
+    <div className="w-full md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]">
       <h1 className="text-[23px] font-semibold mb-2">
         Your password has been changed
       </h1>

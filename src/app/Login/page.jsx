@@ -15,7 +15,7 @@ const LOWER_IMAGE = LowerImg;
 const Login = () => {
   const { show } = useStateShareContext();
   return (
-    <div className="w-full h-[98vh] overflow-hidden ">
+    <div className="relative w-full h-[98vh] overflow-hidden ">
       <LandingNavBar />
       <div
         className={`${

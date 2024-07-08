@@ -7,7 +7,7 @@ const VerifySentCode = () => {
   return (
     <div>
       <LandingNavBar />
-      <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="min-h-[80vh] flex mt-[2.4rem] md:mt-0 md:items-center justify-center px-2 md:px-0">
         <VerifyCodeForm />
       </div>
       <Footer />

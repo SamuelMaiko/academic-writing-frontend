@@ -7,7 +7,7 @@ const SIGNUP_IMAGE = SignupImg;
 const SignUp = () => {
   const { show } = useStateShareContext();
   return (
-    <div className="w-full h-[98vh] overflow-hidden ">
+    <div className="relative w-full h-[98vh] overflow-hidden ">
       <LandingNavBar />
 
       <div

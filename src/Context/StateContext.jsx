@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../CustomHooks/useLocalStorage";
 
 const ShareState = createContext();
@@ -22,6 +22,19 @@ const StateContext = ({ children }) => {
   // I mean the one gliding from the right after nenu icon clik
   const [showMobileNavBar, setShowMobileNavBar] = useState(false);
   const [showMobileSideBar, setShowMobileSideBar] = useState(false);
+  const [filters, setFilters] = useLocalStorage("filters", [
+    { active: true, title: "2000 words" },
+    { active: true, title: "1500 words" },
+    { active: false, title: "Essay" },
+  ]);
+
+  // areas to hide mobile NavBar
+  const { pathname } = useLocation();
+  const AreasToHideMobileNavBar =
+    pathname == "/forgot-password" ||
+    pathname == "/verify-sent-code" ||
+    pathname == "/new-password" ||
+    pathname == "/reset-successful";
 
   // const [showModal, setShowModal] = useState(true);
 
@@ -52,6 +65,9 @@ const StateContext = ({ children }) => {
         setShowRevokeWorkModal,
         showMobileSideBar,
         setShowMobileSideBar,
+        filters,
+        setFilters,
+        AreasToHideMobileNavBar,
       }}
     >
       {children}

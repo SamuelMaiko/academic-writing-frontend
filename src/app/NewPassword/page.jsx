@@ -7,7 +7,7 @@ const NewPassword = () => {
   return (
     <div>
       <LandingNavBar />
-      <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="min-h-[80vh] flex md:items-center justify-center px-2 md:px-0">
         <NewPasswordForm />
       </div>
       <Footer />

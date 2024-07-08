@@ -11,7 +11,7 @@ const ForgotPasswordForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-[27%] p-6 rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
+      className="md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
     >
       <h1 className="text-[25px] font-semibold mb-2">Forgot password</h1>
       <div className="">
@@ -41,7 +41,11 @@ const ForgotPasswordForm = () => {
         Next
       </button>
       <div className="w-full flex justify-center">
-        <button className="hover:bg-gray-300 mt-4 px-1 text-sm hover:underline rounded-lg">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="hover:bg-gray-300 mt-4 px-1 text-sm hover:underline rounded-lg"
+        >
           Back
         </button>
       </div>

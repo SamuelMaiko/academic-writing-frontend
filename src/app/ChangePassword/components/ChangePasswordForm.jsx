@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const ChangePasswordForm = () => {
   const navigate = useNavigate();
   return (
-    <form className="w-[35%] mt-[2rem]">
+    <form className="w-full md:w-[35%] mt-[2rem]">
       <div className="mb-8">
         {/* <p className="text-sm">Password should be atleast 8 characters long.</p> */}
         <label className=" text-sm text-neutral-500 dark:text-darkMode-gray">
@@ -18,21 +18,6 @@ const ChangePasswordForm = () => {
              py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1
               focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             name="current_password"
-          />
-        </div>
-      </div>
-      <div className="mb-8">
-        <label className=" text-sm text-neutral-500 dark:text-darkMode-gray">
-          Type your new password*
-        </label>
-        <div className="mt-1">
-          <input
-            placeholder="New password"
-            type="text"
-            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3
-             py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1
-              focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-            name="new_password"
           />
         </div>
       </div>
@@ -69,7 +54,7 @@ const ChangePasswordForm = () => {
       <button
         type="submit"
         className="transition-colors duration-300 hover:bg-green-600
-         bg-green-500 text-white py-2 px-3 rounded-3xl"
+         bg-green-500 text-white py-2 px-3 rounded-3xl text-[15px]"
       >
         {" "}
         Save password

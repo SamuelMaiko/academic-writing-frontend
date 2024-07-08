@@ -43,6 +43,7 @@ const AccountManagement = () => {
       <SettingsBlock
         onClick={() => {
           //   setShowEditInfoModal(true);
+          navigate("/");
           setSettingsOpen(false);
         }}
         title="Sign Out"

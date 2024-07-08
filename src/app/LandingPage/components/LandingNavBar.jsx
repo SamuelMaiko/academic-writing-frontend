@@ -23,7 +23,8 @@ const NAV_LINKS = [
   },
 ];
 const LandingNavBar = () => {
-  const { setShowMobileNavBar, darkMode } = useStateShareContext();
+  const { setShowMobileNavBar, darkMode, AreasToHideMobileNavBar } =
+    useStateShareContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -33,7 +34,10 @@ const LandingNavBar = () => {
   };
 
   return (
-    <div className=" z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]">
+    <div
+      className=" z-10 w-full h-[5.7rem] md:bg-secondary text-tcolor 
+    shadow-[0_2px_8px_rgba(0,0,0,0.1)] lg:shadow-[0_0_4px_rgba(0,0,0,0.2)]"
+    >
       <div className="w-full md:w-[90%] h-full mx-auto flex justify-between items-center lg:pr-6 ">
         {/* logo */}
         <div className="h-[2.7rem] w-[9rem] md:w-[11rem] ">
@@ -78,11 +82,22 @@ const LandingNavBar = () => {
         </button>
         <div
           onClick={() => setShowMobileNavBar(true)}
-          className="lg:hidden  z-20 cursor-pointer right-0 text-3xl duration-500 mr-7 p-1"
+          className="lg:hidden  z-20 cursor-pointer right-0 text-3xl duration-500 mr-7 p-1 "
         >
           {/* nav menu icon */}
-          <button className=" p-1">
+          {/* show during forgot password process */}
+          <button className={`${AreasToHideMobileNavBar ? "hidden" : ""} p-1`}>
             <List size={32} />
+          </button>
+          {/* show during forgot password process */}
+          <button
+            onClick={handleLogin}
+            className={`bg-chocolate text-white hover:bg-neutral-600 rounded-3xl px-5 py-1 lg:mt-0 font-medium
+             text-[1.1rem] transition-colors duration-300 ${
+               AreasToHideMobileNavBar ? "" : "hidden"
+             }`}
+          >
+            Login
           </button>
         </div>
       </div>

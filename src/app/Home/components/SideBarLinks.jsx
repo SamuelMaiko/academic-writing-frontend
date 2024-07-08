@@ -1,0 +1,144 @@
+import React from "react";
+import { useStateShareContext } from "../../../Context/StateContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import Button from "./ui/Button";
+import {
+  Binoculars,
+  BookmarkSimple,
+  Briefcase,
+  House,
+  Pen,
+} from "phosphor-react";
+
+const SideBarLinks = () => {
+  const { shrinkSideBar } = useStateShareContext();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  return (
+    <div
+      className={`${
+        shrinkSideBar ? "flex items-center flex-col" : ""
+      } w-full h-full px-[2rem] mt-8 `}
+    >
+      {/* home  button */}
+      <div>
+        <Button
+          onClick={() => navigate("/home")}
+          icon={
+            pathname === "/home" ? (
+              <House size={20} weight="fill" />
+            ) : (
+              <House size={20} />
+            )
+          }
+          title={"Home"}
+          className={`${
+            pathname === "/home" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+      </div>
+      <p
+        className={`${shrinkSideBar ? "" : "hidden"} text-center text-sm my-5`}
+      >
+        Pages
+      </p>
+      {/* assigned work button */}
+      <div className="relative">
+        <Button
+          onClick={() => navigate("/assigned-work")}
+          icon={
+            pathname === "/assigned-work" ? (
+              <Pen size={20} weight="fill" />
+            ) : (
+              <Pen size={20} />
+            )
+          }
+          title={"Assigned Work"}
+          className={`${
+            pathname === "/assigned-work" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+        {/* counter */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+        >
+          2
+        </div>
+      </div>
+      {/* uptaken work button */}
+      <div className="relative">
+        <Button
+          onClick={() => navigate("/uptaken-work")}
+          icon={
+            pathname === "/uptaken-work" ? (
+              <Briefcase size={20} weight="fill" />
+            ) : (
+              <Briefcase size={20} />
+            )
+          }
+          title={"Uptaken Work"}
+          className={`${
+            pathname === "/uptaken-work" ? "text-sidebartext-hover" : ""
+          }  w-full`}
+        />
+        {/* counter */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+        >
+          1
+        </div>
+      </div>
+      {/* revisions button */}
+      <div className="relative">
+        <Button
+          onClick={() => navigate("/revisions")}
+          icon={
+            pathname === "/revisions" ? (
+              <Binoculars size={20} weight="fill" />
+            ) : (
+              <Binoculars size={20} />
+            )
+          }
+          title={"Revisions"}
+          className={`${
+            pathname === "/revisions" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+        {/* counter */}
+        <div
+          className={`absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
+           grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px] `}
+        >
+          0
+        </div>
+      </div>
+      {/* bookmark button */}
+      <div>
+        <Button
+          onClick={() => navigate("/bookmarks")}
+          icon={
+            pathname === "/bookmarks" ? (
+              <BookmarkSimple size={20} weight="fill" />
+            ) : (
+              <BookmarkSimple size={20} />
+            )
+          }
+          title={"Bookmark"}
+          className={`${
+            pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+      </div>
+      {/* signout button */}
+      {/* <Button
+          icon={<SignOut size={20} />}
+          title={"Sign Out"}
+          className="w-full pl-3"
+        /> */}
+    </div>
+  );
+};
+
+export default SideBarLinks;

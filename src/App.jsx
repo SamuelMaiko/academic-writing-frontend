@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import EntryPoint from "./EntryPoint";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import StateContext from "./Context/StateContext";
+import StateContext, { useStateShareContext } from "./Context/StateContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./SharedComponents/Loader";
@@ -39,16 +39,18 @@ const App = () => {
       <BrowserRouter>
         <StateContext>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/verify-sent-code" element={<VerifySentCode />} />
-            <Route path="/new-password" element={<NewPassword />} />
-            <Route path="/reset-successful" element={<ResetSuccessful />} />
-            <Route path="*" element={<EntryPoint />} />
-          </Routes>
+          <div className="w-full">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/verify-sent-code" element={<VerifySentCode />} />
+              <Route path="/new-password" element={<NewPassword />} />
+              <Route path="/reset-successful" element={<ResetSuccessful />} />
+              <Route path="*" element={<EntryPoint />} />
+            </Routes>
+          </div>
           {/* <MobileNavBar /> */}
           {/* <EntryPoint /> */}
           <ToastContainer position="bottom-left" />

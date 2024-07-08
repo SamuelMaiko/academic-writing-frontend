@@ -1,11 +1,13 @@
 import { X } from "phosphor-react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 
 const MobileNavBar = () => {
   const navigate = useNavigate();
-  const { showMobileNavBar, setShowMobileNavBar } = useStateShareContext();
+  const { showMobileNavBar, setShowMobileNavBar, AreasToHideMobileNavBar } =
+    useStateShareContext();
+
   const NAV_LINKS = [
     {
       linkName: "Home",
@@ -24,10 +26,11 @@ const MobileNavBar = () => {
       link: "#",
     },
   ];
+
   return (
     <div
-      className={`${
-        showMobileNavBar ? "" : "translate-x-[23rem]"
+      className={`${showMobileNavBar ? "" : "translate-x-[23rem]"} ${
+        AreasToHideMobileNavBar ? "hidden" : ""
       }  transition-transform duration-500 absolute lg:hidden z-20
          bg-white right-0 bottom-0 top-0 w-[22rem] px-3 pt-[4.5rem]
           `}

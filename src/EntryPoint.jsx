@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Outlet, useLocation } from "react-router-dom";
 import Home from "./app/Home/page";
 import NotFound from "./app/NotFound/page";
@@ -39,6 +39,19 @@ const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
     useStateShareContext();
   const { pathname } = useLocation();
+  const { setFilters } = useStateShareContext();
+  // storing the filters in local storage if none during app launch
+  useEffect(() => {
+    const filterAvailable = JSON.parse(localStorage.getItem("filters"));
+    if (!filterAvailable) {
+      setFilters([
+        { type: "words", active: false, title: "2000 words" },
+        { type: "words", active: false, title: "1500 words" },
+        { type: "deadline", active: false, title: "Deadline Today" },
+        { type: "deadline", active: false, title: "Deadline Tomorrow" },
+      ]);
+    }
+  }, []);
   return (
     <>
       <div

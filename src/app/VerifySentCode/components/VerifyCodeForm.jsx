@@ -19,12 +19,12 @@ const VerifyCodeForm = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="relative w-[27%] p-6 rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
+        className="relative w-full md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
       >
         <p
           className={`${
             showResendSuccess ? "" : "hidden"
-          } absolute flex items-center gap-1 -top-7 text-left text-green-500 text-sm`}
+          } absolute flex items-center gap-1 -top-4 md:-top-7 text-left text-green-500 text-sm`}
         >
           <span>
             <CircleCheck size={21} />

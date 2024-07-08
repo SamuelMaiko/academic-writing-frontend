@@ -7,7 +7,7 @@ const ResetSuccessful = () => {
   return (
     <div>
       <LandingNavBar />
-      <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="min-h-[80vh] flex mt-2 md:items-center justify-center px-2 md:px-0">
         <ResetSuccess />
       </div>
       <Footer />

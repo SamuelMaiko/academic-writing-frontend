@@ -50,6 +50,7 @@ const VerifyCodeForm = () => {
             />
           </div>
           <button
+            type="button"
             onClick={handleResendCode}
             className="text-blue-600 hover:bg-blue-100 transition-colors duration-300
          mt-2 px-2 text-sm rounded-xl font-medium"

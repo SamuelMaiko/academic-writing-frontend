@@ -14,6 +14,12 @@ import ForgotPassword from "./app/ForgotPassword/page";
 import VerifySentCode from "./app/VerifySentCode/page";
 import NewPassword from "./app/NewPassword/page";
 import ResetSuccessful from "./app/ResetSuccessful/page";
+import Onboarding from "./app/Onboarding/page";
+import ProgressBarContext from "./Context/ProgressBarContext";
+import FillDetails from "./app/Onboarding/pages/FillDetails";
+import VerifyEmail from "./app/Onboarding/pages/VerifyEmail";
+import CompleteProfile from "./app/Onboarding/pages/CompleteProfile";
+import OnboardingNewPassword from "./app/Onboarding/pages/OnboardingNewPassword";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -38,22 +44,37 @@ const App = () => {
     <>
       <BrowserRouter>
         <StateContext>
-          <ScrollToTop />
-          <div className="w-full">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/verify-sent-code" element={<VerifySentCode />} />
-              <Route path="/new-password" element={<NewPassword />} />
-              <Route path="/reset-successful" element={<ResetSuccessful />} />
-              <Route path="*" element={<EntryPoint />} />
-            </Routes>
-          </div>
-          {/* <MobileNavBar /> */}
-          {/* <EntryPoint /> */}
-          <ToastContainer position="bottom-left" />
+          <ProgressBarContext>
+            <ScrollToTop />
+            <div className="w-full">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/verify-sent-code" element={<VerifySentCode />} />
+                <Route path="/new-password" element={<NewPassword />} />
+                <Route path="/reset-successful" element={<ResetSuccessful />} />
+                {/* <Route path="*" element={<RoutingApp />} /> */}
+                <Route path="/onboarding" element={<Onboarding />}>
+                  <Route path="verify-email" element={<VerifyEmail />} />
+                  <Route path="fill-details" element={<FillDetails />} />
+                  <Route
+                    path="complete-profile"
+                    element={<CompleteProfile />}
+                  />
+                  <Route
+                    path="change-password"
+                    element={<OnboardingNewPassword />}
+                  />
+                </Route>
+                <Route path="*" element={<EntryPoint />} />
+              </Routes>
+            </div>
+            {/* <MobileNavBar /> */}
+            {/* <EntryPoint /> */}
+            <ToastContainer position="bottom-left" />
+          </ProgressBarContext>
         </StateContext>
       </BrowserRouter>
     </>

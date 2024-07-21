@@ -14,12 +14,12 @@ const EnterVerificationCodeForm = () => {
   return (
     <form
       onSubmit={handleVerifyEmail}
-      className=" flex flex-col pt-[5rem] flex-1 items-center "
+      className=" flex flex-col pt-[3rem] md:pt-[5rem] flex-1 items-center "
     >
       <div className="relative inline">
         <input
           type="text"
-          className="pl-4 h-[3.2rem] w-[17rem] border-gray-300 border outline-none"
+          className="pl-4 h-[3.2rem] w-[19rem] md:w-[17rem] border-gray-300 border outline-none"
         />
         <label className="absolute bg-white -top-2 left-4 px-1 text-gray-600 text-sm">
           Enter Verification Code
@@ -27,7 +27,7 @@ const EnterVerificationCodeForm = () => {
       </div>
       <button
         type="submit"
-        className="px-6 py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
+        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
       >
         Verify Email
       </button>

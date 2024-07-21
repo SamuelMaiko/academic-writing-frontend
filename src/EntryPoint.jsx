@@ -34,6 +34,9 @@ import RevokeWorkModal from "./app/WorkDetail/components/RevokeWorkModal";
 import SideBarModal from "./MobileView/SideBar/SideBarModal";
 import TransparentModal from "./MobileView/SideBar/TransparentModal";
 import ChangePassword from "./app/ChangePassword/page";
+import Submissions from "./app/Submissions/page";
+import SubmissionsDetail from "./app/SubmissionsDetail/page";
+import DeleteSubmissionModal from "./app/Submissions/components/DeleteSubmissionModal";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
@@ -76,6 +79,8 @@ const EntryPoint = () => {
             <Route path="/work/:id" element={<WorkDetail />} />
             <Route path="/work/:id/submit" element={<SubmitWork />} />
             <Route path="/bookmarks" element={<Bookmark />} />
+            <Route path="/submissions" element={<Submissions />} />
+            <Route path="/submissions/:id" element={<SubmissionsDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/settings/change-password"
@@ -109,6 +114,7 @@ const EntryPoint = () => {
         <RevokeWorkModal />
         <SideBarModal />
         <TransparentModal />
+        <DeleteSubmissionModal />
       </div>
     </>
   );

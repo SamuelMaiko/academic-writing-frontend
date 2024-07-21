@@ -55,34 +55,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
-// ___________________________________________ to be deleted
-{
-  /* <Button
-  onClick={() => navigate("/admin/users")}
-  icon={<UserGear size={20} />}
-  title={"Manage Users"}
-  className={`${pathname === "/admin/users" ? "text-sidebartext-hover" : ""}`}
-  /> */
-}
-
-{
-  /* <Button
-    onClick={() => navigate("/admin/work")}
-  icon={<UserGear size={20} />}
-  title={"Manage Work"}
-  className={`${pathname === "/admin/work" ? "text-sidebartext-hover" : ""}`}
-/> */
-}
-
-{
-  /* <Button
-      onClick={() => navigate("/history")}
-      icon={<ClockCounterClockwise size={20} />}
-      title={"History"}
-      className={`${pathname === "/history" ? "text-sidebartext-hover" : ""}`}
-    /> */
-}
-{
-  /* <Button icon={<Gear size={20} />} title={"Settings"} className="" /> */
-}

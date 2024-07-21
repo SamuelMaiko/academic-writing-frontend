@@ -15,7 +15,7 @@ const FillDetailsForm = () => {
       onSubmit={handleSubmit}
       className=" flex flex-col items-center flex-1 "
     >
-      <div className="relative w-[60%] mb-5">
+      <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"
           className="pl-4 h-[3.2rem] w-full border-gray-300 border outline-none "
@@ -24,7 +24,7 @@ const FillDetailsForm = () => {
           First Name
         </label>
       </div>
-      <div className="relative w-[60%] mb-5">
+      <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"
           className="pl-4 h-[3.2rem] w-full border-gray-300 border outline-none "
@@ -33,7 +33,7 @@ const FillDetailsForm = () => {
           Last Name
         </label>
       </div>
-      <div className="relative w-[60%] mb-5">
+      <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"
           className="pl-4 h-[3.2rem] w-full border-gray-300 border text-sm outline-none "
@@ -42,7 +42,7 @@ const FillDetailsForm = () => {
           Phone Number
         </label>
       </div>
-      <div className="relative w-[60%] mb-5">
+      <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"
           className="pl-4 h-[3.2rem] w-full border-gray-300 border text-sm outline-none "
@@ -51,7 +51,7 @@ const FillDetailsForm = () => {
           Country
         </label>
       </div>
-      <div className="relative w-[60%] mb-5">
+      <div className="relative w-[97%] md:w-[60%] mb-5">
         <select
           type="text"
           className="pl-4 h-[3.2rem] w-full border-gray-300 border text-sm outline-none "
@@ -66,7 +66,7 @@ const FillDetailsForm = () => {
       </div>
       <button
         type="submit"
-        className="px-6 py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
+        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
       >
         Save Details
       </button>

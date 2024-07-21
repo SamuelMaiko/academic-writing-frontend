@@ -22,11 +22,11 @@ const Login = () => {
           show ? "visible" : "invisible opacity-0"
         } opacity-1 transition-all duration-500 absolute lg:hidden z-[4] bg-white right-0 left-0 bottom-0 top-[5rem]`}
       ></div>
-      <div className="w-[90%] h-[screen-6rem] mx-auto flex justify-between">
+      <div className="w-[98%] md:w-[90%] h-[screen-6rem] mx-auto flex justify-between">
         <section className="relative w-[50%] hidden lg:flex">
           <LowerImage className="absolute w-[28rem] h-[28rem] left-2 top-[5.6rem] rounded-full p-4 "></LowerImage>
         </section>
-        <section className="lg:w-[50%] w-[95%] md:w-[80%] mx-auto lg:mx-0 h-full flex justify-center lg:mt-20 mt-7">
+        <section className="lg:w-[50%] w-full md:w-[80%] mx-auto lg:mx-0 h-full flex justify-center lg:mt-20 mt-7">
           <LoginForm />
         </section>
       </div>

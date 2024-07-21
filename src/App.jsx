@@ -20,6 +20,7 @@ import FillDetails from "./app/Onboarding/pages/FillDetails";
 import VerifyEmail from "./app/Onboarding/pages/VerifyEmail";
 import CompleteProfile from "./app/Onboarding/pages/CompleteProfile";
 import OnboardingNewPassword from "./app/Onboarding/pages/OnboardingNewPassword";
+import Success from "./app/Onboarding/pages/Success";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ const App = () => {
                     path="change-password"
                     element={<OnboardingNewPassword />}
                   />
+                  <Route path="success" element={<Success />} />
                 </Route>
                 <Route path="*" element={<EntryPoint />} />
               </Routes>

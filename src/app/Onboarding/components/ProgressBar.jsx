@@ -1,5 +1,6 @@
 import React from "react";
 import OnboardingLogo from "../../../assets/OnboardingLogo.png";
+import LogoLight from "../../../assets/LogoLight.png";
 import ProgressCounter from "./ProgressCounter";
 import ProgressConnector from "./ProgressConnector";
 import { useLocation } from "react-router-dom";
@@ -11,15 +12,23 @@ const ProgressBar = () => {
     useProgressBarContext();
   const { pathname } = useLocation();
   return (
-    <div className="bg-transparent h-[8rem] flex items-center">
+    <div className="bg-transparent h-[6rem] md:h-[8rem] flex flex-col md:flex-row items-center">
       <div className="h-[2.7rem] w-[9rem] md:w-[11rem]  ">
         <img
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full hidden md:block object-cover object-center"
           src={OnboardingLogo}
           alt=""
         />
+        <img
+          className="w-full h-full md:hidden mt-2 object-cover object-center"
+          src={LogoLight}
+          alt=""
+        />
       </div>
-      <div className="pl-[7rem] flex items-center">
+      <div
+        className="md:pl-[2rem] gap-2 md:gap-0 flex items-center justify-around px-2 md:px-0 
+      md:justify-normal w-full mt-[1.5rem] md:mt-0"
+      >
         <ProgressCounter
           number={1}
           className={`${
@@ -30,8 +39,8 @@ const ProgressBar = () => {
             (pathname == "/onboarding/verify-email") & !verifyDone
               ? "border-blue-500 text-blue-500"
               : ""
-          }`}
-          title="Verify Email"
+          } ml-1`}
+          title="Verification"
         />
         <ProgressConnector className={`${verifyDone ? "" : "bg-gray-400"}`} />
         <ProgressCounter
@@ -45,7 +54,7 @@ const ProgressBar = () => {
               ? "border-blue-500 text-blue-500"
               : ""
           }`}
-          title="Fill Details"
+          title="Details"
         />
         <ProgressConnector
           className={`${fillDetailsDone ? "" : "bg-gray-400"}`}
@@ -62,7 +71,7 @@ const ProgressBar = () => {
               : ""
           }
           `}
-          title="Complete Profile"
+          title="Complete"
         />
         <ProgressConnector className={`${profileDone ? "" : "bg-gray-400"}`} />
         <ProgressCounter
@@ -76,7 +85,23 @@ const ProgressBar = () => {
               : ""
           }`}
           number={4}
-          title="Change Password"
+          title="Password"
+        />
+        <ProgressConnector
+          className={`${changePasswordDone ? "" : "bg-gray-400"}`}
+        />
+        <ProgressCounter
+          className={`${
+            changePasswordDone
+              ? ""
+              : "bg-transparent border-[2px] border-gray-600 text-gray-600"
+          } ${
+            (pathname == "/onboarding/success") & !changePasswordDone
+              ? "border-blue-500 text-blue-500"
+              : ""
+          }`}
+          number={5}
+          title="Success"
         />
       </div>
     </div>

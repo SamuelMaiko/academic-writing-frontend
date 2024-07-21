@@ -7,7 +7,7 @@ const AssignedWork = () => {
   const { darkMode } = useStateShareContext();
   return (
     <div
-      className={`w-full px-[2rem] ${
+      className={`w-full px-[1rem] md:px-[2rem] ${
         darkMode ? "dark" : ""
       } dark:bg-darkMode-body min-h-screen `}
     >

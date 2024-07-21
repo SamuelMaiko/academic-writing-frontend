@@ -4,7 +4,7 @@ import TableRevisions from "./components/TableRevisions";
 
 const Revisions = () => {
   return (
-    <div className="w-full px-[2rem] pb-[5rem] dark:bg-darkMode-body min-h-screen">
+    <div className="w-full px-[1rem] md:px-[2rem] pb-[5rem] dark:bg-darkMode-body min-h-screen">
       <PageHeader
         title={"Revisions"}
         subTitle={"See the work that that needs to be corrected."}

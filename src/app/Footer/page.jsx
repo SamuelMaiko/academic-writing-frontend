@@ -58,6 +58,7 @@ const Footer = ({ side = false }) => {
         className={`${
           (pathname === "/bookmarks") |
           (pathname === "/home") |
+          (pathname === "/submissions") |
           (pathname === "/notifications")
             ? "hidden"
             : ""

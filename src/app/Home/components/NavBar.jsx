@@ -10,7 +10,7 @@ const NavBar = () => {
   const { setSettingsOpen, setShowMobileSideBar } = useStateShareContext();
   return (
     <div
-      className={`w-full h-[5rem] px-[2rem] flex  items-center justify-between sticky
+      className={`w-full h-[5rem] px-[1rem] md:px-[2rem] flex  items-center justify-between sticky
          top-0 z-40 bg-white dark:bg-darkMode-bars dark:text-darkMode-text`}
     >
       <p className="text-xl font-bold">Morning Samuel!</p>

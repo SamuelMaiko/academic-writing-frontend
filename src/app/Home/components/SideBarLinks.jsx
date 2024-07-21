@@ -9,6 +9,7 @@ import {
   House,
   Pen,
 } from "phosphor-react";
+import { FileCheck } from "lucide-react";
 
 const SideBarLinks = () => {
   const { shrinkSideBar } = useStateShareContext();
@@ -131,12 +132,23 @@ const SideBarLinks = () => {
           } w-full`}
         />
       </div>
-      {/* signout button */}
-      {/* <Button
-          icon={<SignOut size={20} />}
-          title={"Sign Out"}
-          className="w-full pl-3"
-        /> */}
+      {/* submissions button */}
+      <div>
+        <Button
+          onClick={() => navigate("/submissions")}
+          icon={
+            pathname === "/submissions" ? (
+              <FileCheck size={20} weight="fill" />
+            ) : (
+              <FileCheck size={20} />
+            )
+          }
+          title={"Submissions"}
+          className={`${
+            pathname === "/submissions" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+      </div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
   House,
   Pen,
 } from "phosphor-react";
+import { FileCheck } from "lucide-react";
 
 const ButtonLinks = () => {
   const { setShowMobileSideBar } = useStateShareContext();
@@ -135,6 +136,26 @@ const ButtonLinks = () => {
           title={"Bookmark"}
           className={`${
             pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+      </div>
+      {/* submissions button */}
+      <div>
+        <Button
+          onClick={() => {
+            setShowMobileSideBar(false);
+            navigate("/submissions");
+          }}
+          icon={
+            pathname === "/submissions" ? (
+              <FileCheck size={20} weight="fill" />
+            ) : (
+              <FileCheck size={20} />
+            )
+          }
+          title={"Submissions"}
+          className={`${
+            pathname === "/submissions" ? "text-sidebartext-hover" : ""
           } w-full`}
         />
       </div>

@@ -5,8 +5,10 @@ const FillDetails = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center">
-        <h1 className="font-semibold text-3xl">Fill Your Details</h1>
-        <p className="font-medium my-4">
+        <h1 className="font-semibold text-2xl md:text-3xl">
+          Fill your details
+        </h1>
+        <p className="font-medium my-4 text-sm md:text-base">
           Input your personal details for account setup.
         </p>
       </div>

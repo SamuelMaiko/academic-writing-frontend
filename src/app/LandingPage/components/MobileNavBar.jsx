@@ -65,7 +65,7 @@ const MobileNavBar = () => {
           navigate("/login");
         }}
         className=" bg-green-500 hover:bg-green-600 w-full py-2 text-center text-white
-            font-semibold mb-5 transition-colors duration-300 rounded-3xl text-[19px] mt-[105%]"
+            font-semibold mb-5 transition-colors duration-300 rounded-3xl text-[19px] mt-[100%]"
       >
         Login
       </button>

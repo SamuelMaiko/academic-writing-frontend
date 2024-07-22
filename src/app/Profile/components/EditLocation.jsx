@@ -3,7 +3,7 @@ import React from "react";
 const EditLocation = () => {
   return (
     <div className="mt-10">
-      <h1 className="text-2xl font-semibold">Location</h1>
+      <h1 className="text-xl md:text-2xl font-semibold">Location</h1>
       <div className="mb-8">
         <label className="text-base text-neutral-500 dark:text-darkMode-gray">
           Country*

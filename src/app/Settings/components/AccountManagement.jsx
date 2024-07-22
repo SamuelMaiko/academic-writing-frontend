@@ -5,7 +5,12 @@ import { Divider } from "keep-react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const AccountManagement = () => {
-  const { setShowEditInfoModal, setSettingsOpen } = useStateShareContext();
+  const {
+    setShowEditInfoModal,
+    setSettingsOpen,
+    setShowDeleteAccountModal,
+    setShowDeactivateAccountModal,
+  } = useStateShareContext();
   const navigate = useNavigate();
   return (
     <div className=" bg-neutral-100 rounded-lg mt-3 dark:bg-darkMode-body dark:text-darkMode-text">
@@ -16,6 +21,7 @@ const AccountManagement = () => {
         onClick={() => {
           //   setShowEditInfoModal(true);
           setSettingsOpen(false);
+          setShowDeactivateAccountModal(true);
         }}
         title="Deactivate account"
       />
@@ -26,6 +32,7 @@ const AccountManagement = () => {
         onClick={() => {
           //   setShowEditInfoModal(true);
           setSettingsOpen(false);
+          setShowDeleteAccountModal(true);
         }}
         title="Delete account"
       />

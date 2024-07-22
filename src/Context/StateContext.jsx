@@ -29,6 +29,13 @@ const StateContext = ({ children }) => {
     { active: true, title: "1500 words" },
     { active: false, title: "Essay" },
   ]);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+  const [showDeactivateAccountModal, setShowDeactivateAccountModal] =
+    useState(false);
+  // profile picture upload
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageURL, setImageURL] = useLocalStorage("pfp", "");
+  const [upload, setUpload] = useState("");
 
   // areas to hide mobile NavBar
   const { pathname } = useLocation();
@@ -72,6 +79,17 @@ const StateContext = ({ children }) => {
         AreasToHideMobileNavBar,
         showDeleteSubmissionModal,
         setShowDeleteSubmissionModal,
+        showDeleteAccountModal,
+        setShowDeleteAccountModal,
+        showDeactivateAccountModal,
+        setShowDeactivateAccountModal,
+        // the profile photo upload
+        selectedFile,
+        setSelectedFile,
+        imageURL,
+        setImageURL,
+        upload,
+        setUpload,
       }}
     >
       {children}

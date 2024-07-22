@@ -4,7 +4,20 @@ import { useStateShareContext } from "../../../Context/StateContext";
 import { X } from "phosphor-react";
 
 const ConfirmDelete = () => {
-  const { setShowDeleteProfilePhotoModal } = useStateShareContext();
+  const {
+    setShowDeleteProfilePhotoModal,
+    setSelectedFile,
+    setImageURL,
+    setUpload,
+  } = useStateShareContext();
+
+  const handleDelete = () => {
+    setSelectedFile(null);
+    setImageURL("");
+    setUpload("");
+    setShowDeleteProfilePhotoModal(false);
+    // api to delete
+  };
   return (
     <div
       className="absolute w-[21rem]  px-2 left-[50%] translate-x-[-50%] top-[30%] rounded-lg
@@ -40,7 +53,7 @@ const ConfirmDelete = () => {
             <span>Cancel</span>
           </button>
           <button
-            onClick={() => {}}
+            onClick={handleDelete}
             className={` bg-blue-500 hover:bg-blue-600
               py-1 px-3 rounded-2xl font-medium text-white transition-background duration-300 flex items-center`}
           >

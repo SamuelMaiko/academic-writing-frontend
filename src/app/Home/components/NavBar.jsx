@@ -3,11 +3,12 @@ import Button from "./ui/Button";
 import { Gear, List } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
-import Vini from "../../../assets/Vinijr.jpeg";
+import Vini from "../../../assets/Default_pfp.jpg";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { setSettingsOpen, setShowMobileSideBar } = useStateShareContext();
+  const { setSettingsOpen, setShowMobileSideBar, imageURL } =
+    useStateShareContext();
   return (
     <div
       className={`w-full h-[5rem] px-[1rem] md:px-[2rem] flex  items-center justify-between sticky
@@ -55,7 +56,7 @@ const NavBar = () => {
         >
           <img
             className="w-full h-full object-cover object-top"
-            src={Vini}
+            src={imageURL == "" ? Vini : imageURL}
             alt=""
           />
           {/* <User size={22} /> */}

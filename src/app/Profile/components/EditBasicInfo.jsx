@@ -4,7 +4,7 @@ import React from "react";
 const EditBasicInfo = () => {
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Basic info</h1>
+      <h1 className="text-xl md:text-2xl font-semibold">Basic info</h1>
       <div className="mb-8">
         <label className="text-base text-neutral-500 dark:text-darkMode-gray">
           First name*

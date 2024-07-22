@@ -37,6 +37,9 @@ import ChangePassword from "./app/ChangePassword/page";
 import Submissions from "./app/Submissions/page";
 import SubmissionsDetail from "./app/SubmissionsDetail/page";
 import DeleteSubmissionModal from "./app/Submissions/components/DeleteSubmissionModal";
+import Analytics from "./app/Analytics/page";
+import DeleteAccountModal from "./app/Settings/components/DeleteAccountModal";
+import DeactivateAccountModal from "./app/Settings/components/DeactivateAccountModal";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
@@ -81,6 +84,7 @@ const EntryPoint = () => {
             <Route path="/bookmarks" element={<Bookmark />} />
             <Route path="/submissions" element={<Submissions />} />
             <Route path="/submissions/:id" element={<SubmissionsDetail />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/settings/change-password"
@@ -115,6 +119,8 @@ const EntryPoint = () => {
         <SideBarModal />
         <TransparentModal />
         <DeleteSubmissionModal />
+        <DeleteAccountModal />
+        <DeactivateAccountModal />
       </div>
     </>
   );

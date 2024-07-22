@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Pencil, NotePencil } from "phosphor-react";
 import { useStateShareContext } from "../../../Context/StateContext";
-import Vini from "../../../assets/Vinijr.jpeg";
+import Vini from "../../../assets/Default_pfp.jpg";
 
 const UserInfo = () => {
-  const { setShowEditInfoModal, setShowEditPFPModal } = useStateShareContext();
+  const { setShowEditInfoModal, setShowEditPFPModal, imageURL } =
+    useStateShareContext();
   const [showImageEditIcon, setShowImageEditIcon] = useState(false);
   return (
     <div
@@ -29,7 +30,7 @@ const UserInfo = () => {
           className="relative size-[4.5rem] bg-neutral-300 overflow-hidden rounded-lg"
         >
           <img
-            src={Vini}
+            src={imageURL == "" ? Vini : imageURL}
             alt=""
             className="w-full h-full object-cover object-top"
           />

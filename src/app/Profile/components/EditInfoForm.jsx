@@ -26,7 +26,7 @@ const EditInfoForm = () => {
         </button>
       </div>
       {/* central body */}
-      <form className="h-[26rem] px-8 overflow-y-scroll">
+      <form className="h-[26rem] px-4 md:px-8 overflow-y-scroll">
         <p className="text-neutral-500 dark:text-darkMode-gray text-sm mt-4 mb-7">
           * Indicates required
         </p>

@@ -1,10 +1,10 @@
 import React from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
-import Vini from "../../../assets/Vinijr.jpeg";
+import Vini from "../../../assets/Default_pfp.jpg";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePreview = () => {
-  const { shrinkSideBar } = useStateShareContext();
+  const { shrinkSideBar, imageURL } = useStateShareContext();
   const navigate = useNavigate();
   return (
     <div
@@ -13,7 +13,11 @@ const ProfilePreview = () => {
       } flex flex-col items-center mt-10 `}
     >
       <div className={`size-[7rem] rounded-full overflow-hidden`}>
-        <img src={Vini} alt="" />
+        <img
+          src={imageURL == "" ? Vini : imageURL}
+          alt=""
+          className="w-full h-full object-cover object-center"
+        />
       </div>
       <p className={`font-extrabold text-[1.5rem] mt-4`}>Samuel Maiko</p>
       <p className={`font-semibold text-[16px]`}>Techwave Writer</p>

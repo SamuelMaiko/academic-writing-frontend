@@ -8,13 +8,47 @@ import Filters from "./components/Filters";
 import { useStateShareContext } from "../../Context/StateContext";
 import UnavailableDark from "../../assets/UnavailableDark.png";
 import UnavailableLight from "../../assets/UnavailableLight.png";
+import { toast } from "react-toastify";
+import instance from "../../axios/instance";
+import { useProgressBarContext } from "../../Context/ProgressBarContext";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
+  const { work, setWork } = useProgressBarContext();
+  const [loading, setLoading] = useState(true);
   const { filters, darkMode } = useStateShareContext();
 
   // update the search params here
   useEffect(() => console.log("Hey"), [filters]);
+
+  useEffect(() => {
+    getWork();
+  }, []);
+
+  const getWork = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get("/work/");
+      setWork(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -32,7 +66,11 @@ const Home = () => {
           }
         />
         <Loader loading={loading} />
-        <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
+        {work &&
+          work.map((work, index) => {
+            return <WorkCard key={index} {...work} />;
+          })}
+        {/* <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
         <WorkCard />
         <WorkCard />
         <WorkCard />
@@ -44,7 +82,7 @@ const Home = () => {
         <WorkCard />
         <WorkCard />
         <WorkCard />
-        <WorkCard />
+        <WorkCard /> */}
         <div className="pb-[8rem] hidden">
           <img
             className="mx-auto w-[16rem]"

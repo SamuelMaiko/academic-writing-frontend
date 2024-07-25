@@ -5,34 +5,29 @@ import CarouselComponent from "./CarouselComponent ";
 import { X } from "lucide-react";
 import { useStateShareContext } from "../../../Context/StateContext";
 
-const WorkImages = () => {
+const WorkImages = ({ images, zipUrl, zipName }) => {
   const { showCarouselModal, setShowCarouselModal } = useStateShareContext();
   return (
     <div>
       <div className="flex justify-between pr-10 md:pr-20 mb-8">
         <h1 className="text-lg font-semibold ">Images</h1>
-        <button
-          className="text-sm flex items-center gap-2 bg-yellow-300 hover:bg-yellow-400
+        <a href={zipUrl} download={zipName ? `${zipName}.zip` : undefined}>
+          <button
+            className="text-sm flex items-center gap-2 bg-yellow-300 hover:bg-yellow-400
          transition-colors duration-300 text-black py-1 px-4  font-medium"
-        >
-          <span>
-            <CloudArrowDown size={20} />{" "}
-          </span>
-          <span>Download all</span>
-        </button>
+          >
+            <span>
+              <CloudArrowDown size={20} />{" "}
+            </span>
+            <span>Download all</span>
+          </button>
+        </a>
       </div>
       <div className="grid grid-cols-3 md:grid-cols-8 gap-4 md:gap-6 md:px-2">
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
-        <ImageBlock />
+        {images &&
+          images.map((image, index) => {
+            return <ImageBlock key={index} {...image} />;
+          })}
       </div>
       {/* carousel modal */}
       <div
@@ -46,7 +41,7 @@ const WorkImages = () => {
       dark:text-darkMode-text bg-transparent flex items-center 
      "
         >
-          <CarouselComponent />
+          <CarouselComponent images={images} />
           {/* cancel button */}
           <button
             onClick={() => setShowCarouselModal(false)}

@@ -1,10 +1,57 @@
 import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { toast } from "react-toastify";
+import instance from "../../../axios/instance";
 
-const BookmarkToggle = ({ onClick, isBookmarked }) => {
+const BookmarkToggle = ({ onClick, isBookmarked, setisBookmarked, id }) => {
   const { darkMode } = useStateShareContext();
+  const [loading, setLoading] = useState(false);
+
+  const handleBookmarkWork = async (e) => {
+    e.stopPropagation();
+
+    setLoading(true);
+    try {
+      if (!isBookmarked) {
+        const response = await instance.post(`/bookmarks/add/${id}/`);
+        toast.success("Work added to bookmarks.");
+      } else {
+        const response = await instance.delete(`/bookmarks/remove/${id}/`);
+        // toast.success("Work removed from bookmarks.");
+      }
+      setisBookmarked((current) => !current);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data.error;
+
+        switch (status) {
+          case 400:
+            toast.error(message);
+            break;
+          case 404:
+            toast.error(message);
+            break;
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            console.log(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div onClick={onClick} className="ui-bookmark absolute top-8 right-4 ">
+    <button
+      onClick={handleBookmarkWork}
+      className="ui-bookmark absolute top-8 right-4 "
+      disabled={loading}
+    >
       <input type="checkbox" checked={isBookmarked} onChange={() => {}} />
       <div className="bookmark ">
         {!isBookmarked & darkMode ? (
@@ -21,7 +68,7 @@ const BookmarkToggle = ({ onClick, isBookmarked }) => {
           </svg>
         )}
       </div>
-    </div>
+    </button>
   );
 };
 

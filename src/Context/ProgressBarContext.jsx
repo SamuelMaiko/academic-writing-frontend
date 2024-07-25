@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
 import useLocalStorage from "../CustomHooks/useLocalStorage";
 
@@ -17,6 +17,11 @@ const ProgressBarContext = ({ children }) => {
     false
   );
 
+  // work
+  const [work, setWork] = useState([]);
+  // workDetails
+  const [workDetails, setWorkDetails] = useState({});
+
   return (
     <BarContext.Provider
       value={{
@@ -28,6 +33,10 @@ const ProgressBarContext = ({ children }) => {
         setProfileDone,
         changePasswordDone,
         setChangePasswordDone,
+        workDetails,
+        setWorkDetails,
+        work,
+        setWork,
       }}
     >
       {children}

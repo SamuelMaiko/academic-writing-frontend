@@ -1,10 +1,54 @@
 import { Divider } from "keep-react";
-import React from "react";
+import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { X } from "phosphor-react";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
+import { useLocation, useParams } from "react-router-dom";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const ConfirmRevoke = () => {
   const { setShowRevokeWorkModal } = useStateShareContext();
+  const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const { setWorkDetails } = useProgressBarContext();
+
+  const handleRevokeWork = async () => {
+    setLoading(true);
+    try {
+      const id = pathname.split("/").at(-1);
+      const response = await instance.post(`/work/${id}/revoke/`);
+      setWorkDetails((current) => ({
+        ...current,
+        is_mine: false,
+        has_writer: false,
+        status: "Not started",
+      }));
+      setShowRevokeWorkModal(false);
+      toast.success("Work revoked and added to default records.");
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data.error;
+
+        switch (status) {
+          case 400:
+            toast.error("Work not found in list of allocated work.");
+            break;
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            console.log(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       className="absolute w-[21rem]  px-2 left-[50%] translate-x-[-50%] top-[30%] rounded-lg
@@ -43,17 +87,17 @@ const ConfirmRevoke = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowRevokeWorkModal(false)}
-            className="border-[1px] border-green-500 py-1 px-3 rounded-2xl hover:bg-gray-100
-             font-medium text-green-500 transition-background duration-300 flex items-center"
+            className="border-[1px] border-orange-500 py-1 px-3 rounded-2xl hover:bg-gray-100
+             font-medium text-orange-500 transition-background duration-300 flex items-center"
           >
             <span>Cancel</span>
           </button>
           <button
-            onClick={() => {}}
-            className={` bg-red-500 hover:bg-red-600
+            onClick={handleRevokeWork}
+            className={` bg-orange-500 hover:bg-orange-600
               py-1 px-3 rounded-2xl font-medium text-white transition-background duration-300 flex items-center`}
           >
-            <span>Revoke</span>
+            <span>{loading ? "loading..." : "Revoke"}</span>
           </button>
         </div>
       </div>

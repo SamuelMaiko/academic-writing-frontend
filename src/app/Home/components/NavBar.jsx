@@ -7,14 +7,14 @@ import Vini from "../../../assets/Default_pfp.jpg";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { setSettingsOpen, setShowMobileSideBar, imageURL } =
+  const { setSettingsOpen, setShowMobileSideBar, imageURL, firstName } =
     useStateShareContext();
   return (
     <div
       className={`w-full h-[5rem] px-[1rem] md:px-[2rem] flex  items-center justify-between sticky
          top-0 z-40 bg-white dark:bg-darkMode-bars dark:text-darkMode-text`}
     >
-      <p className="text-xl font-bold">Morning Samuel!</p>
+      <p className="text-xl font-bold">Morning {firstName}!</p>
       <div className="flex items-center gap-2">
         {/* settings button */}
         <Button

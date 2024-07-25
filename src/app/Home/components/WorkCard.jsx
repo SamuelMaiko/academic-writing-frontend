@@ -7,52 +7,42 @@ import BookmarkToggle from "./BookmarkToggle";
 import { toast } from "react-toastify";
 import Countdown from "react-countdown";
 import CountdownToDate from "./CountdownToDate";
+import formatDate from "./datetime/formatDate";
+import relativeTime from "./datetime/RelativeTime";
+import TakeUpWorkButton from "./TakeUpWorkButton";
 
-const WorkCard = ({ bookmark = false, deadline = "2024-07-08T01:02:03" }) => {
+const WorkCard = ({
+  id,
+  is_bookmarked = false,
+  deadline,
+  type,
+  words,
+  work_code,
+  created_at,
+}) => {
   const navigate = useNavigate();
   const { darkMode } = useStateShareContext();
-  const [isBookmarked, setisBookmarked] = useState(bookmark);
-
-  const handleTakeUpWork = (event) => {
-    event.stopPropagation();
-    toast.success(
-      <p className="relative pr-2">
-        Work added to your uptaken tasks.{" "}
-        <button
-          className="absolute right-0 top-1/2 -translate-y-1/2 text-sm p-[1px] px-[3px] bg-white rounded-xl
-         text-metal-800"
-        >
-          undo
-        </button>
-      </p>
-    );
-  };
-
-  const handleBookmarkWork = (event) => {
-    event.stopPropagation();
-    toast.success("Work has been bookmarked successfully.");
-    setisBookmarked((current) => !current);
-  };
+  const [isBookmarked, setisBookmarked] = useState(is_bookmarked);
 
   return (
     <>
       <div
-        onClick={() => navigate("/work/1")}
+        onClick={() => navigate(`/work/${id}`)}
         className={`relative work-card pl-3 font-opensans py-4 ${
           darkMode ? "dark" : ""
         } hover:bg-[#f1f1f1] transition-colors duration-300 dark:bg-darkMode-cardBg dark:hover:bg-darkMode-cardHover`}
       >
         <p className="text-[11px] text-[#676767] dark:text-darkMode-cardText">
-          Posted on Thursday
+          Posted {relativeTime(created_at)}
         </p>
         <p className="category text-[20px] text-[#181818] dark:text-darkMode-cardText font-semibold">
-          Essay
+          {type}
         </p>
         <p className="text-[15px] my-2 text-[#676767] dark:text-darkMode-cardText">
-          1500 words
+          {words} words
         </p>
         <p className=" mt-2 text-[#181818] text-sm font-medium dark:text-darkMode-cardText">
-          Due on 21st June 2024
+          Due on {formatDate(deadline)}
         </p>
         <p>
           <CountdownToDate deadline={deadline} />
@@ -61,29 +51,16 @@ const WorkCard = ({ bookmark = false, deadline = "2024-07-08T01:02:03" }) => {
           01:23:03 to deadline
         </p> */}
         <div className="px-2 py-1 mt-1 w-fit rounded-2xl bg-[#E9E9E9] dark:bg-neutral-500 text-[#676767] dark:text-darkMode-cardText">
-          MK345
+          {work_code}
         </div>
-        <Button
-          onClick={handleTakeUpWork}
-          className="bg-blue-500 hover:bg-blue-400 transition-colors duration-300 dark:bg-darkMode-cardButton
-           dark:hover:bg-darkMode-cardButtonHover dark:text-darkMode-cardButtonT
-            dark:hover:text-darkMode-cardButtonTHov mt-4 "
-        >
-          <GraduationCap size={20} className="mr-1.5" />
-          Take up work
-        </Button>
+        <TakeUpWorkButton id={id && id} />
+
         {/* Bookmark button */}
         <BookmarkToggle
-          onClick={handleBookmarkWork}
           isBookmarked={isBookmarked}
           setisBookmarked={setisBookmarked}
+          id={id}
         />
-        {/* <button
-          onClick={handleBookmarkWork}
-          className="absolute top-8 right-4 dark:text-white"
-        >
-          <BookmarkSimple size={25} className=" " />
-        </button> */}
       </div>
       <Divider className="dark:hidden" color="primary" />
       <Divider className="hidden dark:block" color="secondary" />

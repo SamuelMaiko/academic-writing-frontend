@@ -4,7 +4,8 @@ import Vini from "../../../assets/Default_pfp.jpg";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePreview = () => {
-  const { shrinkSideBar, imageURL } = useStateShareContext();
+  const { shrinkSideBar, imageURL, firstName, lastName } =
+    useStateShareContext();
   const navigate = useNavigate();
   return (
     <div
@@ -19,7 +20,9 @@ const ProfilePreview = () => {
           className="w-full h-full object-cover object-center"
         />
       </div>
-      <p className={`font-extrabold text-[1.5rem] mt-4`}>Samuel Maiko</p>
+      <p className={`font-extrabold text-[1.5rem] mt-4`}>
+        {firstName} {lastName}
+      </p>
       <p className={`font-semibold text-[16px]`}>Techwave Writer</p>
       <button
         onClick={() => navigate("/profile")}

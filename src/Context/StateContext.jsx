@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../CustomHooks/useLocalStorage";
+import instance from "../axios/instance";
+import { toast } from "react-toastify";
 
 const ShareState = createContext();
 
@@ -38,6 +40,9 @@ const StateContext = ({ children }) => {
   const [upload, setUpload] = useState("");
   const [showCarouselModal, setShowCarouselModal] = useState(false);
 
+  // signup process
+  const [success, setSuccess] = useState("");
+
   // areas to hide mobile NavBar
   const { pathname } = useLocation();
   const AreasToHideMobileNavBar =
@@ -47,6 +52,39 @@ const StateContext = ({ children }) => {
     pathname == "/reset-successful";
 
   // const [showModal, setShowModal] = useState(true);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  // fetching details such as the profile pic, first_name, last_name
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  const getDetails = async () => {
+    try {
+      const response = await instance.get("/profile/");
+      setImageURL(response.data.profile_picture_absolute);
+      setFirstName(response.data.first_name);
+      setLastName(response.data.last_name);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
 
   return (
     <ShareState.Provider
@@ -93,6 +131,13 @@ const StateContext = ({ children }) => {
         setUpload,
         showCarouselModal,
         setShowCarouselModal,
+        // signup
+        success,
+        setSuccess,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
       }}
     >
       {children}

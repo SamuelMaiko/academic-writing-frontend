@@ -3,8 +3,10 @@ import Chimp from "../../../assets/gpt-redesign-5.webp";
 import { Download } from "lucide-react";
 import { useStateShareContext } from "../../../Context/StateContext";
 
-const ImageBlock = () => {
+const ImageBlock = ({ image, image_name, download_url, combined }) => {
   const { setShowCarouselModal } = useStateShareContext();
+
+  // JUST to prevent propagation nothing else
   const handleDownload = (e) => {
     e.stopPropagation();
   };
@@ -14,16 +16,13 @@ const ImageBlock = () => {
       onClick={() => setShowCarouselModal(true)}
       className="relative size-[6rem] cursor-pointer hover:bg-gray-400 overflow-hidden"
     >
-      <img className="h-full w-full " src={Chimp} alt="" />
+      <img className="h-full w-full " src={image} alt={image_name} />
       <div
         className="bg-transparent hover:bg-[rgba(0,0,0,0.2)] transition-colors duration-300 
       absolute inset-0 z-10 size-full"
       ></div>
       {/* download icon */}
-      <a
-        href="http://localhost:8000/api/download-images/1/"
-        download="wallpaperflare.com_wallpaper_1.jpg"
-      >
+      <a href={download_url} download={combined}>
         <Download
           size={20}
           className="absolute top-1 right-1 text-white z-20"

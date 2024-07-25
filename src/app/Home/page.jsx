@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div
-      className={` relative px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
+      className={` relative px-[1rem] md:px-[2rem] pb-[5rem] dark:bg-darkMode-body dark:text-darkMode-text`}
     >
       <div className="sticky top-[5rem] bg-white dark:bg-darkMode-body z-40 pb-3 pt-4">
         <SearchInput />

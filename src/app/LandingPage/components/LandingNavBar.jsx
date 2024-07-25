@@ -91,7 +91,10 @@ const LandingNavBar = () => {
           </button>
           {/* show during forgot password process */}
           <button
-            onClick={handleLogin}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate("/login");
+            }}
             className={`bg-chocolate text-white hover:bg-neutral-600 rounded-3xl px-5 py-1 lg:mt-0 font-medium
              text-[1.1rem] transition-colors duration-300 ${
                AreasToHideMobileNavBar ? "" : "hidden"

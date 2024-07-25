@@ -18,7 +18,7 @@ const LandingHeader = () => {
         pt-[12.2rem] md:pt-0 mt-[8.5rem] md:mt-[16rem] lg:mt-0 w-[100%] mx-auto md:w-[48rem] md:bg-transparent
          flex-wrap lg:flex-nowrap lg:m-0 lg:left-24 -top-[8.5rem] lg:top-80  lg:w-[45%] px-[2rem] md:px-0 "
         >
-          <p className="md:text-[2.5rem] text-[34px] font-bold font-opensans lg:font-opensans text-chocolate">
+          <p className="md:text-[2.5rem] text-[30px] font-bold font-opensans lg:font-opensans text-chocolate">
             Welcome to Techwave writers self-Service Portal
           </p>
           <small className="text-[1rem] leading-9">

@@ -36,6 +36,7 @@ const StateContext = ({ children }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageURL, setImageURL] = useLocalStorage("pfp", "");
   const [upload, setUpload] = useState("");
+  const [showCarouselModal, setShowCarouselModal] = useState(false);
 
   // areas to hide mobile NavBar
   const { pathname } = useLocation();
@@ -90,6 +91,8 @@ const StateContext = ({ children }) => {
         setImageURL,
         upload,
         setUpload,
+        showCarouselModal,
+        setShowCarouselModal,
       }}
     >
       {children}

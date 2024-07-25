@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageBlock from "./ImageBlock";
-import { CloudArrowDown } from "phosphor-react";
+import { ArrowLeft, CloudArrowDown } from "phosphor-react";
+import CarouselComponent from "./CarouselComponent ";
+import { X } from "lucide-react";
+import { useStateShareContext } from "../../../Context/StateContext";
 
 const WorkImages = () => {
+  const { showCarouselModal, setShowCarouselModal } = useStateShareContext();
   return (
     <div>
       <div className="flex justify-between pr-10 md:pr-20 mb-8">
@@ -29,6 +33,37 @@ const WorkImages = () => {
         <ImageBlock />
         <ImageBlock />
         <ImageBlock />
+      </div>
+      {/* carousel modal */}
+      <div
+        className={`${
+          showCarouselModal ? "" : "hidden"
+        } fixed inset-0 z-50 bg-[rgba(0,0,0,0.3)] dark:bg-[rgba(0,0,0,0.6)] backdrop-blur-md`}
+      >
+        <div
+          className="absolute w-[100vw] md:w-[60%] h-[100%] left-[50%]
+     translate-x-[-50%] top-[50%] translate-y-[-50%] dark:bg-darkMode-body
+      dark:text-darkMode-text bg-transparent flex items-center 
+     "
+        >
+          <CarouselComponent />
+          {/* cancel button */}
+          <button
+            onClick={() => setShowCarouselModal(false)}
+            className="rounded-full p-2 absolute
+             top-3 -right-[30%] text-white hidden md:block"
+          >
+            <X size={24} />
+          </button>
+          {/* back button for mobile */}
+          <button
+            onClick={() => setShowCarouselModal(false)}
+            className="rounded-full p-2 absolute
+             top-3 left-0 text-white block md:hidden"
+          >
+            <ArrowLeft size={24} />
+          </button>
+        </div>
       </div>
     </div>
   );

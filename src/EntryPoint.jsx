@@ -51,10 +51,20 @@ const EntryPoint = () => {
     const filterAvailable = JSON.parse(localStorage.getItem("filters"));
     if (!filterAvailable) {
       setFilters([
-        { type: "words", active: false, title: "2000 words" },
-        { type: "words", active: false, title: "1500 words" },
-        { type: "deadline", active: false, title: "Deadline Today" },
-        { type: "deadline", active: false, title: "Deadline Tomorrow" },
+        { type: "words", active: false, value: "2000", title: "2000 words" },
+        { type: "words", active: false, value: "1500", title: "1500 words" },
+        {
+          type: "deadline",
+          active: false,
+          value: "today",
+          title: "Deadline Today",
+        },
+        {
+          type: "deadline",
+          active: false,
+          value: "tomorrow",
+          title: "Deadline Tomorrow",
+        },
       ]);
     }
   }, []);

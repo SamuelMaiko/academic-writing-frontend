@@ -8,49 +8,39 @@ import { X } from "phosphor-react";
 const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredWorks, setFilteredWorks] = useState([]);
-  const { work, setWork } = useProgressBarContext();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { loading, setLoading, error, setError, fetchWorks } =
+    useProgressBarContext();
   const location = useLocation();
   const navigate = useNavigate();
 
   // Function to fetch works from the backend based on the search query
-  const fetchWorks = async (query) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await instance.get("/work/", {
-        params: { search: query },
-      });
-      setWork(response.data);
-    } catch (error) {
-      console.error("Error fetching works:", error);
-      setError("Failed to fetch works. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // Effect to fetch works when searchQuery changes
   useEffect(() => {
-    const query = new URLSearchParams(location.search).get("search") || "";
-    fetchWorks(query); // not
+    const parameters = new URLSearchParams(location.search);
+    const query = parameters.get("search") || "";
+    const words = parameters.get("words") || null;
+    const deadline = parameters.get("deadline") || null;
+
+    // alert(words);
+
+    fetchWorks(query, words, deadline); // not
     setSearchQuery(query);
-    // if (query) {
-    //   fetchWorks(query);
-    // } else {
-    //   setFilteredWorks([]);
-    // }
   }, [location.search]);
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    navigate(`?search=${encodeURIComponent(query)}`);
+    const newparams = new URLSearchParams(location.search);
+    newparams.set("search", query);
+    // console.log(newparams);
+    navigate(`?${newparams.toString()}`);
+    // navigate(`?search=${encodeURIComponent(query)}`);
     if (query) {
-      fetchWorks(query);
-    } else {
-      setFilteredWorks([]);
+      const words = newparams.get("words") || null;
+      const deadline = newparams.get("deadline") || null;
+
+      fetchWorks(query, words, deadline);
     }
   };
 
@@ -87,7 +77,10 @@ const SearchInput = () => {
       <button
         onClick={() => {
           handleSearchChange({ target: { value: "" } });
-          setSearchQuery("");
+          const sparams = new URLSearchParams(location.search);
+          sparams.set("search", "");
+          navigate(`?${sparams.toString()}`);
+          // setSearchQuery("");
         }}
         type="button"
         className="absolute top-1/2 -translate-y-1/2 right-[10%] hover:text-gray-500 transition-colors duration-300"

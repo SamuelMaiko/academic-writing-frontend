@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../CustomHooks/useLocalStorage";
 import instance from "../axios/instance";
 import { toast } from "react-toastify";
+import Vini from "../assets/Default_pfp.jpg";
 
 const ShareState = createContext();
 
@@ -53,18 +54,21 @@ const StateContext = ({ children }) => {
 
   // const [showModal, setShowModal] = useState(true);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useLocalStorage("firstName", "");
+  const [lastName, setLastName] = useLocalStorage("lastName", "");
 
-  // fetching details such as the profile pic, first_name, last_name
+  // fetching details such as the profile pic, first_name, last_name DISPLAYED in NavBar, SideBar
   useEffect(() => {
-    getDetails();
+    if (firstName === "" || lastName === "") {
+      getDetails();
+    }
   }, []);
 
   const getDetails = async () => {
     try {
       const response = await instance.get("/profile/");
-      setImageURL(response.data.profile_picture_absolute);
+      // console.log(response.data);
+      setImageURL(response.data.profile_picture_absolute ?? Vini);
       setFirstName(response.data.first_name);
       setLastName(response.data.last_name);
     } catch (error) {

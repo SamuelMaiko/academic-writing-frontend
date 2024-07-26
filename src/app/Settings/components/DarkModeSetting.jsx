@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
 
 const DarkModeSetting = () => {
   const { setShowEditInfoModal, setSettingsOpen, darkMode, setDarkMode } =
@@ -7,7 +9,37 @@ const DarkModeSetting = () => {
 
   const handleToggle = () => {
     setDarkMode(!darkMode);
+    toggleDarkMode(darkMode);
+
     document.documentElement.classList.toggle("dark-mode"); // Toggle dark mode class on the document
+  };
+
+  const toggleDarkMode = async (Bool) => {
+    try {
+      const response = await instance.put("/preferences/update/", {
+        dark_mode: Bool,
+      });
+      // setProfile(response.data);
+      toast.success("success");
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 400:
+            toast.error(message);
+            break;
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      // setLoading(false);
+    }
   };
 
   return (

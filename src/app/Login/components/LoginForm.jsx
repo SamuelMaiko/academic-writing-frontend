@@ -20,10 +20,8 @@ const LoginForm = () => {
     setChangePasswordDone,
   } = useProgressBarContext();
 
-  // const handleUserLogin = (e) => {
-  //   e.preventDefault();
-  //   toast.success("Login successful");
-  //   navigate("/home");
+  const { setFirstName, setLastName, setImageURL } = useStateShareContext();
+
   // };
 
   const handleUserLogin = async (e) => {
@@ -36,11 +34,15 @@ const LoginForm = () => {
         registration_number: registrationNumber,
         password: password,
       });
-      console.log(response);
-      // toast.success("Logged in successfully!");
-      // storing access and refresh token in cookies
+      console.log(response.data);
+
       createNewCookie("access_token", response.data.access);
       createNewCookie("refresh_token", response.data.refresh);
+
+      // setting first name, last name and imageURL in LOCAL STORAGE
+      setFirstName(response.data.user.first_name);
+      setLastName(response.data.user.last_name);
+      setImageURL(response.data.user.profile_picture_absolute);
 
       // navigating to onboarding
       const isVerified = response.data.user.is_verified;
@@ -81,7 +83,6 @@ const LoginForm = () => {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data.error;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:

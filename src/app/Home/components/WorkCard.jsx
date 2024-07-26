@@ -13,7 +13,7 @@ import TakeUpWorkButton from "./TakeUpWorkButton";
 
 const WorkCard = ({
   id,
-  is_bookmarked = false,
+  is_bookmarked,
   deadline,
   type,
   words,

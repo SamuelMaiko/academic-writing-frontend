@@ -1,6 +1,6 @@
 import React from "react";
 
-const Bio = () => {
+const Bio = ({ bio }) => {
   return (
     <div
       className="mt-[10.8rem] min-h-[6rem] mx-auto flex flex-col justify-center
@@ -11,12 +11,7 @@ const Bio = () => {
     >
       <h1 className="text-[16px] md:text-lg font-semibold">Bio</h1>
       <p id="contact" className=""></p>
-      <p className="text-[14px] leading-6">
-        My name is noobie and 💡 Embracing the wisdom encapsulated in the words,
-        Continuous learning and adaptability are the keys to a successful career
-        in the ever-evolving field of technology I am driven to not only
-        navigate but thrive within the dynamic realm of software engineering.
-      </p>
+      <p className="text-[14px] leading-6">{bio}</p>
       {/* contact tracking */}
     </div>
   );

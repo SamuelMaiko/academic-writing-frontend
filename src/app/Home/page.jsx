@@ -17,9 +17,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const { filters, darkMode } = useStateShareContext();
 
-  // update the search params here
-  useEffect(() => console.log("Hey"), [filters]);
-
   useEffect(() => {
     getWork();
   }, []);
@@ -66,24 +63,15 @@ const Home = () => {
           }
         />
         <Loader loading={loading} />
-        {work &&
-          work.map((work, index) => {
-            return <WorkCard key={index} {...work} />;
-          })}
-        {/* <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard bookmark={true} deadline="2024-07-05T14:40:03" />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard />
-        <WorkCard /> */}
-        <div className="pb-[8rem] hidden">
+        <div className={`${loading ? "hidden" : ""}`}>
+          {work &&
+            work.map((work, index) => {
+              return <WorkCard key={index} {...work} />;
+            })}
+        </div>
+        <div
+          className={`pb-[8rem] ${loading || work.length > 0 ? "hidden" : ""}`}
+        >
           <img
             className="mx-auto w-[16rem]"
             src={darkMode ? UnavailableDark : UnavailableLight}

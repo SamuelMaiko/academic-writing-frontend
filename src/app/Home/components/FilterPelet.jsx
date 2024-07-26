@@ -1,12 +1,19 @@
 import { X } from "lucide-react";
 import React from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { useNavigate } from "react-router-dom";
 
 const FilterPelet = ({ title }) => {
   const { filters, setFilters } = useStateShareContext();
+  const navigate = useNavigate();
+
   const handleRemoveFilter = () => {
     const updated_filters = filters.map((filter) => {
       if (filter.title == title) {
+        const sparams = new URLSearchParams(location.search);
+        // sparams.de
+        sparams.delete(filter.type);
+        navigate(`?${sparams.toString()}`);
         return { ...filter, active: false };
       }
       return filter;

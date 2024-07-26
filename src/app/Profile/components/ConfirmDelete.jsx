@@ -1,7 +1,10 @@
 import { Divider } from "keep-react";
-import React from "react";
+import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { X } from "phosphor-react";
+import Vini from "../../../assets/Default_pfp.jpg";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
 
 const ConfirmDelete = () => {
   const {
@@ -11,11 +14,36 @@ const ConfirmDelete = () => {
     setUpload,
   } = useStateShareContext();
 
-  const handleDelete = () => {
-    setSelectedFile(null);
-    setImageURL("");
-    setUpload("");
-    setShowDeleteProfilePhotoModal(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.delete("/profile/remove-picture/");
+      toast.success("Profile picture deleted.");
+      setUpload("");
+      setImageURL(Vini);
+      setShowDeleteProfilePhotoModal(false);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 400:
+            toast.error(message.profile_picture);
+            break;
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+
     // api to delete
   };
   return (
@@ -56,8 +84,9 @@ const ConfirmDelete = () => {
             onClick={handleDelete}
             className={` bg-blue-500 hover:bg-blue-600
               py-1 px-3 rounded-2xl font-medium text-white transition-background duration-300 flex items-center`}
+            disabled={loading}
           >
-            <span>Delete</span>
+            <span>{loading ? "loading..." : "Delete"}</span>
           </button>
         </div>
       </div>

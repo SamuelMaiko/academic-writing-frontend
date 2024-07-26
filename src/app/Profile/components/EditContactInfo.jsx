@@ -1,6 +1,13 @@
 import React from "react";
 
-const EditContactInfo = () => {
+const EditContactInfo = ({
+  phoneNumber,
+  setPhoneNumber,
+  email,
+  setEmail,
+  linkedIn,
+  setLinkedIn,
+}) => {
   return (
     <div className="mt-10">
       <h1 className="text-xl md:text-2xl font-semibold">Contact info</h1>
@@ -14,6 +21,8 @@ const EditContactInfo = () => {
             type="text"
             className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             name="phone_number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
       </div>
@@ -27,6 +36,9 @@ const EditContactInfo = () => {
             type="email"
             className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={true}
           />
         </div>
       </div>
@@ -40,6 +52,8 @@ const EditContactInfo = () => {
             type="text"
             className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             name="linked-in"
+            value={linkedIn}
+            onChange={(e) => setLinkedIn(e.target.value)}
           />
         </div>
       </div>

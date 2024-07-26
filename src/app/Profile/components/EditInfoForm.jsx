@@ -1,12 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { X } from "phosphor-react";
 import EditBasicInfo from "./EditBasicInfo";
 import EditLocation from "./EditLocation";
 import EditContactInfo from "./EditContactInfo";
 import { useStateShareContext } from "../../../Context/StateContext";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
+import SaveButton from "./SaveButton";
 
 const EditInfoForm = () => {
   const { setShowEditInfoModal } = useStateShareContext();
+  // const [details, setDetails] = useState({});
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [bio, setBio] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [country, setCountry] = useState("");
+  const [county, setCounty] = useState("");
+
+  const getDetails = async () => {
+    try {
+      const response = await instance.get("/profile/update/");
+
+      setFirstName(response.data.first_name);
+      setLastName(response.data.last_name);
+      setBio(response.data.bio);
+      setPhoneNumber(response.data.phone_number);
+      setEmail(response.data.email);
+      setLinkedIn(response.data.linkedin);
+      setCountry(response.data.country);
+      setCounty(response.data.county);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error(
+          "An unexpected error occurred. Please try again later.",
+          error
+        );
+      }
+    }
+  };
+
+  useState(() => {
+    getDetails();
+  }, []);
+
   return (
     <div
       className="absolute w-full md:w-[60%] h-[34rem] rounded-lg  md:px-2 left-[50%]
@@ -30,21 +78,42 @@ const EditInfoForm = () => {
         <p className="text-neutral-500 dark:text-darkMode-gray text-sm mt-4 mb-7">
           * Indicates required
         </p>
-        <EditBasicInfo />
-        <EditLocation />
-        <EditContactInfo />
+        <EditBasicInfo
+          firstName={firstName}
+          setFirstName={setFirstName}
+          lastName={lastName}
+          setLastName={setLastName}
+          bio={bio}
+          setBio={setBio}
+        />
+        <EditLocation
+          country={country}
+          setCountry={setCountry}
+          county={county}
+          setCounty={setCounty}
+        />
+        <EditContactInfo
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          email={email}
+          setEmail={setEmail}
+          linkedIn={linkedIn}
+          setLinkedIn={setLinkedIn}
+        />
       </form>
       {/* footer */}
       <div className=" h-[3.9rem] flex items-center justify-between px-5">
         <div></div>
-        <button
-          className="bg-blue-500 hover:bg-blue-400 transition-colors duration-300
-         dark:bg-darkMode-cardButton dark:hover:bg-darkMode-cardButtonHover
-          dark:text-darkMode-cardButtonT dark:hover:text-darkMode-cardButtonTHov
-           rounded-2xl font-semibold  py-1 px-5 text-white"
-        >
-          Save
-        </button>
+        <SaveButton
+          firstName={firstName}
+          lastName={lastName}
+          bio={bio}
+          phoneNumber={phoneNumber}
+          email={email}
+          linkedIn={linkedIn}
+          country={country}
+          county={county}
+        />
       </div>
     </div>
   );

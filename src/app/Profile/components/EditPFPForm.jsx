@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { ImageSquare, Trash, X } from "phosphor-react";
 import Vini from "../../../assets/Default_pfp.jpg";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
 
 const EditPFPForm = () => {
   useEffect(() => {
@@ -23,23 +25,48 @@ const EditPFPForm = () => {
     if (file) {
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
-      // setImageURL(url);
       setUpload(url);
     }
   };
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedFile) {
-      // Implement the file upload logic here, e.g., sending to a server
-      setImageURL(upload);
-      console.log("Selected file:", selectedFile);
-      alert("Uploaded");
-    } else {
-      alert("No file selected!");
-    }
-  };
+      try {
+        const formData = new FormData();
+        formData.append("profile_picture", selectedFile);
+        const response = await instance.put(
+          "/profile/update/picture/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        setImageURL(response.data.profile_picture_absolute);
+        toast.success("Profile picture changed.");
+      } catch (error) {
+        if (error.response && error.response.status) {
+          const status = error.response.status;
+          const message = error.response.data;
 
-  const handlePhotoDelete = () => {
-    setShowDeleteProfilePhotoModal(true);
+          switch (status) {
+            case 400:
+              toast.error(message.profile_picture);
+              break;
+            case 500:
+              toast.error(`Internal server error`);
+              break;
+          }
+        } else {
+          toast.error("An unexpected error occurred. Please try again later.");
+        }
+      } finally {
+        // setting to NULL because I want to hide the buttons: "Upload","Delete"
+        setSelectedFile(null);
+      }
+    } else {
+      toast.warning("No file selected!");
+    }
   };
 
   return (
@@ -66,7 +93,7 @@ const EditPFPForm = () => {
           <div className="size-[14rem] md:size-[19rem] rounded-full overflow-hidden border-2 border-gray-300 flex items-center justify-center">
             <img
               className="h-full w-full object-cover object-center"
-              src={!selectedFile ? Vini : upload}
+              src={!selectedFile ? imageURL : upload}
               alt="Profile Preview"
             />
           </div>
@@ -103,7 +130,8 @@ const EditPFPForm = () => {
                 </button>
                 <button
                   onClick={() => {
-                    setUpload("");
+                    setUpload(imageURL);
+                    setSelectedFile(null);
                   }}
                   className="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
                 >
@@ -112,11 +140,8 @@ const EditPFPForm = () => {
               </div>
             )}
           </div>
-          {/* <form action="">
-            <input type="file" />
-          </form> */}
           <button
-            onClick={handlePhotoDelete}
+            onClick={() => setShowDeleteProfilePhotoModal(true)}
             className="h-full px-2 flex flex-col items-center hover:bg-neutral-200
            dark:hover:bg-gray-600 justify-center rounded-lg font-medium  py-1"
           >

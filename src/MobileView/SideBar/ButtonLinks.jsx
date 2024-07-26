@@ -133,7 +133,7 @@ const ButtonLinks = () => {
               <BookmarkSimple size={20} />
             )
           }
-          title={"Bookmark"}
+          title={"Bookmarks"}
           className={`${
             pathname === "/bookmarks" ? "text-sidebartext-hover" : ""
           } w-full`}

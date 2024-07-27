@@ -5,6 +5,7 @@ import { useStateShareContext } from "../../Context/StateContext";
 
 const AssignedWork = () => {
   const { darkMode } = useStateShareContext();
+
   return (
     <div
       className={`w-full px-[1rem] md:px-[2rem] ${

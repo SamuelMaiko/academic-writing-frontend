@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Badge,
   Table,
@@ -12,9 +12,41 @@ import TableRowAssignedWork from "./TableRowAssignedWork";
 import UnavailableDark from "../../../assets/UnavailableDark.png";
 import UnavailableLight from "../../../assets/UnavailableLight.png";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { toast } from "react-toastify";
+import instance from "../../../axios/instance";
 
 const TableAssignedWork = () => {
   const { darkMode } = useStateShareContext();
+  const [loading, setLoading] = useState(false);
+  const [assignedWork, setAssignedWork] = useState([]);
+
+  const fetchAssignedWork = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get("/work/assigned/");
+      setAssignedWork(response.data);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAssignedWork();
+  }, []);
   return (
     <>
       <Table showCheckbox={false} hoverable="true" className="">
@@ -44,8 +76,24 @@ const TableAssignedWork = () => {
           <TableHead className="min-w-[100px]" />
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          <TableRowAssignedWork isRead={false} />
-          <TableRowAssignedWork isRead={true} />
+          {assignedWork &&
+            assignedWork.map((work, index) => {
+              return (
+                <TableRowAssignedWork
+                  key={index}
+                  id={work.id}
+                  work_code={work.work_code}
+                  type={work.type}
+                  words={work.words}
+                  deadline={work.deadline}
+                  status={work.status}
+                  read={work.assigned_is_read}
+                  isSubmitted={work.assigned_is_is_submitted}
+                  assignedWork={assignedWork}
+                  setAssignedWork={setAssignedWork}
+                />
+              );
+            })}
         </TableBody>
       </Table>
       <div className="pb-[8rem] hidden">

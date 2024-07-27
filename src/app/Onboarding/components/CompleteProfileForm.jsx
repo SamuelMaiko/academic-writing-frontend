@@ -41,7 +41,6 @@ const CompleteProfileForm = () => {
 
       // setSuccess(response.data.message);
       toast.success("Profile updated successfully.");
-      console.log(response.data);
       setProfileDone(true);
       setImageURL(response.data.profile_picture_absolute);
       navigate("/onboarding/change-password");

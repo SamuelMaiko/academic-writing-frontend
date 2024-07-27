@@ -1,11 +1,49 @@
 import { Divider } from "keep-react";
-import React from "react";
+import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { Warning, X } from "phosphor-react";
 import { TriangleAlert } from "lucide-react";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
+import { deleteCookie } from "../../../Cookies/Cookie";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmAccountDeactivate = () => {
   const { setShowDeactivateAccountModal } = useStateShareContext();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDeactivateAccount = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.post("/auth/deactivate-account/");
+
+      toast.success(
+        "Account deactivated. You can login anytime to activate it."
+      );
+      setShowDeactivateAccountModal(false);
+      // clearing all storage
+      localStorage.clear();
+      deleteCookie("access_token");
+      deleteCookie("refresh_token");
+      navigate("/");
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       className="absolute w-[21rem]  px-2 left-[50%] translate-x-[-50%] top-[30%] rounded-lg
@@ -49,11 +87,12 @@ const ConfirmAccountDeactivate = () => {
             <span>Cancel</span>
           </button>
           <button
-            onClick={() => {}}
+            onClick={handleDeactivateAccount}
             className={` bg-orange-500 hover:bg-orange-600
               py-1 px-3 rounded-2xl font-medium text-white transition-background duration-300 flex items-center`}
+            disabled={loading}
           >
-            <span>Delete</span>
+            <span>{loading ? "loading..." : "Deactivate"}</span>
           </button>
         </div>
       </div>

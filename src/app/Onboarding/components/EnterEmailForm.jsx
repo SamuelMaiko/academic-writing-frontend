@@ -67,7 +67,8 @@ const EnterEmailForm = () => {
         </label>
       </div>
       <button
-        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
+        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500 hover:bg-blue-600
+         text-white font-medium block transition-colors duration-300"
         disabled={isLoading}
       >
         {isLoading ? "Submitting..." : "Send Code"}

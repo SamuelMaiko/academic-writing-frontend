@@ -77,7 +77,8 @@ const EnterVerificationCodeForm = () => {
       </div>
       <button
         type="submit"
-        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500 text-white font-medium block"
+        className="px-6 py-3 md:py-4 mt-4 rounded-md bg-blue-500  hover:bg-blue-600
+         transition-colors duration-300 text-white font-medium block"
         disabled={isLoading}
       >
         {isLoading ? "Submitting..." : "Verify Email"}

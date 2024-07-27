@@ -3,6 +3,8 @@ import SettingsBlock from "./SettingsBlock";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { Divider } from "keep-react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { deleteCookie } from "../../../Cookies/Cookie";
+import { toast } from "react-toastify";
 
 const AccountManagement = () => {
   const {
@@ -49,9 +51,12 @@ const AccountManagement = () => {
       <Divider className="hidden dark:block" color="secondary" />
       <SettingsBlock
         onClick={() => {
-          //   setShowEditInfoModal(true);
-          navigate("/");
+          localStorage.clear();
+          deleteCookie("access_token");
+          deleteCookie("refresh_token");
+          toast.success("Logged out.");
           setSettingsOpen(false);
+          navigate("/");
         }}
         title="Sign Out"
       />

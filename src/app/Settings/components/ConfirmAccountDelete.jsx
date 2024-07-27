@@ -1,11 +1,47 @@
 import { Divider } from "keep-react";
-import React from "react";
+import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { X } from "phosphor-react";
 import { TriangleAlert } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
+import { deleteCookie } from "../../../Cookies/Cookie";
 
 const ConfirmAccountDelete = () => {
   const { setShowDeleteAccountModal } = useStateShareContext();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDeleteAccount = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.post("/auth/delete-account/");
+
+      toast.success("Account deleted.");
+      // clearing all storage
+      localStorage.clear();
+      deleteCookie("access_token");
+      deleteCookie("refresh_token");
+      navigate("/");
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className="absolute w-[21rem]  px-2 left-[50%] translate-x-[-50%] top-[30%] rounded-lg
@@ -45,11 +81,12 @@ const ConfirmAccountDelete = () => {
             <span>Cancel</span>
           </button>
           <button
-            onClick={() => {}}
+            onClick={handleDeleteAccount}
             className={` bg-red-500 hover:bg-red-600
               py-1 px-3 rounded-2xl font-medium text-white transition-background duration-300 flex items-center`}
+            disabled={loading}
           >
-            <span>Delete</span>
+            <span>{loading ? "loading..." : "Delete"}</span>
           </button>
         </div>
       </div>

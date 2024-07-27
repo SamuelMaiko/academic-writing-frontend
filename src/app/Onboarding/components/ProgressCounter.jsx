@@ -21,7 +21,7 @@ const ProgressCounter = ({ number, className, title }) => {
 };
 
 ProgressCounter.propTypes = {
-  number: PropTypes.bool.isRequired,
+  number: PropTypes.number.isRequired,
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

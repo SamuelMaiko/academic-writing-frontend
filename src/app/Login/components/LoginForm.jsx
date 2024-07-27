@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("lastone447");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { success } = useStateShareContext();
+  const { success, setSuccess, setDarkMode } = useStateShareContext();
   const navigate = useNavigate();
   const {
     setVerifyDone,
@@ -28,13 +28,13 @@ const LoginForm = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setSuccess("");
 
     try {
       const response = await instance.post("/auth/login/", {
         registration_number: registrationNumber,
         password: password,
       });
-      console.log(response.data);
 
       createNewCookie("access_token", response.data.access);
       createNewCookie("refresh_token", response.data.refresh);
@@ -43,6 +43,7 @@ const LoginForm = () => {
       setFirstName(response.data.user.first_name);
       setLastName(response.data.user.last_name);
       setImageURL(response.data.user.profile_picture_absolute);
+      setDarkMode(response.data.user.dark_mode);
 
       // navigating to onboarding
       const isVerified = response.data.user.is_verified;

@@ -3,6 +3,7 @@ import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
+import { useStateShareContext } from "../../../Context/StateContext";
 
 const CompleteProfileForm = () => {
   const { setProfileDone } = useProgressBarContext();
@@ -15,6 +16,7 @@ const CompleteProfileForm = () => {
   const [bio, setBio] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { setImageURL } = useStateShareContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +41,9 @@ const CompleteProfileForm = () => {
 
       // setSuccess(response.data.message);
       toast.success("Profile updated successfully.");
+      console.log(response.data);
       setProfileDone(true);
+      setImageURL(response.data.profile_picture_absolute);
       navigate("/onboarding/change-password");
     } catch (error) {
       if (error.response && error.response.status) {

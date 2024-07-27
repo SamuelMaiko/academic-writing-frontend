@@ -26,10 +26,13 @@ const NewPasswordForm = () => {
 
     if (oldPassword == newPassword) {
       setError("New password cannot be the same as old password.");
+      setIsLoading(false);
     } else if (newPassword.length <= 8) {
       setError("New password length should 8 digits or more.");
+      setIsLoading(false);
     } else if (newPassword !== retypedNewPassword) {
       setError("New password and retyped password should be similar.");
+      setIsLoading(false);
     } else {
       try {
         const response = await instance.put(

@@ -33,7 +33,6 @@ const ProgressBarContext = ({ children }) => {
         params: { search: query, words, deadline },
       });
       setWork(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching works:", error);
       setError("Failed to fetch works. Please try again.");

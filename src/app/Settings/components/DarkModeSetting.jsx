@@ -9,7 +9,7 @@ const DarkModeSetting = () => {
 
   const handleToggle = () => {
     setDarkMode(!darkMode);
-    toggleDarkMode(darkMode);
+    toggleDarkMode(!darkMode);
 
     document.documentElement.classList.toggle("dark-mode"); // Toggle dark mode class on the document
   };
@@ -19,8 +19,6 @@ const DarkModeSetting = () => {
       const response = await instance.put("/preferences/update/", {
         dark_mode: Bool,
       });
-      // setProfile(response.data);
-      toast.success("success");
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;

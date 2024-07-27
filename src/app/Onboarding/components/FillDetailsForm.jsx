@@ -35,6 +35,8 @@ const FillDetailsForm = () => {
       // setSuccess(response.data.message);
       toast.success("Details updated successfully.");
       setFillDetailsDone(true);
+      setFirstName(response.data.first_name);
+      setLastName(response.data.last_name);
       navigate("/onboarding/complete-profile");
     } catch (error) {
       if (error.response && error.response.status) {
@@ -70,7 +72,7 @@ const FillDetailsForm = () => {
     const response = await instance.get("/onboarding/details/");
     const data = response.data;
     setFirstName(data.first_name);
-    setLastName(data.first_name);
+    setLastName(data.last_name);
     setPhoneNumber(data.phone_number);
     setCountry(data.country);
     setCounty(data.county);

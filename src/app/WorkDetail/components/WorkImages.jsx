@@ -11,7 +11,11 @@ const WorkImages = ({ images, zipUrl, zipName }) => {
     <div>
       <div className="flex justify-between pr-10 md:pr-20 mb-8">
         <h1 className="text-lg font-semibold ">Images</h1>
-        <a href={zipUrl} download={zipName ? `${zipName}.zip` : undefined}>
+        <a
+          href={zipUrl}
+          className={images.length == 0 ? "hidden" : ""}
+          download={zipName ? `${zipName}.zip` : undefined}
+        >
           <button
             className="text-sm flex items-center gap-2 bg-yellow-300 hover:bg-yellow-400
          transition-colors duration-300 text-black py-1 px-4  font-medium"

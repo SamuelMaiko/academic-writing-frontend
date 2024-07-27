@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Badge,
@@ -11,9 +11,42 @@ import TableRowUptakenWork from "./TableRowUptakenWork";
 import UnavailableDark from "../../../assets/UnavailableDark.png";
 import UnavailableLight from "../../../assets/UnavailableLight.png";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { toast } from "react-toastify";
+import instance from "../../../axios/instance";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const TableUptakenWork = () => {
   const { darkMode } = useStateShareContext();
+
+  const [loading, setLoading] = useState(false);
+  const { uptakenWork, setUptakenWork } = useProgressBarContext();
+
+  const fetchUptakenWork = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get("/work/uptaken/");
+      setUptakenWork(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUptakenWork();
+  }, []);
   return (
     <>
       <Table showCheckbox={false} hoverable={true}>
@@ -43,9 +76,24 @@ const TableUptakenWork = () => {
           <TableHead className="min-w-[100px]" />
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          <TableRowUptakenWork isRead={false} />
-          <TableRowUptakenWork isRead={true} />
-          <TableRowUptakenWork isRead={true} />
+          {uptakenWork &&
+            uptakenWork.map((work, index) => {
+              return (
+                <TableRowUptakenWork
+                  key={index}
+                  id={work.id}
+                  work_code={work.work_code}
+                  type={work.type}
+                  words={work.words}
+                  deadline={work.deadline}
+                  status={work.status}
+                  read={work.uptaken_is_read}
+                  isSubmitted={work.is_submitted}
+                  uptakenWork={uptakenWork}
+                  setUptakenWork={setUptakenWork}
+                />
+              );
+            })}
         </TableBody>
       </Table>
       <div className="pb-[8rem] hidden ">

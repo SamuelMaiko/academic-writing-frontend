@@ -48,7 +48,6 @@ const CompleteProfileForm = () => {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data.error;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:

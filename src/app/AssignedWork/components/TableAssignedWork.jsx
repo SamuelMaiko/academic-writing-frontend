@@ -14,18 +14,18 @@ import UnavailableLight from "../../../assets/UnavailableLight.png";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const TableAssignedWork = () => {
   const { darkMode } = useStateShareContext();
   const [loading, setLoading] = useState(false);
-  const [assignedWork, setAssignedWork] = useState([]);
+  const { assignedWork, setAssignedWork } = useProgressBarContext();
 
   const fetchAssignedWork = async () => {
     setLoading(true);
     try {
       const response = await instance.get("/work/assigned/");
       setAssignedWork(response.data);
-      console.log(response.data);
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
@@ -88,7 +88,7 @@ const TableAssignedWork = () => {
                   deadline={work.deadline}
                   status={work.status}
                   read={work.assigned_is_read}
-                  isSubmitted={work.assigned_is_is_submitted}
+                  isSubmitted={work.is_submitted}
                   assignedWork={assignedWork}
                   setAssignedWork={setAssignedWork}
                 />

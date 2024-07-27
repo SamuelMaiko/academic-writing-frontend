@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CountdownToDate from "../../Home/components/CountdownToDate";
 import formatDate from "../../Home/components/datetime/formatDate";
 import instance from "../../../axios/instance";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const TableRowAssignedWork = ({
   read,
@@ -14,13 +15,16 @@ const TableRowAssignedWork = ({
   type,
   status,
   isSubmitted,
-  assignedWork,
-  setAssignedWork,
 }) => {
   const navigate = useNavigate();
+  const { assignedWork, setAssignedWork } = useProgressBarContext();
+  //
+
   const handleSubmitWork = (event) => {
     event.stopPropagation();
-    navigate(`/work/${id}/submit`);
+    if (!isSubmitted) {
+      navigate(`/work/${id}/submit`);
+    }
   };
 
   const handleSeeDetails = () => {
@@ -34,7 +38,7 @@ const TableRowAssignedWork = ({
     try {
       const response = await instance.post(`/work/${id}/read/`);
       const updatedAssignedWork = assignedWork.map((item) =>
-        item.id === id ? { ...item, uptaken_is_read: true } : item
+        item.id === id ? { ...item, assigned_is_read: true } : item
       );
       setAssignedWork(updatedAssignedWork);
     } catch (error) {
@@ -122,11 +126,11 @@ const TableRowAssignedWork = ({
           <Button
             onClick={handleSubmitWork}
             className={` dark:text-darkMode-cardText
-               dark:hover:text-darkMode-cardTextHover py-2 px-4
+               dark:hover:text-darkMode-cardTextHover py-2 
                  text-white ${
                    isSubmitted
-                     ? "bg-gray-400 text-white cursor-not-allowed"
-                     : "bg-blue-500 dark:bg-darkMode-cardButton hover:bg-darkMode-cardButtonHover"
+                     ? "bg-gray-400 text-white cursor-not-allowed px-4"
+                     : "bg-blue-500 dark:bg-darkMode-cardButton hover:bg-darkMode-cardButtonHover px-7"
                  } transition-colors duration-300`}
           >
             {isSubmitted ? "Submitted" : "Submit"}

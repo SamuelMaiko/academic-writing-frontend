@@ -50,6 +50,10 @@ const ProgressBarContext = ({ children }) => {
   const [contactInfo, setContactInfo] = useState({});
   // bookmarks
   const [bookmarks, setBookmarks] = useState([]);
+  // assigned work
+  const [assignedWork, setAssignedWork] = useState([]);
+  // uptaken work
+  const [uptakenWork, setUptakenWork] = useState([]);
 
   return (
     <BarContext.Provider
@@ -77,6 +81,10 @@ const ProgressBarContext = ({ children }) => {
         setContactInfo,
         bookmarks,
         setBookmarks,
+        assignedWork,
+        setAssignedWork,
+        uptakenWork,
+        setUptakenWork,
       }}
     >
       {children}

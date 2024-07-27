@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const ScrollToTop = () => {
+const ScrollToTop = ({ scrollableRef }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (scrollableRef && scrollableRef.current) {
+      scrollableRef.current.scrollTo(0, 0);
+    }
+  }, [pathname, scrollableRef]);
 
   return null;
 };

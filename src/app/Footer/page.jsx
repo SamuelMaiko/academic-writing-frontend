@@ -25,6 +25,7 @@ const Footer = ({ side = false }) => {
       link: "#",
     },
   ];
+  const firstPart = pathname.split("/")[1];
   //  if footer is on side e.g home page, notification page
   if (side) {
     return (
@@ -59,7 +60,8 @@ const Footer = ({ side = false }) => {
           (pathname === "/bookmarks") |
           (pathname === "/home") |
           (pathname === "/submissions") |
-          (pathname === "/notifications")
+          (pathname === "/notifications") |
+          (firstPart === "revisions")
             ? "hidden"
             : ""
         } bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray

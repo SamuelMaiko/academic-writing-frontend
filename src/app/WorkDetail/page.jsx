@@ -33,16 +33,11 @@ const WorkDetail = () => {
   // getting work id
   const { id } = useParams();
 
-  useEffect(() => {
-    getWorkDetails();
-  }, []);
-
   const getWorkDetails = async () => {
     setLoading(true);
     try {
       const response = await instance.get(`/work/${parseInt(id, 10)}/`);
       setWorkDetails(response.data);
-      console.log(response.data);
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
@@ -76,6 +71,9 @@ const WorkDetail = () => {
     ? `Due on ${formatDate(workDetails.deadline)}`
     : "Due date not available";
 
+  useEffect(() => {
+    getWorkDetails();
+  }, []);
   return (
     <div className="w-full px-0 md:px-[2rem] dark:bg-darkMode-body ">
       <div className="px-[1rem] md:px-0">

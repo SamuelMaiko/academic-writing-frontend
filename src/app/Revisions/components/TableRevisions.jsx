@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Badge,
   Table,
@@ -12,9 +12,41 @@ import TableRowRevisions from "./TableRowRevisions";
 import UnavailableDark from "../../../assets/UnavailableDark.png";
 import UnavailableLight from "../../../assets/UnavailableLight.png";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { toast } from "react-toastify";
+import instance from "../../../axios/instance";
 
 const TableRevisions = () => {
   const { darkMode } = useStateShareContext();
+  const [loading, setLoading] = useState(false);
+  const [revisions, setRevisions] = useState([]);
+
+  const fetchRevisions = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get("/revisions/writer-revisions/");
+      setRevisions(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRevisions();
+  }, []);
+
   return (
     <>
       <Table showCheckbox={false} hoverable={true}>
@@ -25,7 +57,7 @@ const TableRevisions = () => {
                 Revisions
               </p>
               <Badge size="sm" color="secondary" className="dark:text-black">
-                1 revisions
+                {revisions.length} revisions
               </Badge>
             </div>
           </div>
@@ -42,8 +74,23 @@ const TableRevisions = () => {
           <TableHead className="min-w-[200px]">Status</TableHead>
         </TableHeader>
         <TableBody className="divide-gray-25 divide-y">
-          <TableRowRevisions />
-          <TableRowRevisions isOpen={true} />
+          {revisions &&
+            revisions.map((revision, index) => {
+              return (
+                <TableRowRevisions
+                  key={index}
+                  id={revision.id}
+                  reviewer={revision.reviewer}
+                  status={revision.status}
+                  timeReviewed={revision.created_at}
+                  work={revision.work}
+                  submitBefore={revision.submit_before}
+                  read={revision.is_read}
+                  revisions={revisions}
+                  setRevisions={setRevisions}
+                />
+              );
+            })}
         </TableBody>
       </Table>
       <div className="pb-[8rem] hidden">

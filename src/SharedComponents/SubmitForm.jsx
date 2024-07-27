@@ -22,8 +22,7 @@ const SubmitForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { id } = useParams();
-  const { uptakenWork, setUptakenWork, assignedWork, setAssignedWork } =
-    useProgressBarContext();
+
   //
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -55,13 +54,6 @@ const SubmitForm = () => {
         });
 
         toast.success("Submitted successfully.");
-        // updating the work in state to updated
-        const targetAssigned = assignedWork.find((item) => item.id == id);
-        // if (targetAssigned === undefined) {
-        //   alert("uptaken");
-        // } else {
-        //   alert("assigned");
-        // }
 
         navigate(-1);
       } catch (error) {

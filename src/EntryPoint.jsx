@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Route, Routes, Outlet, useLocation } from "react-router-dom";
 import Home from "./app/Home/page";
 import NotFound from "./app/NotFound/page";
@@ -40,6 +40,7 @@ import DeleteSubmissionModal from "./app/Submissions/components/DeleteSubmission
 import Analytics from "./app/Analytics/page";
 import DeleteAccountModal from "./app/Settings/components/DeleteAccountModal";
 import DeactivateAccountModal from "./app/Settings/components/DeactivateAccountModal";
+import ScrollToTop from "./SharedComponents/ScrollToTop ";
 
 const EntryPoint = () => {
   const { showEditInfoModal, darkMode, showEditPFPModal } =
@@ -68,20 +69,26 @@ const EntryPoint = () => {
       ]);
     }
   }, []);
+
+  const scrollableRef = useRef(null);
   return (
     <>
       <div
         // preventing scrolling on modal open
         className={`${
-          showEditInfoModal | showEditPFPModal
-            ? "h-[97.8vh] overflow-hidden"
-            : ""
-        } w-full h-full flex justify-between font-opensans ${
+          showEditInfoModal | showEditPFPModal ? " overflow-hidden" : ""
+        }  flex justify-between gap-0 font-opensans ${
           darkMode ? "dark" : ""
-        } dark:bg-darkMode-bars `}
+        } dark:bg-darkMode-bars h-[calc(100vh-0.5rem)] w-full overflow-hidden`}
       >
-        <SideBar />
-        <div className=" w-full h-full">
+        <div className=" h-full w-fit overflow-y-scroll  overflow-x-hidden">
+          <SideBar />
+        </div>
+        <div
+          ref={scrollableRef}
+          className=" w-full h-full flex-1 overflow-y-scroll scrollble"
+        >
+          <ScrollToTop scrollableRef={scrollableRef} />
           <NavBar />
           <Routes>
             <Route path="/home" element={<Home />} />
@@ -111,10 +118,10 @@ const EntryPoint = () => {
             <Route path="/admin/users/:id" element={<SpecificUserDetails />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className={` overflow-x-hidden `}>
-            <Outlet />
-            <Footer />
-          </div>
+          {/* <div className={` overflow-x-hidden `}> */}
+          <Outlet />
+          <Footer />
+          {/* </div> */}
         </div>
       </div>
       <div className={`${darkMode ? "dark" : ""}`}>

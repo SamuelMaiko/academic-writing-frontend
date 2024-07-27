@@ -3,6 +3,7 @@ import { List } from "phosphor-react";
 import { useStateShareContext } from "../../../Context/StateContext";
 import Button from "./ui/Button";
 import LogoDark from "../../../assets/LogoDark.png";
+import Logo from "../../../assets/Logo.png";
 import LogoLight from "../../../assets/LogoLight.png";
 import ProfilePreview from "./ProfilePreview";
 import SideBarLinks from "./SideBarLinks";
@@ -13,11 +14,10 @@ const SideBar = () => {
   return (
     <div
       className={`
-      sticky top-0 h-[98vh] overflow-y-scroll overflow-x-hidden
-      ${shrinkSideBar ? "w-[5rem]" : "w-[22rem]"} border-r border-[#f5f4f4] ${
+      ${shrinkSideBar ? "w-[5rem]" : "w-[19rem]"} border-r border-[#f5f4f4] ${
         darkMode ? "sidebar" : ""
-      } transition-width duration-500 h-full pt-[2rem] dark:bg-darkMode-bars
-       dark:text-darkMode-text hidden md:block`}
+      } transition-width duration-500 pt-[2rem] dark:bg-darkMode-bars
+       dark:text-darkMode-text hidden md:block pb-[2rem]`}
     >
       <div
         className={`flex ${
@@ -26,12 +26,14 @@ const SideBar = () => {
       >
         <div className={`${shrinkSideBar ? "hidden" : ""} text-xl flex-1`}>
           {/* Logo */}
-          <div className="h-[2.5rem] w-full ">
-            <img
-              className="w-full h-full object-cover object-center"
-              src={darkMode ? LogoDark : LogoLight}
-              alt=""
-            />
+          <div className=" flex justify-center">
+            <div className="h-[2.7rem] w-[11rem] ">
+              <img
+                className="w-full h-[100%] object-cover object-center"
+                src={darkMode ? LogoDark : LogoLight}
+                alt=""
+              />
+            </div>
           </div>
         </div>
 

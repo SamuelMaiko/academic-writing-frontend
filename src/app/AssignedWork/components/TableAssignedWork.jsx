@@ -57,7 +57,7 @@ const TableAssignedWork = () => {
                 Assigned work
               </p>
               <Badge size="sm" color="secondary" className="dark:text-black">
-                1 assignment
+                {assignedWork.length} items
               </Badge>
             </div>
           </div>
@@ -89,8 +89,6 @@ const TableAssignedWork = () => {
                   status={work.status}
                   read={work.assigned_is_read}
                   isSubmitted={work.is_submitted}
-                  assignedWork={assignedWork}
-                  setAssignedWork={setAssignedWork}
                 />
               );
             })}

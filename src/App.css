@@ -281,3 +281,29 @@
 .filter::-webkit-scrollbar {
   display: none;
 }
+
+/* revision details page (where messages appear) */
+.scrollble {
+  overflow: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* For Firefox */
+}
+
+.scrollble::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.scrollble::-webkit-scrollbar-track {
+  background: transparent; /* Track is hidden */
+}
+
+.scrollble::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Color of the scrollbar */
+  border-radius: 10px; /* Roundness of the scrollbar */
+  border: 2px solid transparent; /* Padding around scrollbar */
+  background-clip: content-box;
+}
+
+.scrollble:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker color when hovered */
+}

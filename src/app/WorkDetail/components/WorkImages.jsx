@@ -13,7 +13,7 @@ const WorkImages = ({ images, zipUrl, zipName }) => {
         <h1 className="text-lg font-semibold ">Images</h1>
         <a
           href={zipUrl}
-          className={images.length == 0 ? "hidden" : ""}
+          className={images?.length == 0 ? "hidden" : ""}
           download={zipName ? `${zipName}.zip` : undefined}
         >
           <button

@@ -57,7 +57,7 @@ const TableUptakenWork = () => {
                 Uptaken work
               </p>
               <Badge size="sm" color="secondary" className="dark:text-black">
-                1 assignment
+                {uptakenWork.length} items
               </Badge>
             </div>
           </div>
@@ -89,8 +89,6 @@ const TableUptakenWork = () => {
                   status={work.status}
                   read={work.uptaken_is_read}
                   isSubmitted={work.is_submitted}
-                  uptakenWork={uptakenWork}
-                  setUptakenWork={setUptakenWork}
                 />
               );
             })}

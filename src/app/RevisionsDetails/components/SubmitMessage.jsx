@@ -1,6 +1,6 @@
 import { Textarea } from "keep-react";
 import React from "react";
-import { Info, Trash } from "phosphor-react";
+import { Info, Trash, X } from "phosphor-react";
 import { useCallback, useState } from "react";
 import {
   Upload,
@@ -13,10 +13,9 @@ import folder from "../../../assets/folder.svg";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
-import { SendHorizontal } from "lucide-react";
+import { File, Image, SendHorizontal } from "lucide-react";
 
-const SubmitMessage = () => {
-  const [file, setFile] = useState(null);
+const SubmitMessage = ({ file, setFile, image, setImage }) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,10 +23,10 @@ const SubmitMessage = () => {
   const id = 20;
   //
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
-  }, []);
+  // const onDrop = useCallback((acceptedFiles) => {
+  //   setFile(acceptedFiles[0]);
+  //   // console.log(acceptedFiles[0]);
+  // }, []);
 
   const handleSubmitMessage = async () => {
     setLoading(true);
@@ -75,51 +74,66 @@ const SubmitMessage = () => {
     }
   };
 
+  const handleImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      // setImage(URL.createObjectURL(selectedFile));
+      setImage(selectedFile);
+      console.log("Here", selectedFile);
+    } else {
+      alert("Please select a valid image file");
+    }
+  };
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+    console.log("Fil", selectedFile);
+  };
+
   return (
     <div className="w-full h-full bg-neutral-100 dark:bg-neutral-200 px-3 ">
       {/* <h1 className="text-xl font-semibold text-center">Submit Message</h1> */}
       <div className="flex justify-between items-center">
-        <div className="">
-          <Upload horizontal options={{ onDrop }} className="flex ">
-            <UploadBody className="dark:bg-darkMode-cardBg hover:dark:bg-darkMode-cardHover h-[2rem]">
-              <UploadIcon>
-                <img src={folder} alt="folder" />
-              </UploadIcon>
-              <UploadText className="">
-                <p className="text-body-3 font-medium text-metal-600 dark:text-white">
-                  Choose File to Upload
-                </p>
-                <p className="text-body-4 font-normal text-metal-400 dark:text-sidebartext-hover">
-                  PDF and JPG formats
-                </p>
-              </UploadText>
-            </UploadBody>
-            <UploadFooter isFileExists={file != null} className="hidden">
-              <p className="my-2 flex items-center gap-1 text-body-4 font-normal text-metal-600 dark:text-metal-300">
-                <Info size={16} />
-                Uploaded File
-              </p>
-              <ul className="space-y-1">
-                {file != null ? (
-                  <li
-                    key={file?.name}
-                    className="flex items-center justify-between border-l-4 border-l-metal-100 bg-metal-25
-                     px-4 py-2.5 text-left text-body-4 font-normal capitalize text-metal-600 dark:border-l-metal-600
-                      dark:bg-metal-800 dark:text-metal-300 "
-                  >
-                    {file?.name}
-                    <Trash
-                      onClick={() => setFile(null)}
-                      size={17}
-                      className="cursor-pointer text-red-500 hover:text-red-700 transition-colors duration-300"
-                    />
-                  </li>
-                ) : (
-                  <span></span>
-                )}
-              </ul>
-            </UploadFooter>
-          </Upload>
+        <div
+          className={`${
+            file != null ? "hidden" : ""
+          } flex items-center cursor-pointer`}
+        >
+          <label
+            onClick={() => setFile(null)}
+            htmlFor="image-upload"
+            className="flex items-center cursor-pointer"
+          >
+            <Image className="text-blue-500" size={24} />
+            {/* <span className="ml-2 text-blue-500">Upload Image</span> */}
+          </label>
+          <input
+            id="image-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </div>
+        <div
+          className={`flex items-center cursor-pointer ${
+            image != null ? "hidden" : ""
+          }`}
+        >
+          <label
+            onClick={() => setImage(null)}
+            htmlFor="file-upload"
+            className="flex items-center cursor-pointer"
+          >
+            <File className="text-blue-500" size={24} />
+            {/* <span className="ml-2 text-blue-500">Upload Image</span> */}
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            onChange={handleFileChange}
+            className="hidden"
+          />
         </div>
 
         <div className="w-[50%]">

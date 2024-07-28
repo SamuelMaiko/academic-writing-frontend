@@ -14,7 +14,7 @@ const SideBar = () => {
   return (
     <div
       className={`
-      ${shrinkSideBar ? "w-[5rem]" : "w-[19rem]"} border-r border-[#f5f4f4] ${
+      ${shrinkSideBar ? "w-[5rem]" : "w-[20vw]"} border-r border-[#f5f4f4] ${
         darkMode ? "sidebar" : ""
       } transition-width duration-500 pt-[2rem] dark:bg-darkMode-bars
        dark:text-darkMode-text hidden md:block pb-[2rem]`}

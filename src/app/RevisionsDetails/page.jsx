@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RevisionComment from "./components/RevisionComment";
 import SubmitForm from "../../SharedComponents/SubmitForm";
 import SubmitMessage from "./components/SubmitMessage";
@@ -10,17 +10,26 @@ import { File, X } from "lucide-react";
 const RevisionsDetails = () => {
   const [loading, setLoading] = useState(false);
   const [revisionMessages, setRevisionMessages] = useState([]);
+  const [deleting, setDeleting] = useState(false);
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
+  const messageEndRef = useRef(null);
+  const messageRef = useRef(null);
+  const unReadMessagesRef = useRef(null);
   // getting revision id
   const { id } = useParams();
+
+  // useEffect(() => {
+  //   messageRef.current.scrollIntoView({ behavior: "smooth" });
+  // }, [file, image]);
 
   const getRevisionDetails = async () => {
     setLoading(true);
     try {
       const response = await instance.get(`/revisions/${id}/`);
       setRevisionMessages(response.data.messages);
-      console.log(response.data);
+      // mark messages as read
+      markMessagesAsRead();
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
@@ -45,9 +54,47 @@ const RevisionsDetails = () => {
     }
   };
 
+  const markMessagesAsRead = async () => {
+    try {
+      const response = await instance.post(
+        `/revisions/${id}/mark-messages-as-read/`
+      );
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data.error;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!deleting) {
+      if (unReadMessages > 0) {
+        unReadMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+      } else {
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [revisionMessages]);
+
   useEffect(() => {
     getRevisionDetails();
   }, []);
+
+  const unReadMessages = revisionMessages.filter(
+    (item) => item.is_read == false && item.is_mine == false
+  ).length;
 
   return (
     <div
@@ -55,20 +102,56 @@ const RevisionsDetails = () => {
        flex flex-col justify-between
      dark:bg-darkMode-body dark:text-black md:gap-0 overflow-hidden"
     >
-      <div
-        className={`${
-          file != null || image != null
-            ? "overflow-hidden"
-            : "overflow-y-scroll"
-        } scrollble relative h-[80%]  w-full `}
-      >
-        {revisionMessages.map((message, index) => {
-          return <RevisionComment key={index} {...message} />;
-        })}
+      <div className="relative h-[80%] ">
+        <div
+          className={` scrollble h-full w-full ${
+            file === null && image === null
+              ? "overflow-y-scroll"
+              : "overflow-hidden"
+          }`}
+        >
+          <div ref={messageRef}></div>
+          {revisionMessages.map((message, index) => {
+            if ((!message.is_mine && message.is_read) || message.is_mine)
+              return (
+                <RevisionComment
+                  key={index}
+                  {...message}
+                  revisionMessages={revisionMessages}
+                  setRevisionMessages={setRevisionMessages}
+                  setDeleting={setDeleting}
+                />
+              );
+          })}
+          <h1
+            ref={unReadMessagesRef}
+            className={`uppercase font-semibold text-center bg-green-200 py-2 my-2 mb-8 rounded-2xl ${
+              unReadMessages > 0 ? "" : "hidden"
+            }`}
+          >
+            {" "}
+            {unReadMessages} Unread messages
+          </h1>
+          {revisionMessages.map((message, index) => {
+            if (!message.is_mine && !message.is_read)
+              return (
+                <RevisionComment
+                  key={index}
+                  {...message}
+                  revisionMessages={revisionMessages}
+                  setRevisionMessages={setRevisionMessages}
+                  setDeleting={setDeleting}
+                />
+              );
+          })}
 
+          <div ref={messageEndRef} className="mt-4"></div>
+        </div>
+
+        {/* section that pops after UPLOADING a file or image to send ___________________________________________________ */}
         <div
           className={`${
-            file != null || image != null ? "" : "hidden"
+            file === null && image === null ? "hidden" : ""
           } bg-[#F0F0F0] h-full top-0 bottom-0 absolute right-0
        left-0 z-[100]`}
         >
@@ -94,8 +177,8 @@ const RevisionsDetails = () => {
             <div
               className={`${
                 image == null ? "hidden" : ""
-              } w-[40%] mx-auto h-[23rem] bg-gray-200 flex items-center
-           justify-between flex-col gap-2 rounded-xl`}
+              } w-[40%] mx-auto h-[20rem] bg-gray-200 flex items-center
+           justify-between flex-col rounded-xl`}
             >
               {image && (
                 <img
@@ -139,12 +222,15 @@ const RevisionsDetails = () => {
           </div>
         </div>
       </div>
-      <div className="bg-red-500 h-[20%]">
+      <div className=" h-[20%]">
         <SubmitMessage
           file={file}
           setFile={setFile}
           image={image}
           setImage={setImage}
+          revisionMessages={revisionMessages}
+          setRevisionMessages={setRevisionMessages}
+          messageEndRef={messageEndRef}
         />
       </div>
     </div>

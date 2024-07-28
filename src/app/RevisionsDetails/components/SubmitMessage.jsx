@@ -1,76 +1,76 @@
-import { Textarea } from "keep-react";
 import React from "react";
-import { Info, Trash, X } from "phosphor-react";
-import { useCallback, useState } from "react";
-import {
-  Upload,
-  UploadBody,
-  UploadFooter,
-  UploadIcon,
-  UploadText,
-} from "keep-react";
+import { useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import folder from "../../../assets/folder.svg";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import instance from "../../../axios/instance";
 import { File, Image, SendHorizontal } from "lucide-react";
 
-const SubmitMessage = ({ file, setFile, image, setImage }) => {
+const SubmitMessage = ({
+  file,
+  setFile,
+  image,
+  setImage,
+  revisionMessages,
+  setRevisionMessages,
+  messageEndRef,
+}) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const id = 20;
-  //
-
-  // const onDrop = useCallback((acceptedFiles) => {
-  //   setFile(acceptedFiles[0]);
-  //   // console.log(acceptedFiles[0]);
-  // }, []);
+  const { id } = useParams();
 
   const handleSubmitMessage = async () => {
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("file", file);
+    if (file) formData.append("file", file);
+    if (image) formData.append("image", image);
     formData.append("message", message);
 
-    if (message == "") {
-      setError("Please provide a comment.");
-      setLoading(false);
-    } else {
-      try {
-        const response = await instance.post(`/work/${id}/submit/`, formData, {
+    try {
+      const response = await instance.post(
+        `/revisions/${id}/send-message/`,
+        formData,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        });
-
-        toast.success("Message sent.");
-
-        navigate(-1);
-      } catch (error) {
-        if (error.response && error.response.status) {
-          const status = error.response.status;
-          const message = error.response.data;
-
-          switch (status) {
-            case 400:
-              setError("Please provide a comment.");
-              break;
-            case 500:
-              setError(`Server Error: ${message}`);
-              break;
-            default:
-              setError(`Error: ${message}`);
-              break;
-          }
-        } else {
-          setError("An unexpected error occurred. Please try again later.");
         }
-      } finally {
-        setLoading(false);
+      );
+      setMessage("");
+      setFile(null);
+      setImage(null);
+      // updating state to reflect the sent message
+      setRevisionMessages((current) => [...current, response.data]);
+
+      // toast.success("Message sent.");
+
+      // navigate(-1);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 400:
+            toast.error("Send failed.", message.error);
+            console.log("Send failed.", message);
+            break;
+          case 500:
+            toast.error(`Server Error: ${message}`);
+            break;
+          default:
+            setError(`Error: ${message}`);
+            break;
+        }
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,75 +87,77 @@ const SubmitMessage = ({ file, setFile, image, setImage }) => {
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
-    console.log("Fil", selectedFile);
   };
 
   return (
-    <div className="w-full h-full bg-neutral-100 dark:bg-neutral-200 px-3 ">
-      {/* <h1 className="text-xl font-semibold text-center">Submit Message</h1> */}
-      <div className="flex justify-between items-center">
-        <div
-          className={`${
-            file != null ? "hidden" : ""
-          } flex items-center cursor-pointer`}
+    <div className="flex justify-between gap-4 items-end h-full pb-2">
+      <div
+        className={`${
+          file != null ? "hidden" : ""
+        } flex items-center cursor-pointer`}
+      >
+        <label
+          onClick={() => setFile(null)}
+          htmlFor="image-upload"
+          className="flex items-center cursor-pointer"
         >
-          <label
-            onClick={() => setFile(null)}
-            htmlFor="image-upload"
-            className="flex items-center cursor-pointer"
-          >
-            <Image className="text-blue-500" size={24} />
-            {/* <span className="ml-2 text-blue-500">Upload Image</span> */}
-          </label>
-          <input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-          />
-        </div>
-        <div
-          className={`flex items-center cursor-pointer ${
-            image != null ? "hidden" : ""
-          }`}
-        >
-          <label
-            onClick={() => setImage(null)}
-            htmlFor="file-upload"
-            className="flex items-center cursor-pointer"
-          >
-            <File className="text-blue-500" size={24} />
-            {/* <span className="ml-2 text-blue-500">Upload Image</span> */}
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-        </div>
-
-        <div className="w-[50%]">
-          {/* <label htmlFor="message">Message</label> */}
-          <Textarea
-            id="message"
-            placeholder="Write your message here."
-            className="w-full"
-            rows={3}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-        </div>
-        <button
-          onClick={handleSubmitMessage}
-          className="bg-green-700 rounded-full text-white flex items-center cursor-pointer p-4"
-          disabled={loading}
-        >
-          <SendHorizontal size={28} />
-        </button>
+          <Image className="text-gray-600 mb-4" size={24} />
+        </label>
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
+        />
       </div>
+      <div
+        className={`flex items-center cursor-pointer ${
+          image != null ? "hidden" : ""
+        }`}
+      >
+        <label
+          onClick={() => setImage(null)}
+          htmlFor="file-upload"
+          className="flex items-center cursor-pointer"
+        >
+          <File className="text-gray-600 mb-4" size={24} />
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+      </div>
+
+      <div className="flex-1">
+        {/* <label htmlFor="message">Message</label> */}
+        <TextareaAutosize
+          id="message"
+          placeholder="Write your message here."
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none
+           focus:ring-2  resize-none"
+          minRows={1}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+      </div>
+      <button
+        onClick={handleSubmitMessage}
+        className={`${
+          message === "" && file === null && image === null
+            ? "bg-gray-500"
+            : "bg-blue-700"
+        }  rounded-full text-white flex items-center cursor-pointer p-4`}
+        disabled={
+          loading || (message === "" && file === null && image === null)
+        }
+      >
+        <SendHorizontal size={25} />
+      </button>
     </div>
+    // </div>
   );
 };
 

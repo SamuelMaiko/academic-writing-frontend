@@ -50,7 +50,10 @@ const WorkCard = ({
         {/* <p className="text-xs font-bold my-2 text-[#181818] dark:text-darkMode-cardText">
           01:23:03 to deadline
         </p> */}
-        <div className="px-2 py-1 mt-1 w-fit rounded-2xl bg-[#E9E9E9] dark:bg-neutral-500 text-[#676767] dark:text-darkMode-cardText">
+        <div
+          className="px-2 py-1 mt-1 w-fit rounded-2xl bg-[#E9E9E9] dark:bg-neutral-500
+           text-[#676767] dark:text-darkMode-cardText"
+        >
           {work_code}
         </div>
         <TakeUpWorkButton id={id && id} />

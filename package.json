@@ -31,6 +31,7 @@
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
+    "react-textarea-autosize": "^8.5.3",
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.11",
     "tailwind-merge": "^2.3.0"

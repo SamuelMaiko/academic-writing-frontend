@@ -55,6 +55,10 @@ const ProgressBarContext = ({ children }) => {
   // uptaken work
   const [uptakenWork, setUptakenWork] = useState([]);
 
+  // submissions
+  const [submissions, setSubmissions] = useState([]);
+  const [submissionToDelete, setSubmissionToDelete] = useState(null);
+
   return (
     <BarContext.Provider
       value={{
@@ -85,6 +89,10 @@ const ProgressBarContext = ({ children }) => {
         setAssignedWork,
         uptakenWork,
         setUptakenWork,
+        submissions,
+        setSubmissions,
+        submissionToDelete,
+        setSubmissionToDelete,
       }}
     >
       {children}

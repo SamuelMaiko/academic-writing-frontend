@@ -1,21 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageHeader from "../../SharedComponents/PageHeader";
 import { Textarea } from "keep-react";
 import FileLink from "../WorkDetail/components/FileLink";
 import { Trash2 } from "lucide-react";
+import instance from "../../axios/instance";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import CommentForm from "./components/CommentForm";
+import FileForm from "./components/FileForm";
+import DeleteFileButton from "./components/DeleteFileButton";
 
 const SubmissionsDetail = () => {
-  const [files, setFiles] = useState(null);
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState([]);
+  const [comment, setComment] = useState("");
+  const { id } = useParams();
 
   const handleUploadFile = (e) => {
     e.preventDefault();
-    setFiles("hello");
+    setFile("hello");
   };
 
   const handleDeleteFile = (e) => {
     e.preventDefault();
-    setFiles(null);
+    setFile(null);
   };
+
+  const getSubmissionDetails = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get(`/submissions/${id}`);
+      setDetails(response.data);
+      setComment(response.data.message);
+      setFile(response.data.file);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message.error}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSubmissionDetails();
+  }, []);
+
   return (
     <div className="w-full px-[2rem] pb-[5rem] dark:bg-darkMode-body ">
       <PageHeader
@@ -23,52 +66,20 @@ const SubmissionsDetail = () => {
         subTitle={"View all the details of a submission."}
       />
       <div>
-        <form className="mt-[2rem]">
-          <div>
-            <label htmlFor="">Comment</label>
-            <Textarea
-              placeholder="Write your comment here."
-              rows={8}
-              className="mt-2 md:w-[60%] bg-blue-100"
-            />
-          </div>
-          <input
-            className="bg-green-700 hover:bg-green-600 transition-colors duration-300 mt-3 rounded-lg text-white flex items-center 
-      } p-[0.6rem] cursor-pointer"
-            type="submit"
-            value="Save"
-          />
-        </form>
+        {/* comment form */}
+        <CommentForm
+          comment={comment}
+          setComment={setComment}
+          work={details.work}
+        />
         <div className="flex flex-col gap-5 mt-[3rem] ">
           <h3 className="font-medium ">File</h3>
-          <div className={`flex gap-8 ${!files ? "hidden" : ""}`}>
-            <FileLink filename={"extrawork.txt"} />
-            <Trash2
-              size={20}
-              onClick={handleDeleteFile}
-              className="text-red-500 hover:text-red-700 transition-colors duration-300 cursor-pointer"
-            />
+          <div className={`flex gap-8 ${!file ? "hidden" : ""}`}>
+            {file && <FileLink file_name={file && file.split("/").at(-1)} />}
+            <DeleteFileButton work={details.work} setFile={setFile} />
           </div>
-          <form
-            onSubmit={handleUploadFile}
-            className={`${!files ? "" : "hidden"}`}
-          >
-            <p className="text-gray-500 mb-2">No file.</p>
-            <div className="grid w-full max-w-xs items-center gap-1.5">
-              <input
-                id="picture"
-                type="file"
-                className="flex h-10 w-full rounded-md border border-input bg-blue-100 px-3 py-2 text-sm
-                 text-gray-400 file:border-0 file:bg-white file:text-gray-600 file:text-sm file:font-medium"
-              />
-            </div>
-            <input
-              className="bg-blue-700 hover:bg-blue-600 transition-colors duration-300 mt-3 rounded-lg text-white flex items-center 
-      } p-[0.6rem] cursor-pointer"
-              type="submit"
-              value="Upload"
-            />
-          </form>
+          {/* file upload form */}
+          <FileForm file={file} setFile={setFile} work={details.work} />
         </div>
       </div>
     </div>

@@ -6,10 +6,10 @@ import {
   Binoculars,
   BookmarkSimple,
   Briefcase,
+  FileDoc,
   House,
   Pen,
 } from "phosphor-react";
-import { FileCheck } from "lucide-react";
 
 const ButtonLinks = () => {
   const { setShowMobileSideBar } = useStateShareContext();
@@ -148,9 +148,9 @@ const ButtonLinks = () => {
           }}
           icon={
             pathname === "/submissions" ? (
-              <FileCheck size={20} weight="fill" />
+              <FileDoc size={20} weight="fill" />
             ) : (
-              <FileCheck size={20} />
+              <FileDoc size={20} />
             )
           }
           title={"Submissions"}

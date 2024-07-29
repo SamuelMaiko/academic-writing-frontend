@@ -12,7 +12,7 @@ const FileLink = ({ file_name, file }) => {
         <span>
           <Paperclip size={20} />
         </span>
-        <p>{file_name}</p>
+        <p className="whitespace-nowrap">{file_name}</p>
         {/* <a href={file} target="blank"> */}
         {/* </a> */}
       </div>

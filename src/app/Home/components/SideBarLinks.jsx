@@ -6,10 +6,11 @@ import {
   Binoculars,
   BookmarkSimple,
   Briefcase,
+  FileDoc,
   House,
   Pen,
 } from "phosphor-react";
-import { FileCheck } from "lucide-react";
+// import { FileCheck } from "lucide-react";
 
 const SideBarLinks = () => {
   const { shrinkSideBar } = useStateShareContext();
@@ -138,9 +139,9 @@ const SideBarLinks = () => {
           onClick={() => navigate("/submissions")}
           icon={
             pathname === "/submissions" ? (
-              <FileCheck size={20} weight="fill" />
+              <FileDoc size={20} weight="fill" />
             ) : (
-              <FileCheck size={20} />
+              <FileDoc size={20} />
             )
           }
           title={"Submissions"}

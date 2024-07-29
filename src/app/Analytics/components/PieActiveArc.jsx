@@ -1,10 +1,20 @@
 import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 
-const PieActiveArc = () => {
+const PieActiveArc = ({ successfulWork, qualityIssues }) => {
   const data = [
-    { id: 0, value: 10, label: "Successful Work", color: "#4caf50" },
-    { id: 1, value: 20, label: "Quality Issues", color: "#ff9800" },
+    {
+      id: 0,
+      value: successfulWork,
+      label: "Successful Work",
+      color: "#4caf50",
+    },
+    {
+      id: 1,
+      value: qualityIssues,
+      label: "Quality Issues",
+      color: "#ff9800",
+    },
   ];
   return (
     <PieChart

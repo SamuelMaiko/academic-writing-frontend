@@ -108,7 +108,7 @@ const RevisionComment = ({
             size={25}
             className={`${
               !showChevronDown ? "translate-x-7" : ""
-            } text-red-500 cursor-pointer transition-transform duration-300  absolute  right-2 ${
+            } text-gray-500 cursor-pointer transition-transform duration-300  absolute  right-2 ${
               file ? "-top-1" : "top-2"
             }`}
           />

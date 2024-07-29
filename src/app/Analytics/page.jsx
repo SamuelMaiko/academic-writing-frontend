@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageHeader from "../../SharedComponents/PageHeader";
 import PieActiveArc from "./components/PieActiveArc";
 import Block from "./components/Block";
@@ -10,9 +10,81 @@ import SubmittedWork from "./components/SubmittedWork";
 import WordsWritten from "./components/WordsWritten";
 import RevokedWork from "./components/RevokedWork";
 import QualityIssues from "./components/QualityIssues";
+import { toast } from "react-toastify";
+import instance from "../../axios/instance";
 
 const Analytics = () => {
-  const percentage = 66;
+  const [loading, setLoading] = useState(false);
+  const [analytics, setAnalytics] = useState({});
+  // submiited work. Aanlytics page used for => WORDS WRITTEN,SUBMITTED WORK
+  const [submittedWork, setSubmittedWork] = useState([]);
+
+  const percentage = (
+    ((analytics.assigned_work + analytics.uptaken_work) /
+      (analytics.assigned_work +
+        analytics.uptaken_work +
+        analytics.quality_issues)) *
+    100
+  ).toFixed(1);
+
+  const getAnalytics = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get(`/profile/analytics/`);
+      setAnalytics(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSubmittedWork = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get(`/profile/submitted-work/`);
+      setSubmittedWork(response.data);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAnalytics();
+    getSubmittedWork();
+  }, []);
+
   return (
     <div className="w-full dark:bg-darkMode-body min-h-screen overflow-hidden">
       <div className="px-[1rem] md:px-[2rem]">
@@ -27,34 +99,39 @@ const Analytics = () => {
         <Block
           icon={<Pen size={17} weight="fill" />}
           title={"Assigned Work"}
-          value={5}
+          value={analytics.assigned_work}
         />
         <Block
           icon={<Briefcase size={17} weight="fill" />}
           title={"Uptaken Work"}
-          value={7}
+          value={analytics.uptaken_work}
         />
         <Block
           icon={<Note size={17} weight="fill" />}
           title={"Words Written"}
-          value={5000}
+          value={analytics.words_written}
         />
         <Block
           icon={<XCircle size={17} weight="fill" />}
           title={"Revoked Work"}
-          value={1}
+          value={analytics.revoked_work}
         />
         <Block
           icon={<WarningCircle size={17} weight="fill" />}
           title={"Quality Issues"}
-          value={0}
+          value={analytics.quality_issues}
         />
       </div>
       <div className="flex flex-col md:flex-row justify-between gap-4 pt-[2rem] md:pt-[4rem] bg-gray-100 px-[1rem] md:px-[2rem] pb-[3rem]">
         <div className="bg-white h-full p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)]">
           <h1 className=" font-semibold mb-8">Your analytics</h1>
           <div className="">
-            <PieActiveArc />
+            <PieActiveArc
+              successfulWork={
+                analytics && analytics.assigned_work + analytics.uptaken_work
+              }
+              qualityIssues={analytics && analytics.quality_issues}
+            />
           </div>
         </div>
         <div className="h-[14rem] md:h-[18.6rem] p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)] bg-white">
@@ -62,10 +139,12 @@ const Analytics = () => {
           <div className="h-[10rem] md:h-[14rem] pt-4">
             <CircularProgressbar
               value={percentage}
-              text={`${percentage}%`}
+              text={`${percentage === 0 ? 100 : percentage}%`}
               className="h-full "
               styles={buildStyles({
-                pathColor: `rgba(10, 199, 10, ${percentage / 100})`,
+                pathColor: `rgba(10, 199, 10, ${
+                  percentage === 0 ? 100 : percentage / 100
+                })`,
                 textColor: "rgba(10, 220, 10,1)",
                 backgroundColor: "red",
                 trailColor: "#d6d6d6",
@@ -74,8 +153,14 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <SubmittedWork />
-      <WordsWritten />
+      <SubmittedWork
+        submittedWork={submittedWork}
+        setSubmittedWork={setSubmittedWork}
+      />
+      <WordsWritten
+        submittedWork={submittedWork}
+        setSubmittedWork={setSubmittedWork}
+      />
       <RevokedWork />
       <QualityIssues />
     </div>

@@ -43,7 +43,8 @@ const SubmitForm = () => {
       setError("Please provide a file.");
       setLoading(false);
     } else if (comment == "") {
-      setError("Please provide a comment.");
+      toast.warning("Please provide a comment.");
+      // setError("Please provide a comment.");
       setLoading(false);
     } else {
       try {
@@ -135,6 +136,7 @@ const SubmitForm = () => {
           rows={8}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          required
         />
       </div>
       <input

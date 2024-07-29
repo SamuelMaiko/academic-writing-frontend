@@ -15,10 +15,16 @@ import { useProgressBarContext } from "../../Context/ProgressBarContext";
 const Home = () => {
   const { work, setWork } = useProgressBarContext();
   const [loading, setLoading] = useState(true);
-  const { filters, darkMode } = useStateShareContext();
+  const { filters, darkMode, firstName, lastName, getDetails } =
+    useStateShareContext();
 
   useEffect(() => {
     getWork();
+
+    // getting details if cleared from LOCAL STORAGE
+    if (firstName === "" || lastName === "") {
+      getDetails();
+    }
   }, []);
 
   const getWork = async () => {

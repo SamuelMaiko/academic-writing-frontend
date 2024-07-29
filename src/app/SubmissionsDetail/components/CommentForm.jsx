@@ -50,6 +50,7 @@ const CommentForm = ({ comment, setComment, work }) => {
           className="mt-2 md:w-[60%] bg-blue-100"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          required
         />
       </div>
       <button

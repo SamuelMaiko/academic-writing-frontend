@@ -57,13 +57,6 @@ const StateContext = ({ children }) => {
   const [firstName, setFirstName] = useLocalStorage("firstName", "");
   const [lastName, setLastName] = useLocalStorage("lastName", "");
 
-  // fetching details such as the profile pic, first_name, last_name DISPLAYED in NavBar, SideBar
-  useEffect(() => {
-    if (firstName === "" || lastName === "") {
-      getDetails();
-    }
-  }, []);
-
   const getDetails = async () => {
     try {
       const response = await instance.get("/profile/");
@@ -142,6 +135,7 @@ const StateContext = ({ children }) => {
         setFirstName,
         lastName,
         setLastName,
+        getDetails,
       }}
     >
       {children}

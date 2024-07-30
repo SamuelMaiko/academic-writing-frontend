@@ -5,9 +5,13 @@ import Footer from "../Footer/page";
 import instance from "../../axios/instance";
 import { toast } from "react-toastify";
 import { useProgressBarContext } from "../../Context/ProgressBarContext";
+import { useStateShareContext } from "../../Context/StateContext";
+import UnavailableDark from "../../assets/UnavailableDark.png";
+import UnavailableLight from "../../assets/UnavailableLight.png";
 
 const Submissions = () => {
   const { submissions, setSubmissions } = useProgressBarContext();
+  const { darkMode } = useStateShareContext();
   const [loading, setLoading] = useState(false);
 
   const getSubmissions = async () => {
@@ -55,6 +59,17 @@ const Submissions = () => {
             submissions.map((item, index) => {
               return <SubmissionCard key={index} {...item} />;
             })}
+        </div>
+        <div className="pb-[8rem]">
+          <img
+            className="mx-auto w-[16rem]"
+            src={darkMode ? UnavailableDark : UnavailableLight}
+            alt=""
+          />
+          <p className="font-bold text-2xl text-center">No submissions yet!</p>
+          <p className="font-medium text-sm text-center mt-2">
+            Any submissions for work will appear here.
+          </p>
         </div>
         <div className="fixed top-[5rem] right-[2rem] md:w-[21%] z-40 overflow-hidden hidden md:block">
           <Footer side={true} />

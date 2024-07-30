@@ -43,7 +43,6 @@ const Notifications = () => {
   useEffect(() => {
     getNotifications();
   }, []);
-
   const markAsRead = async () => {
     try {
       const response = await instance.post(

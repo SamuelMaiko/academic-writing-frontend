@@ -49,7 +49,7 @@ const App = () => {
           <ProgressBarContext>
             <NotificationContext>
               <ScrollToTop />
-              <div className="w-full">
+              <div className="w-full ">
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/login" element={<Login />} />

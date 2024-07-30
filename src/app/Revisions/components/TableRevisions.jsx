@@ -76,7 +76,9 @@ const TableRevisions = () => {
           <TableHead className="min-w-[200px]">Submit before</TableHead>
           <TableHead className="min-w-[200px]">Status</TableHead>
         </TableHeader>
-        <TableBody className="divide-gray-25 divide-y">
+        <TableBody
+          className={`divide-gray-25 divide-y ${loading ? "hidden" : ""} `}
+        >
           {revisions &&
             revisions.map((revision, index) => {
               return (
@@ -96,7 +98,11 @@ const TableRevisions = () => {
             })}
         </TableBody>
       </Table>
-      <div className="pb-[8rem] hidden">
+      <div
+        className={`pb-[8rem] ${
+          revisions.length !== 0 || loading ? "hidden" : ""
+        } `}
+      >
         <img
           className="mx-auto w-[16rem]"
           src={darkMode ? UnavailableDark : UnavailableLight}
@@ -104,7 +110,7 @@ const TableRevisions = () => {
         />
         <p className="font-bold text-2xl text-center">No revisions yet!</p>
         <p className="font-medium text-sm text-center mt-2">
-          Any revisions will appear here.
+          Any revisions for your work will appear here.
         </p>
       </div>
     </>

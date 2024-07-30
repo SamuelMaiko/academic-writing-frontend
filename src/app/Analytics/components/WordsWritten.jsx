@@ -4,13 +4,16 @@ import formatDate from "../../Home/components/datetime/formatDate";
 
 const WordsWritten = ({ submittedWork, setSubmittedWork }) => {
   return (
-    <div className="flex flex-col pt-[1rem] bg-gray-100 px-[1rem] md:px-[2rem] pb-[1rem]">
+    <div
+      className="flex flex-col pt-[1rem] bg-gray-100 dark:bg-darkMode-bars 
+     px-[1rem] md:px-[2rem] pb-[1rem]"
+    >
       <h1 className=" font-semibold mb-4">Words written</h1>
       <ul className="text-[15px] ">
         <p
           className={` ${
             submittedWork && submittedWork.length == 0 ? "" : "hidden"
-          } text-gray-600`}
+          } text-gray-600 dark:text-gray-200`}
         >
           No such work found.
         </p>

@@ -68,7 +68,7 @@ const Home = () => {
             "Browse work that matches your experience. Ordered by closest to deadline."
           }
         />
-
+        <Loader loading={loading} />
         <div className={`${loading ? "hidden" : ""}`}>
           {work &&
             work.map((work, index) => {

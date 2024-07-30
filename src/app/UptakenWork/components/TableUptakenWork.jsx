@@ -14,6 +14,7 @@ import { useStateShareContext } from "../../../Context/StateContext";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import Loader from "../../../SharedComponents/Loader";
 
 const TableUptakenWork = () => {
   const { darkMode } = useStateShareContext();
@@ -75,7 +76,9 @@ const TableUptakenWork = () => {
           <TableHead className="min-w-[150px]">Status</TableHead>
           <TableHead className="min-w-[100px]" />
         </TableHeader>
-        <TableBody className="divide-gray-25 divide-y">
+        <TableBody
+          className={`divide-gray-25 divide-y ${loading ? "hidden" : ""}`}
+        >
           {uptakenWork &&
             uptakenWork.map((work, index) => {
               return (
@@ -94,7 +97,12 @@ const TableUptakenWork = () => {
             })}
         </TableBody>
       </Table>
-      <div className="pb-[8rem] hidden ">
+      <Loader loading={loading} />
+      <div
+        className={`pb-[8rem] ${
+          uptakenWork.length !== 0 || loading ? "hidden" : ""
+        } `}
+      >
         <img
           className="mx-auto w-[16rem]"
           src={darkMode ? UnavailableDark : UnavailableLight}

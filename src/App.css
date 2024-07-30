@@ -307,3 +307,14 @@
 .scrollble:hover::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.5); /* Darker color when hovered */
 }
+
+/* Entry point .js div - NOW in the general HTML tag in (index.html)    */
+.entry-point-remove-scrollbar {
+  overflow: hidden; /* General fallback */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.entry-point-remove-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

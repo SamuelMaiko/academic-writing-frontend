@@ -94,35 +94,44 @@ const Analytics = () => {
           }
         />
       </div>
-      <div className="grid grid-cols-2 gap-[0.6rem] md:flex md:gap-4 pt-6 bg-gray-100 px-[1rem] md:px-[2rem]">
+      <div
+        className="grid grid-cols-2 gap-[0.6rem] md:flex md:gap-4 pt-6 bg-gray-100
+       dark:bg-darkMode-bars px-[1rem] md:px-[2rem]"
+      >
         <Block
           icon={<Pen size={17} weight="fill" />}
           title={"Assigned Work"}
-          value={analytics.assigned_work}
+          value={analytics.assigned_work ?? 0}
         />
         <Block
           icon={<Briefcase size={17} weight="fill" />}
           title={"Uptaken Work"}
-          value={analytics.uptaken_work}
+          value={analytics.uptaken_work ?? 0}
         />
         <Block
           icon={<Note size={17} weight="fill" />}
           title={"Words Written"}
-          value={analytics.words_written}
+          value={analytics.words_written ?? 0}
         />
         <Block
           icon={<XCircle size={17} weight="fill" />}
           title={"Revoked Work"}
-          value={analytics.revoked_work}
+          value={analytics.revoked_work ?? 0}
         />
         <Block
           icon={<WarningCircle size={17} weight="fill" />}
           title={"Quality Issues"}
-          value={analytics.quality_issues}
+          value={analytics.quality_issues ?? 0}
         />
       </div>
-      <div className="flex flex-col md:flex-row justify-between gap-4 pt-[2rem] md:pt-[4rem] bg-gray-100 px-[1rem] md:px-[2rem] pb-[3rem]">
-        <div className="bg-white h-full p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)]">
+      <div
+        className="flex flex-col md:flex-row justify-between gap-4 pt-[2rem] md:pt-[4rem]
+       bg-gray-100 dark:bg-darkMode-bars px-[1rem] md:px-[2rem] pb-[3rem]"
+      >
+        <div
+          className="bg-white dark:bg-darkMode-cardBg dark:text-white h-full p-5 w-full
+         rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)]"
+        >
           <h1 className=" font-semibold mb-8">Your analytics</h1>
           <div className="">
             <PieActiveArc
@@ -133,7 +142,10 @@ const Analytics = () => {
             />
           </div>
         </div>
-        <div className="h-[14rem] md:h-[18.6rem] p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)] bg-white">
+        <div
+          className="h-[14rem] md:h-[18.6rem] p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)]
+         bg-white dark:bg-darkMode-cardBg"
+        >
           <h1 className=" font-semibold ">Quality score</h1>
           <div className="h-[10rem] md:h-[14rem] pt-4">
             <CircularProgressbar

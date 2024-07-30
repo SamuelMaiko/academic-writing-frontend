@@ -72,7 +72,7 @@ const EntryPoint = () => {
 
   const scrollableRef = useRef(null);
   return (
-    <>
+    <div className={``}>
       <div
         // preventing scrolling on modal open
         className={`${
@@ -139,7 +139,7 @@ const EntryPoint = () => {
         <DeleteAccountModal />
         <DeactivateAccountModal />
       </div>
-    </>
+    </div>
   );
 };
 

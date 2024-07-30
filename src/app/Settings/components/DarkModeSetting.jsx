@@ -1,23 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStateShareContext } from "../../../Context/StateContext";
+import instance from "../../../axios/instance";
+import { toast } from "react-toastify";
 
 const DarkModeSetting = () => {
-  const { setShowEditInfoModal, setSettingsOpen } = useStateShareContext();
+  const { setShowEditInfoModal, setSettingsOpen, darkMode, setDarkMode } =
+    useStateShareContext();
+
+  const handleToggle = () => {
+    setDarkMode(!darkMode);
+    toggleDarkMode(!darkMode);
+
+    document.documentElement.classList.toggle("dark-mode"); // Toggle dark mode class on the document
+  };
+
+  const toggleDarkMode = async (Bool) => {
+    try {
+      const response = await instance.put("/preferences/update/", {
+        dark_mode: Bool,
+      });
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 400:
+            toast.error(message);
+            break;
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      // setLoading(false);
+    }
+  };
+
   return (
-    <div className=" bg-neutral-100 rounded-lg mt-3">
+    <div className=" bg-neutral-100 rounded-lg mt-3 dark:bg-darkMode-body dark:text-darkMode-text">
       <h1 className="p-2 pb-0 text-lg mb-2 font-semibold ">Dark mode</h1>
       <div className="pl-2 pb-2">
         <label className="inline-flex items-center relative">
-          <input className="peer hidden" id="toggle" type="checkbox" />
+          <input
+            className="peer hidden"
+            id="toggle"
+            type="checkbox"
+            checked={darkMode}
+            onChange={handleToggle}
+          />
           <div
-            className="relative w-[110px] h-[50px] bg-white
-           peer-checked:bg-zinc-500 rounded-full after:absolute
-            after:content-[''] after:w-[40px] after:h-[40px] after:bg-gradient-to-r
-             from-orange-500 to-yellow-400 peer-checked:after:from-zinc-900
-              peer-checked:after:to-zinc-900 after:rounded-full after:top-[5px]
-               after:left-[5px] active:after:w-[50px] peer-checked:after:left-[105px]
-                peer-checked:after:translate-x-[-100%] shadow-sm duration-300
-                 after:duration-300 after:shadow-md"
+            className={`relative w-[110px] h-[50px] bg-white peer-checked:bg-zinc-500 rounded-full
+          after:absolute after:content-[''] after:w-[40px] after:h-[40px]
+          after:bg-gradient-to-r from-orange-500 to-yellow-400 peer-checked:after:from-zinc-900
+          peer-checked:after:to-zinc-900 after:rounded-full after:top-[5px]
+          after:left-[5px] active:after:w-[50px] peer-checked:after:left-[105px]
+          peer-checked:after:translate-x-[-100%] shadow-sm duration-300
+          after:duration-300 after:shadow-md`}
           ></div>
           <svg
             height="0"

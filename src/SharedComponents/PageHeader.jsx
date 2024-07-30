@@ -11,7 +11,8 @@ const PageHeader = ({ title, subTitle }) => {
       <p className={`dark:text-darkMode-gray text-sm text-[#676767] pl-3 mb-4`}>
         {subTitle}
       </p>
-      <Divider />
+      <Divider className="dark:hidden" color="primary" />
+      <Divider className="hidden dark:block" color="secondary" />
     </>
   );
 };

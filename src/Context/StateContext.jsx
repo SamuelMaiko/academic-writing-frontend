@@ -1,6 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useLocalStorage from "../CustomHooks/useLocalStorage";
+import instance from "../axios/instance";
+import { toast } from "react-toastify";
+import Vini from "../assets/Default_pfp.jpg";
 
 const ShareState = createContext();
 
@@ -12,10 +16,72 @@ const StateContext = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteWorkModal, setShowDeleteWorkModal] = useState(false);
   const [showEditInfoModal, setShowEditInfoModal] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(true);
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [showEditPFPModal, setShowEditPFPModal] = useState(false);
+  const [showDeleteProfilePhotoModal, setShowDeleteProfilePhotoModal] =
+    useState(false);
+  const [showDeleteSubmissionModal, setShowDeleteSubmissionModal] =
+    useState(false);
+  const [showRevokeWorkModal, setShowRevokeWorkModal] = useState(false);
+  // I mean the one gliding from the right after nenu icon clik
+  const [showMobileNavBar, setShowMobileNavBar] = useState(false);
+  const [showMobileSideBar, setShowMobileSideBar] = useState(false);
+  const [filters, setFilters] = useLocalStorage("filters", [
+    { active: true, title: "2000 words" },
+    { active: true, title: "1500 words" },
+    { active: false, title: "Essay" },
+  ]);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+  const [showDeactivateAccountModal, setShowDeactivateAccountModal] =
+    useState(false);
+  // profile picture upload
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageURL, setImageURL] = useLocalStorage("pfp", "");
+  const [upload, setUpload] = useState("");
+  const [showCarouselModal, setShowCarouselModal] = useState(false);
+
+  // signup process
+  const [success, setSuccess] = useState("");
+
+  // areas to hide mobile NavBar
+  const { pathname } = useLocation();
+  const AreasToHideMobileNavBar =
+    pathname == "/forgot-password" ||
+    pathname == "/verify-sent-code" ||
+    pathname == "/new-password" ||
+    pathname == "/reset-successful";
 
   // const [showModal, setShowModal] = useState(true);
+
+  const [firstName, setFirstName] = useLocalStorage("firstName", "");
+  const [lastName, setLastName] = useLocalStorage("lastName", "");
+
+  const getDetails = async () => {
+    try {
+      const response = await instance.get("/profile/");
+      // console.log(response.data);
+      setImageURL(response.data.profile_picture_absolute ?? Vini);
+      setFirstName(response.data.first_name);
+      setLastName(response.data.last_name);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
 
   return (
     <ShareState.Provider
@@ -34,6 +100,42 @@ const StateContext = ({ children }) => {
         setDarkMode,
         settingsOpen,
         setSettingsOpen,
+        showEditPFPModal,
+        setShowEditPFPModal,
+        showMobileNavBar,
+        setShowMobileNavBar,
+        showDeleteProfilePhotoModal,
+        setShowDeleteProfilePhotoModal,
+        showRevokeWorkModal,
+        setShowRevokeWorkModal,
+        showMobileSideBar,
+        setShowMobileSideBar,
+        filters,
+        setFilters,
+        AreasToHideMobileNavBar,
+        showDeleteSubmissionModal,
+        setShowDeleteSubmissionModal,
+        showDeleteAccountModal,
+        setShowDeleteAccountModal,
+        showDeactivateAccountModal,
+        setShowDeactivateAccountModal,
+        // the profile photo upload
+        selectedFile,
+        setSelectedFile,
+        imageURL,
+        setImageURL,
+        upload,
+        setUpload,
+        showCarouselModal,
+        setShowCarouselModal,
+        // signup
+        success,
+        setSuccess,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        getDetails,
       }}
     >
       {children}

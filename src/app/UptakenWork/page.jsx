@@ -4,7 +4,7 @@ import TableUptakenWork from "./components/TableUptakenWork";
 
 const UptakenWork = () => {
   return (
-    <div className="w-full px-[2rem] dark:bg-darkMode-body min-h-screen">
+    <div className="w-full px-[1rem] md:px-[2rem] dark:bg-darkMode-body min-h-screen">
       <PageHeader
         title={"Work you have uptaken to do"}
         subTitle={

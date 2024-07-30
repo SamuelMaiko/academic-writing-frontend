@@ -9,13 +9,15 @@ const ContactInfoDetail = ({ icon, title, detail }) => {
         <p className="font-semibold text-[15px]">{title}</p>
         {title == "Phone" || title == "Email" ? (
           <p className="text-sm text-neutral-400">{detail}</p>
-        ) : (
+        ) : detail !== "Not available" ? (
           <a
             href={detail}
             className="text-sm text-blue-500 hover:text-blue-700 underline"
           >
             {detail}
           </a>
+        ) : (
+          <p className="text-sm text-neutral-400">{detail}</p>
         )}
       </div>
     </div>
@@ -25,7 +27,7 @@ const ContactInfoDetail = ({ icon, title, detail }) => {
 ContactInfoDetail.propTypes = {
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  detail: PropTypes.string.isRequired,
+  detail: PropTypes.string,
 };
 
 export default ContactInfoDetail;

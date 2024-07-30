@@ -5,14 +5,15 @@ import { useStateShareContext } from "../../Context/StateContext";
 
 const AssignedWork = () => {
   const { darkMode } = useStateShareContext();
+
   return (
     <div
-      className={`w-full px-[2rem] ${
+      className={`w-full px-[1rem] md:px-[2rem] ${
         darkMode ? "dark" : ""
-      } dark:bg-darkMode-body text-white min-h-screen `}
+      } dark:bg-darkMode-body min-h-screen `}
     >
       <PageHeader
-        title={"Work you have been assigned"}
+        title="Work you have been assigned"
         subTitle={
           "Browse work you been allocated by the admins. Ordered by the latest."
         }

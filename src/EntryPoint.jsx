@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes, Outlet } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Route, Routes, Outlet, useLocation } from "react-router-dom";
 import Home from "./app/Home/page";
 import NotFound from "./app/NotFound/page";
 import AssignedWork from "./app/AssignedWork/page";
@@ -28,19 +28,67 @@ import WorkDetail from "./app/WorkDetail/page";
 import Settings from "./app/Settings/page";
 import Footer from "./app/Footer/page";
 import Notifications from "./app/Notifications/page";
+import EditPFPModal from "./app/Profile/components/EditPFPModal";
+import DeleteProfilePhotoModal from "./app/Profile/components/DeleteProfilePhotoModal";
+import RevokeWorkModal from "./app/WorkDetail/components/RevokeWorkModal";
+import SideBarModal from "./MobileView/SideBar/SideBarModal";
+import TransparentModal from "./MobileView/SideBar/TransparentModal";
+import ChangePassword from "./app/ChangePassword/page";
+import Submissions from "./app/Submissions/page";
+import SubmissionsDetail from "./app/SubmissionsDetail/page";
+import DeleteSubmissionModal from "./app/Submissions/components/DeleteSubmissionModal";
+import Analytics from "./app/Analytics/page";
+import DeleteAccountModal from "./app/Settings/components/DeleteAccountModal";
+import DeactivateAccountModal from "./app/Settings/components/DeactivateAccountModal";
+import ScrollToTop from "./SharedComponents/ScrollToTop ";
 
 const EntryPoint = () => {
-  const { showEditInfoModal, darkMode } = useStateShareContext();
+  const { showEditInfoModal, darkMode, showEditPFPModal } =
+    useStateShareContext();
+  const { pathname } = useLocation();
+  const { setFilters } = useStateShareContext();
+  // storing the filters in local storage if none during app launch
+  useEffect(() => {
+    const filterAvailable = JSON.parse(localStorage.getItem("filters"));
+    if (!filterAvailable) {
+      setFilters([
+        { type: "words", active: false, value: "2000", title: "2000 words" },
+        { type: "words", active: false, value: "1500", title: "1500 words" },
+        {
+          type: "deadline",
+          active: false,
+          value: "today",
+          title: "Deadline Today",
+        },
+        {
+          type: "deadline",
+          active: false,
+          value: "tomorrow",
+          title: "Deadline Tomorrow",
+        },
+      ]);
+    }
+  }, []);
+
+  const scrollableRef = useRef(null);
   return (
-    <>
+    <div className={``}>
       <div
-        className={`${showEditInfoModal ? "h-[98vh] overflow-hidden" : ""}
-         w-full h-full flex justify-between font-opensans ${
-           darkMode ? "dark" : ""
-         } dark:bg-darkMode-bars`}
+        // preventing scrolling on modal open
+        className={`${
+          showEditInfoModal | showEditPFPModal ? " overflow-hidden" : ""
+        }  flex justify-between gap-0 font-opensans ${
+          darkMode ? "dark" : ""
+        } dark:bg-darkMode-bars h-[calc(100vh-0.5rem)] w-full overflow-hidden`}
       >
-        <SideBar />
-        <div className=" w-full h-full">
+        <div className=" h-full w-fit overflow-y-scroll  overflow-x-hidden">
+          <SideBar />
+        </div>
+        <div
+          ref={scrollableRef}
+          className=" w-full h-full flex-1 overflow-y-scroll scrollble"
+        >
+          <ScrollToTop scrollableRef={scrollableRef} />
           <NavBar />
           <Routes>
             <Route path="/home" element={<Home />} />
@@ -51,7 +99,14 @@ const EntryPoint = () => {
             <Route path="/work/:id" element={<WorkDetail />} />
             <Route path="/work/:id/submit" element={<SubmitWork />} />
             <Route path="/bookmarks" element={<Bookmark />} />
+            <Route path="/submissions" element={<Submissions />} />
+            <Route path="/submissions/:id" element={<SubmissionsDetail />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/settings/change-password"
+              element={<ChangePassword />}
+            />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/history" element={<History />} />
             <Route path="/admin/users" element={<UserManagement />} />
@@ -63,10 +118,10 @@ const EntryPoint = () => {
             <Route path="/admin/users/:id" element={<SpecificUserDetails />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <div className={` overflow-x-hidden`}>
-            <Outlet />
-            <Footer />
-          </div>
+          {/* <div className={` overflow-x-hidden `}> */}
+          <Outlet />
+          <Footer />
+          {/* </div> */}
         </div>
       </div>
       <div className={`${darkMode ? "dark" : ""}`}>
@@ -75,8 +130,16 @@ const EntryPoint = () => {
         <DeleteWorkModal />
         <EditInfoModal />
         <Settings />
+        <EditPFPModal />
+        <DeleteProfilePhotoModal />
+        <RevokeWorkModal />
+        <SideBarModal />
+        <TransparentModal />
+        <DeleteSubmissionModal />
+        <DeleteAccountModal />
+        <DeactivateAccountModal />
       </div>
-    </>
+    </div>
   );
 };
 

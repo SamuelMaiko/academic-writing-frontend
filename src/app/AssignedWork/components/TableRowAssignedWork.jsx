@@ -1,17 +1,76 @@
-import { Badge, Button, TableCell, TableRow } from "keep-react";
+import { Badge, Button, TableCell, TableRow, toast } from "keep-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CountdownToDate from "../../Home/components/CountdownToDate";
+import formatDate from "../../Home/components/datetime/formatDate";
+import instance from "../../../axios/instance";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
-const TableRowAssignedWork = () => {
+const TableRowAssignedWork = ({
+  read,
+  id,
+  work_code,
+  words,
+  deadline,
+  type,
+  status,
+  isSubmitted,
+}) => {
   const navigate = useNavigate();
-  const handleButtonClick = (event) => {
+  const { assignedWork, setAssignedWork } = useProgressBarContext();
+  const { setNotificationsCount } = useNotificationContext();
+  //
+
+  const handleSubmitWork = (event) => {
     event.stopPropagation();
-    navigate("/work/1/submit");
+    if (!isSubmitted) {
+      navigate(`/work/${id}/submit`);
+    }
   };
+
+  const handleSeeDetails = () => {
+    navigate(`/work/${id}`);
+    if (!read) {
+      markAsRead();
+      setNotificationsCount((current) => ({
+        ...current,
+        assigned_work: current.assigned_work - 1,
+      }));
+    }
+  };
+
+  const markAsRead = async () => {
+    try {
+      const response = await instance.post(`/work/${id}/read/`);
+      const updatedAssignedWork = assignedWork.map((item) =>
+        item.id === id ? { ...item, assigned_is_read: true } : item
+      );
+      setAssignedWork(updatedAssignedWork);
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
+
   return (
     <TableRow
-      onClick={() => navigate("/work/1")}
-      className="bg-white dark:bg-darkMode-cardBg dark:text-white cursor-pointer"
+      onClick={handleSeeDetails}
+      className={`bg-white dark:bg-darkMode-cardBg dark:text-white cursor-pointer ${
+        !read
+          ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-700 hover:dark:bg-blue-800"
+          : "hover:bg-lightmode-cardBgHover"
+      } h-[4rem]`}
     >
       <TableCell>
         <div className="flex items-center gap-3">
@@ -19,7 +78,7 @@ const TableRowAssignedWork = () => {
             <div className="flex items-center gap-2">
               <div>
                 <p className="-mb-0.5 text-body-4 font-medium text-metal-600 dark:text-sidebartext-hover">
-                  MK345
+                  {work_code}
                 </p>
               </div>
             </div>
@@ -28,25 +87,59 @@ const TableRowAssignedWork = () => {
       </TableCell>
 
       <TableCell>
-        <p>Essay</p>
+        <p className="whitespace-nowrap">{type}</p>
       </TableCell>
       <TableCell>
-        <p>1500</p>
+        <p>{words}</p>
       </TableCell>
-      <TableCell>21st June 2024</TableCell>
-      <TableCell>00:34:00</TableCell>
+      <TableCell>{formatDate(deadline)}</TableCell>
+      <TableCell className="lowercase">
+        <CountdownToDate deadline={deadline} />
+      </TableCell>
       <TableCell>
-        <Badge color="warning" showIcon={true} className="dark:text-orange-500">
-          In progress
-        </Badge>
+        <>
+          <Badge
+            showIcon={true}
+            className={`${
+              status == "Not started" ? "" : "hidden"
+            } bg-[#e0e0e0] dark:bg-[#2c2c2c] text-[#333] dark:text-[#ccc] 
+                    hover:bg-[#d0d0d0] dark:hover:bg-[#3c3c3c] transition-colors duration-300 whitespace-nowrap`}
+          >
+            {status}
+          </Badge>
+          <Badge
+            showIcon={true}
+            className={`${
+              status == "In Progress" ? "" : "hidden"
+            } bg-[#ffeb3b] dark:bg-[#fdd835] text-[#333] dark:text-[#000] 
+                    hover:bg-[#fdd835] dark:hover:bg-[#e0c020] transition-colors duration-300 whitespace-nowrap`}
+          >
+            {status}
+          </Badge>
+          <Badge
+            showIcon={true}
+            className={`${
+              status == "Completed" ? "" : "hidden"
+            } bg-[#4caf50] dark:bg-[#66bb6a] text-[#fff] dark:text-[#fff] 
+                    hover:bg-[#388e3c] dark:hover:bg-[#4caf50] transition-colors duration-300 whitespace-nowrap`}
+          >
+            {status}
+          </Badge>
+        </>
       </TableCell>
       <TableCell>
         <div className="flex items-center gap-1">
           <Button
-            onClick={handleButtonClick}
-            className=" bg-blue-500 dark:bg-darkMode-cardButton dark:text-darkMode-cardText dark:hover:text-darkMode-cardTextHover hover:bg-darkMode-cardButtonHover py-2 px-4  text-white"
+            onClick={handleSubmitWork}
+            className={` dark:text-darkMode-cardText
+               dark:hover:text-darkMode-cardTextHover py-2 
+                 text-white ${
+                   isSubmitted
+                     ? "bg-gray-400 text-white cursor-not-allowed px-4"
+                     : "bg-blue-500 dark:bg-darkMode-cardButton hover:bg-darkMode-cardButtonHover px-7"
+                 } transition-colors duration-300`}
           >
-            Submit
+            {isSubmitted ? "Submitted" : "Submit"}
           </Button>
         </div>
       </TableCell>

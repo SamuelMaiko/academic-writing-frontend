@@ -5,7 +5,7 @@ import { useStateShareContext } from "../../../Context/StateContext";
 const ProfileInformation = () => {
   const { setShowEditInfoModal, setSettingsOpen } = useStateShareContext();
   return (
-    <div className=" bg-neutral-100 rounded-lg">
+    <div className=" bg-neutral-100 rounded-lg dark:bg-darkMode-body dark:text-darkMode-text">
       <h1 className="p-2 pb-0 text-lg mb-2 font-semibold ">
         Profile information
       </h1>

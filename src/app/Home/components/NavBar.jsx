@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./ui/Button";
-import { SunDim, User, Bell, Gear } from "phosphor-react";
+import { Gear, List } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
+import Vini from "../../../assets/Default_pfp.jpg";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { darkMode, setDarkMode, setSettingsOpen } = useStateShareContext();
+  const [greeting, setGreeting] = useState("");
+  const { setSettingsOpen, setShowMobileSideBar, imageURL, firstName } =
+    useStateShareContext();
+  const { notificationsCount } = useNotificationContext();
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      setGreeting("Morning");
+    } else if (hour < 18) {
+      setGreeting("Afternoon");
+    } else {
+      setGreeting("Evening");
+    }
+  }, []);
+
   return (
     <div
-      className={`w-full h-[5rem] px-[2rem] flex  items-center justify-between sticky
+      className={`w-full h-[5rem] px-[1rem] md:px-[2rem] flex  items-center justify-between sticky
          top-0 z-40 bg-white dark:bg-darkMode-bars dark:text-darkMode-text`}
     >
-      <p className="text-xl font-bold">Morning Samuel!</p>
-      <div className="flex gap-2">
+      <p className="text-xl font-bold">
+        {greeting} {firstName}!
+      </p>
+      <div className="flex items-center gap-2">
+        {/* settings button */}
         <Button
           onClick={() => setSettingsOpen(true)}
           buttonType="roundedIconBtn"
@@ -21,29 +41,42 @@ const NavBar = () => {
         >
           <Gear size={22} />
         </Button>
+        {/* sidebar toggle button -- mobile view */}
         <Button
-          onClick={() => setDarkMode((mode) => !mode)}
+          onClick={() => setShowMobileSideBar(true)}
           buttonType="roundedIconBtn"
-          className="dark:hover:bg-gray-600 dark:hover:text-white"
+          className="dark:hover:bg-gray-600 dark:hover:text-white md:hidden"
         >
-          <SunDim size={24} />
+          <List size={22} />
         </Button>
-        <Button
+
+        {/* notifications icon */}
+        <div
           onClick={() => navigate("/notifications")}
-          buttonType="roundedIconBtn"
-          className=" relative dark:hover:bg-gray-600 dark:hover:text-white"
+          className="notification"
         >
-          <Bell size={22} />
-          <div className="absolute top-[0.4rem] right-[0.4rem] size-[0.9rem] grid place-items-center font-semibold bg-blue-500 text-white rounded-full text-xs">
-            0
+          <div className="relative bell-container">
+            <div className="bell border-[2.17px] border-black dark:border-white before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white"></div>
+            <div
+              className="absolute -top-[0.4rem] -right-[0.4rem] size-[13px] flex items-center
+              justify-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
+            >
+              <span>{notificationsCount.notifications}</span>
+            </div>
           </div>
-        </Button>
+        </div>
+        {/* user profile button */}
         <Button
           onClick={() => navigate("/profile")}
           buttonType="roundedIconBtn"
-          className="dark:hover:bg-gray-600 dark:hover:text-white"
+          className="dark:hover:bg-gray-600 size-[2.1rem] ml-1 p-0 overflow-hidden bg-black dark:hover:text-white"
         >
-          <User size={22} />
+          <img
+            className="w-full h-full object-cover object-top"
+            src={imageURL == "" ? Vini : imageURL}
+            alt=""
+          />
+          {/* <User size={22} /> */}
         </Button>
       </div>
     </div>

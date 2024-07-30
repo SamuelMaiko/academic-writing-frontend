@@ -28,9 +28,20 @@ const StateContext = ({ children }) => {
   const [showMobileNavBar, setShowMobileNavBar] = useState(false);
   const [showMobileSideBar, setShowMobileSideBar] = useState(false);
   const [filters, setFilters] = useLocalStorage("filters", [
-    { active: true, title: "2000 words" },
-    { active: true, title: "1500 words" },
-    { active: false, title: "Essay" },
+    { type: "words", active: false, value: "2000", title: "2000 words" },
+    { type: "words", active: false, value: "1500", title: "1500 words" },
+    {
+      type: "deadline",
+      active: false,
+      value: "today",
+      title: "Deadline Today",
+    },
+    {
+      type: "deadline",
+      active: false,
+      value: "tomorrow",
+      title: "Deadline Tomorrow",
+    },
   ]);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showDeactivateAccountModal, setShowDeactivateAccountModal] =

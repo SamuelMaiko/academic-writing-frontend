@@ -4,12 +4,14 @@ import { Gear, List } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 import Vini from "../../../assets/Default_pfp.jpg";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [greeting, setGreeting] = useState("");
   const { setSettingsOpen, setShowMobileSideBar, imageURL, firstName } =
     useStateShareContext();
+  const { notificationsCount } = useNotificationContext();
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -59,7 +61,7 @@ const NavBar = () => {
               className="absolute -top-[0.4rem] -right-[0.4rem] size-[13px] flex items-center
               justify-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
             >
-              <span>1</span>
+              <span>{notificationsCount.notifications}</span>
             </div>
           </div>
         </div>

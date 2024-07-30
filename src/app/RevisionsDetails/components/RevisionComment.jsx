@@ -9,6 +9,7 @@ import { ArrowDown, ChevronDown, File, Plus } from "lucide-react";
 import { Divider } from "keep-react";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
+import hourMinute from "./hourMinute";
 
 const RevisionComment = ({
   id,
@@ -86,14 +87,17 @@ const RevisionComment = ({
     >
       <div className="mb-8">
         <p className="text-sm text-neutral-500 dark:text-sidebartext-hover mb-1">
-          {is_mine ? "You" : sender.first_name} {relativeTime(created_at)}
+          {is_mine ? "You" : sender.first_name} {relativeTime(created_at)}{" "}
+          <span className="text-xs">{hourMinute(created_at)}</span>
         </p>
         <div
           ref={ref}
           onMouseEnter={() => setShowChevronDown(true)}
           onMouseLeave={() => setShowChevronDown(false)}
           className={`w-[20rem] ${
-            is_mine ? "bg-blue-100" : "bg-neutral-100"
+            is_mine
+              ? "bg-[#FFECB3] dark:bg-[#B39DDB] text-[#333333] dark:text-[#FFFFFF]"
+              : "bg-[#E8F5E9] dark:bg-[#3F3F3F] text-[#212121] dark:text-[#E0E0E0]"
           } rounded-lg overflow-hidden shadow-[2px_2px_4px_rgba(0,0,0,0.2)] relative`}
         >
           <img
@@ -131,14 +135,18 @@ const RevisionComment = ({
               </button>
             </div>
           </div>
-          <p className="p-2 text-[13px] font-opensans font-medium">{message}</p>
+          <p className="p-2 text-[13px] font-opensans text-wrap font-medium">
+            {message}
+          </p>
           <div className="flex justify-between px-2">
             <div></div>
             <Checks
               size={23}
-              className={`${is_read ? "text-blue-400" : "text-neutral-500"} ${
-                !is_mine ? "hidden" : ""
-              }`}
+              className={`${
+                is_read
+                  ? "text-[#64B5F6] dark:text-[#90CAF9]"
+                  : "text-[#B0BEC5] dark:text-[#9E9E9E]"
+              } ${!is_mine ? "hidden" : ""}`}
             />
           </div>
         </div>
@@ -149,7 +157,8 @@ const RevisionComment = ({
         onMouseLeave={() => setOpenDropDown(false)}
         className={`${
           openDropDown ? "" : "hidden"
-        } w-[7rem] h-[10rem] rounded-lg bg-neutral-50 absolute top-12  z-50
+        } w-[7rem] h-[10rem] rounded-lg bg-neutral-50 dark:bg-darkMode-bars
+         absolute top-12  z-50
        shadow-[-2px_2px_8px_rgba(0,0,0,0.3)] ${
          !is_mine ? "left-[20%]" : "right-2"
        }`}
@@ -160,7 +169,8 @@ const RevisionComment = ({
               alert("downloaded");
               e.stopPropagation();
             }}
-            className="text-sm py-2 text-left w-full bg-white  hover:bg-gray-200
+            className="text-sm py-2 text-left w-full bg-white text-white dark:hover:bg-darkMode-cardHover 
+              hover:bg-gray-200
              dark:bg-darkMode-body flex items-center gap-1 px-4 transition-colors duration-300 "
           >
             Download
@@ -173,13 +183,13 @@ const RevisionComment = ({
               e.stopPropagation();
               deleteMessage();
             }}
-            className={`text-sm py-2 text-left w-full bg-white  hover:bg-gray-200
+            className={`text-sm py-2 text-left w-full bg-white text-white dark:hover:bg-darkMode-cardHover 
              dark:bg-darkMode-body flex items-center gap-1 px-4 transition-colors duration-300 ${
                !is_mine ? "hidden" : ""
              }`}
             disabled={loading}
           >
-            {loading ? "Loading..." : "Delete"}
+            {loading ? "Deleting..." : "Delete"}
           </button>
           <Divider />
         </>
@@ -190,8 +200,7 @@ const RevisionComment = ({
 
 RevisionComment.propTypes = {
   image: PropTypes.string,
-  comment: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };
 
 export default RevisionComment;

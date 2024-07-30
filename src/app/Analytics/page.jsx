@@ -58,7 +58,6 @@ const Analytics = () => {
     try {
       const response = await instance.get(`/profile/submitted-work/`);
       setSubmittedWork(response.data);
-      console.log(response.data);
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;

@@ -60,7 +60,7 @@ const SubmissionsDetail = () => {
   }, []);
 
   return (
-    <div className="w-full px-[2rem] pb-[5rem] dark:bg-darkMode-body ">
+    <div className="w-full px-[2rem] pb-[37%] md:pb-[5rem] dark:bg-darkMode-body ">
       <PageHeader
         title={"Submission Details"}
         subTitle={"View all the details of a submission."}

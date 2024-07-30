@@ -15,7 +15,6 @@ const Submissions = () => {
     try {
       const response = await instance.get(`/submissions/`);
       setSubmissions(response.data);
-      console.log(response.data);
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;

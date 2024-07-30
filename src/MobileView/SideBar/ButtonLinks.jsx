@@ -10,11 +10,14 @@ import {
   House,
   Pen,
 } from "phosphor-react";
+import { useNotificationContext } from "../../Context/NotificationContext";
 
 const ButtonLinks = () => {
   const { setShowMobileSideBar } = useStateShareContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { notificationsCount } = useNotificationContext();
+
   return (
     <div className={` w-full h-full mt-8 px-4`}>
       {/* home  button */}
@@ -62,7 +65,7 @@ const ButtonLinks = () => {
           className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
         >
-          2
+          {notificationsCount.assigned_work}
         </div>
       </div>
       {/* uptaken work button */}
@@ -89,7 +92,7 @@ const ButtonLinks = () => {
           className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
         >
-          1
+          {notificationsCount.uptaken_work}
         </div>
       </div>
       {/* revisions button */}
@@ -116,7 +119,7 @@ const ButtonLinks = () => {
           className={`absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px] `}
         >
-          0
+          {notificationsCount.revisions}
         </div>
       </div>
       {/* bookmark button */}

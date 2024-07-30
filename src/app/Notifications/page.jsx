@@ -1,47 +1,109 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageHeader from "../../SharedComponents/PageHeader";
 import NotificationCard from "./components/NotificationCard";
 import Footer from "../Footer/page";
-import notifications from "../../assets/notifications.png";
+import notificationsPic from "../../assets/notifications.png";
+import { toast } from "react-toastify";
+import instance from "../../axios/instance";
+import Loader from "../../SharedComponents/Loader";
+import { useNotificationContext } from "../../Context/NotificationContext";
 
 const Notifications = () => {
-  const notif = true;
+  const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const { setNotificationsCount } = useNotificationContext();
+
+  const getNotifications = async () => {
+    setLoading(true);
+    try {
+      const response = await instance.get(`/notifications/`);
+      setNotifications(response.data);
+      markAsRead();
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+          default:
+            toast.error(`Error: ${message}`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+  const markAsRead = async () => {
+    try {
+      const response = await instance.post(
+        `/notifications/read-all-notifications/`
+      );
+
+      // updating state to indicate read all by setting to 0
+      setNotificationsCount((current) => ({
+        ...current,
+        notifications: 0,
+      }));
+    } catch (error) {
+      if (error.response && error.response.status) {
+        const status = error.response.status;
+        const message = error.response.data;
+
+        switch (status) {
+          case 500:
+            toast.error(`Internal server error`);
+            break;
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
+
   return (
     <div className={`relative w-full px-4 md:px-[2rem] dark:bg-darkMode-body`}>
-      <div className="w-full md:w-[55%] h-full">
+      <div className="w-full md:w-[68%] h-full">
         <PageHeader
           title={"Notifications"}
           subTitle={"Stay updated with the latest notifications and alerts."}
         />
+        <Loader loading={loading} />
         <div
           className={`${
-            !notif ? "hidden" : ""
-          } rounded-lg min-h-screen pb-[7rem] dark:bg-darkMode-cardBg overflow-hidden mt-2  bg-neutral-50`}
+            notifications.length == 0 || loading ? "hidden" : ""
+          } rounded-lg min-h-screen pb-[7rem] dark:bg-darkMode-cardBg  mt-2  bg-neutral-50`}
         >
-          <NotificationCard isRead={false} type="NEARING_DEADLINE" />
-          <NotificationCard type="ASSIGNED_WORK" />
-          <NotificationCard type="NEW_REVISION" />
-          <NotificationCard type="UPDATE_PROFILE" />
-          <NotificationCard type="NEARING_DEADLINE" />
-          <NotificationCard type="ASSIGNED_WORK" />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
-          <NotificationCard />
+          {notifications &&
+            notifications.map((item, index) => {
+              return (
+                <NotificationCard
+                  key={index}
+                  {...item}
+                  notifications={notifications}
+                  setNotifications={setNotifications}
+                />
+              );
+            })}
         </div>
         <div
           className={`${
-            !notif ? "" : "hidden"
+            notifications.length !== 0 || loading ? "hidden" : ""
           } min-h-screen dark:text-darkMode-text`}
         >
           <img
             className="w-[14rem] mx-auto h-auto"
-            src={notifications}
+            src={notificationsPic}
             alt=""
           />
           <p className="font-bold text-2xl text-center">
@@ -51,7 +113,7 @@ const Notifications = () => {
             Any new notifications will appear here.
           </p>
         </div>
-        <div className="fixed top-[5rem] w-0 md:w-[30%] bg-blue-200 right-[2rem] hidden md:block z-40">
+        <div className="fixed top-[5rem] w-0 md:w-[21%] bg-blue-200 right-[2rem] hidden md:block z-40">
           <Footer side={true} />
         </div>
       </div>

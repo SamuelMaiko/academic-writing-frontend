@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const Footer = ({ side = false }) => {
   const { pathname } = useLocation();
+
+  const regex = /^\/revisions\/\d+$/;
+
   const FOOTER_LINKS = [
     {
       name: "Help Center",
@@ -25,7 +28,8 @@ const Footer = ({ side = false }) => {
       link: "#",
     },
   ];
-  const firstPart = pathname.split("/")[1];
+  const lastElement = pathname.split("/")[2];
+
   //  if footer is on side e.g home page, notification page
   if (side) {
     return (
@@ -61,7 +65,7 @@ const Footer = ({ side = false }) => {
           (pathname === "/home") |
           (pathname === "/submissions") |
           (pathname === "/notifications") |
-          (firstPart === "revisions")
+          regex.test(pathname)
             ? "hidden"
             : ""
         } bg-neutral-200 dark:bg-darkMode-bars text-gray-500 dark:text-darkMode-gray

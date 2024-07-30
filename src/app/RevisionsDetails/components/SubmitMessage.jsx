@@ -44,10 +44,15 @@ const SubmitMessage = ({
       setFile(null);
       setImage(null);
       // updating state to reflect the sent message
-      setRevisionMessages((current) => [...current, response.data]);
+      setRevisionMessages((current) => {
+        const updatedMessages = [...current, response.data];
 
-      // toast.success("Message sent.");
-
+        return updatedMessages.map((message) =>
+          !message.is_read && !message.is_mine
+            ? { ...message, is_read: true }
+            : message
+        );
+      });
       // navigate(-1);
     } catch (error) {
       if (error.response && error.response.status) {
@@ -79,7 +84,6 @@ const SubmitMessage = ({
     if (selectedFile && selectedFile.type.startsWith("image/")) {
       // setImage(URL.createObjectURL(selectedFile));
       setImage(selectedFile);
-      console.log("Here", selectedFile);
     } else {
       alert("Please select a valid image file");
     }
@@ -101,7 +105,7 @@ const SubmitMessage = ({
           htmlFor="image-upload"
           className="flex items-center cursor-pointer"
         >
-          <Image className="text-gray-600 mb-4" size={24} />
+          <Image className="text-gray-600 dark:text-white mb-4" size={24} />
         </label>
         <input
           id="image-upload"
@@ -121,7 +125,7 @@ const SubmitMessage = ({
           htmlFor="file-upload"
           className="flex items-center cursor-pointer"
         >
-          <File className="text-gray-600 mb-4" size={24} />
+          <File className="text-gray-600 dark:text-white mb-4" size={24} />
         </label>
         <input
           id="file-upload"

@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const TakeUpWorkButton = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const { work, setWork } = useProgressBarContext();
+  const { setNotificationsCount } = useNotificationContext();
 
   const handleTakeUpWork = async (e) => {
     e.stopPropagation();
@@ -17,6 +19,12 @@ const TakeUpWorkButton = ({ id }) => {
       //   removing the work from the list
       const updatedWork = work.filter((item) => item.id !== id);
       setWork(updatedWork);
+
+      // updating notifications count
+      setNotificationsCount((current) => ({
+        ...current,
+        uptaken_work: current.uptaken_work + 1,
+      }));
       //   toast
       toast.success(
         <p className="relative pr-2">

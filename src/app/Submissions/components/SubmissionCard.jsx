@@ -23,7 +23,7 @@ const SubmissionCard = ({
   return (
     <>
       <div
-        className=" relative p-10 px-[0.7rem] hover:bg-[#f1f1f1] transition-colors duration-300
+        className=" relative pt-5 pb-12 px-[0.7rem] hover:bg-[#f1f1f1] transition-colors duration-300
          dark:bg-darkMode-bars  "
         onClick={() => navigate(`/submissions/${id}`)}
       >
@@ -43,16 +43,20 @@ const SubmissionCard = ({
 
         {/* icons */}
         <button
-          className="absolute right-2 text-red-500 hover:text-red-700 transition-colors duration-300 cursor-pointer"
+          className="absolute right-2 bottom-4 text-red-500 hover:text-red-700 transition-colors duration-300 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             setSubmissionToDelete(id);
             setShowDeleteSubmissionModal(true);
           }}
         >
-          <Trash2Icon size={20} />
+          <Trash2Icon size={19} />
         </button>
-        <div className={`flex items-center gap-2 absolute bottom-2 left-[57%]`}>
+        <div
+          className={`${
+            claimed_by.registration_number ? "pl-10 " : ""
+          } flex items-center gap-2 absolute bottom-2 left-[20%] md:left-[55%]`}
+        >
           {claimed_by.registration_number ? (
             <>
               <div className="size-[2rem] bg-red-500 rounded-full overflow-hidden">

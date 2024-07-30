@@ -59,6 +59,9 @@ const ProgressBarContext = ({ children }) => {
   const [submissions, setSubmissions] = useState([]);
   const [submissionToDelete, setSubmissionToDelete] = useState(null);
 
+  // revisions
+  const [revisions, setRevisions] = useState([]);
+
   return (
     <BarContext.Provider
       value={{
@@ -93,6 +96,8 @@ const ProgressBarContext = ({ children }) => {
         setSubmissions,
         submissionToDelete,
         setSubmissionToDelete,
+        revisions,
+        setRevisions,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import formatDate from "../../Home/components/datetime/formatDate";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const TableRowUptakenWork = ({
   read,
@@ -19,6 +20,7 @@ const TableRowUptakenWork = ({
 }) => {
   const navigate = useNavigate();
   const { uptakenWork, setUptakenWork } = useProgressBarContext();
+  const { setNotificationsCount } = useNotificationContext();
 
   //
   const handleSubmitWork = (event) => {
@@ -32,6 +34,10 @@ const TableRowUptakenWork = ({
     navigate(`/work/${id}`);
     if (!read) {
       markAsRead();
+      setNotificationsCount((current) => ({
+        ...current,
+        uptaken_work: current.uptaken_work - 1,
+      }));
     }
   };
 

@@ -10,10 +10,12 @@ import {
   House,
   Pen,
 } from "phosphor-react";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 // import { FileCheck } from "lucide-react";
 
 const SideBarLinks = () => {
   const { shrinkSideBar } = useStateShareContext();
+  const { notificationsCount } = useNotificationContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
@@ -65,7 +67,7 @@ const SideBarLinks = () => {
           className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
         >
-          2
+          {notificationsCount.assigned_work}
         </div>
       </div>
       {/* uptaken work button */}
@@ -89,7 +91,7 @@ const SideBarLinks = () => {
           className="absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px]"
         >
-          1
+          {notificationsCount.uptaken_work}
         </div>
       </div>
       {/* revisions button */}
@@ -113,7 +115,7 @@ const SideBarLinks = () => {
           className={`absolute top-1/2 -translate-y-1/2 right-[0.5rem] size-[0.95rem]
            grid place-items-center font-semibold bg-red-500 text-white rounded-full text-[10px] `}
         >
-          0
+          {notificationsCount.revisions}
         </div>
       </div>
       {/* bookmark button */}

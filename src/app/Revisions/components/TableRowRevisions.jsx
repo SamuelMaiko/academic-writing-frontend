@@ -2,6 +2,8 @@ import { Table, Badge, TableRow, TableCell } from "keep-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import formatDate from "../../Home/components/datetime/formatDate";
+import { useNotificationContext } from "../../../Context/NotificationContext";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const TableRowRevisions = ({
   id,
@@ -13,9 +15,23 @@ const TableRowRevisions = ({
   status,
 }) => {
   const navigate = useNavigate();
+  const { setNotificationsCount } = useNotificationContext();
+  const { revisions } = useProgressBarContext();
+
+  const navigateToDetails = () => {
+    // if not Read means it will be read soon (by MarkAsRead function in detail page),
+    // so I might as well deduct the counter by one now, right?
+    if (!read) {
+      setNotificationsCount((current) => ({
+        ...current,
+        revisions: current.revisions - 1,
+      }));
+    }
+    navigate(`/revisions/${id}`);
+  };
   return (
     <TableRow
-      onClick={() => navigate(`/revisions/${id}`)}
+      onClick={navigateToDetails}
       className={`bg-white dark:bg-darkMode-cardBg dark:text-white cursor-pointer ${
         !read
           ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-700 hover:dark:bg-blue-800"

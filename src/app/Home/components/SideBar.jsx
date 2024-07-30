@@ -10,6 +10,7 @@ import SideBarLinks from "./SideBarLinks";
 
 const SideBar = () => {
   const { shrinkSideBar, setShrinkSideBar, darkMode } = useStateShareContext();
+  
 
   return (
     <div

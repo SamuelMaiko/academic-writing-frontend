@@ -83,7 +83,7 @@ const SearchInput = () => {
           // setSearchQuery("");
         }}
         type="button"
-        className="absolute top-1/2 -translate-y-1/2 right-[10%] hover:text-gray-500 transition-colors duration-300"
+        className="absolute top-1/2 -translate-y-1/2 right-[15%] md:right-[10%] hover:text-gray-500 transition-colors duration-300"
       >
         <X size={17} />
       </button>

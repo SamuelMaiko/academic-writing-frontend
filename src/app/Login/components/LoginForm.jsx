@@ -36,6 +36,8 @@ const LoginForm = () => {
         password: password,
       });
 
+      createNewCookie("email", response.data.user.email);
+
       createNewCookie("access_token", response.data.access);
       createNewCookie("refresh_token", response.data.refresh);
 

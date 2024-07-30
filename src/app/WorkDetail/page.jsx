@@ -74,6 +74,7 @@ const WorkDetail = () => {
   useEffect(() => {
     getWorkDetails();
   }, []);
+
   return (
     <div className="w-full px-0 md:px-[2rem] dark:bg-darkMode-body ">
       <div className="px-[1rem] md:px-0">

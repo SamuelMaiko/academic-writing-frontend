@@ -5,6 +5,7 @@ import CountdownToDate from "../../Home/components/CountdownToDate";
 import formatDate from "../../Home/components/datetime/formatDate";
 import instance from "../../../axios/instance";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const TableRowAssignedWork = ({
   read,
@@ -18,6 +19,7 @@ const TableRowAssignedWork = ({
 }) => {
   const navigate = useNavigate();
   const { assignedWork, setAssignedWork } = useProgressBarContext();
+  const { setNotificationsCount } = useNotificationContext();
   //
 
   const handleSubmitWork = (event) => {
@@ -31,6 +33,10 @@ const TableRowAssignedWork = ({
     navigate(`/work/${id}`);
     if (!read) {
       markAsRead();
+      setNotificationsCount((current) => ({
+        ...current,
+        assigned_work: current.assigned_work - 1,
+      }));
     }
   };
 

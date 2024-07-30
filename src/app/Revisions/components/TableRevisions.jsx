@@ -14,11 +14,14 @@ import UnavailableLight from "../../../assets/UnavailableLight.png";
 import { useStateShareContext } from "../../../Context/StateContext";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
+import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import { useNotificationContext } from "../../../Context/NotificationContext";
 
 const TableRevisions = () => {
   const { darkMode } = useStateShareContext();
   const [loading, setLoading] = useState(false);
-  const [revisions, setRevisions] = useState([]);
+  const { revisions, setRevisions } = useProgressBarContext();
+  const { setNotificationsCount } = useNotificationContext();
 
   const fetchRevisions = async () => {
     setLoading(true);

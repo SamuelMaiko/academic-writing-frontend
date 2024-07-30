@@ -5,14 +5,17 @@ const FileLink = ({ file_name, file }) => {
   return (
     <div className="flex justify-between">
       <div
-        className="text-sm flex items-center gap-2 cursor-pointer hover:text-blue-700 dark:hover:text-blue-400 hover:underline
+        className="text-sm flex items-center gap-2 cursor-pointer hover:text-blue-700
+         dark:hover:text-blue-400 hover:underline
       transition-colors duration-300 mb-2 w-fit
     "
       >
         <span>
           <Paperclip size={20} />
         </span>
-        <p className="whitespace-nowrap">{file_name}</p>
+        <p className="md:whitespace-nowrap line-clamp-2 md:line-clamp-none">
+          {file_name}
+        </p>
         {/* <a href={file} target="blank"> */}
         {/* </a> */}
       </div>

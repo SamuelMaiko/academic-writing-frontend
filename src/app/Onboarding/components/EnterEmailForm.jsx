@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
+import { getCookie } from "../../../Cookies/Cookie";
 
 const EnterEmailForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +48,11 @@ const EnterEmailForm = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const storedEmail = getCookie("email");
+    setEmail(storedEmail);
+  }, []);
 
   return (
     <form

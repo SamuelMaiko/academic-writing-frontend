@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import RevisionComment from "./components/RevisionComment";
 import SubmitForm from "../../SharedComponents/SubmitForm";
 import SubmitMessage from "./components/SubmitMessage";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import instance from "../../axios/instance";
 import { toast } from "react-toastify";
 import { File, X } from "lucide-react";
+import { useProgressBarContext } from "../../Context/ProgressBarContext";
 
 const RevisionsDetails = () => {
   const [loading, setLoading] = useState(false);
@@ -16,19 +17,16 @@ const RevisionsDetails = () => {
   const messageEndRef = useRef(null);
   const messageRef = useRef(null);
   const unReadMessagesRef = useRef(null);
-  // getting revision id
   const { id } = useParams();
-
-  // useEffect(() => {
-  //   messageRef.current.scrollIntoView({ behavior: "smooth" });
-  // }, [file, image]);
+  const { revisions } = useProgressBarContext();
 
   const getRevisionDetails = async () => {
     setLoading(true);
     try {
       const response = await instance.get(`/revisions/${id}/`);
       setRevisionMessages(response.data.messages);
-      // mark messages as read
+
+      // mark all messages as read
       markMessagesAsRead();
     } catch (error) {
       if (error.response && error.response.status) {
@@ -96,15 +94,17 @@ const RevisionsDetails = () => {
     (item) => item.is_read == false && item.is_mine == false
   ).length;
 
+  useEffect(() => {}, []);
+
   return (
     <div
       className="w-full h-[calc(100vh-6rem)] relative px-4 md:px-[2rem]
-       flex flex-col justify-between
-     dark:bg-darkMode-body dark:text-black md:gap-0 overflow-hidden"
+       flex flex-col justify-between bg-purple-50
+     dark:bg-darkMode-bars dark:text-black md:gap-0 overflow-hidden"
     >
       <div className="relative h-[80%] ">
         <div
-          className={` scrollble h-full w-full ${
+          className={` scrollble h-full w-full pt-2 ${
             file === null && image === null
               ? "overflow-y-scroll"
               : "overflow-hidden"
@@ -123,15 +123,21 @@ const RevisionsDetails = () => {
                 />
               );
           })}
-          <h1
+          <div
             ref={unReadMessagesRef}
-            className={`uppercase font-semibold text-center bg-green-200 py-2 my-2 mb-8 rounded-2xl ${
+            className={`${
               unReadMessages > 0 ? "" : "hidden"
-            }`}
+            } flex justify-center bg-gray-100 mb-8 py-2 `}
           >
-            {" "}
-            {unReadMessages} Unread messages
-          </h1>
+            <h1
+              className={`uppercase font-semibold text-center bg-green-200 py-2 px-4 rounded-3xl ${
+                unReadMessages > 0 ? "" : "hidden"
+              }`}
+            >
+              {" "}
+              {unReadMessages} Unread messages
+            </h1>
+          </div>
           {revisionMessages.map((message, index) => {
             if (!message.is_mine && !message.is_read)
               return (
@@ -177,7 +183,7 @@ const RevisionsDetails = () => {
             <div
               className={`${
                 image == null ? "hidden" : ""
-              } w-[40%] mx-auto h-[20rem] bg-gray-200 flex items-center
+              } w-[92%] md:w-[40%] mx-auto h-[20rem] bg-gray-200 flex items-center
            justify-between flex-col rounded-xl`}
             >
               {image && (
@@ -192,7 +198,7 @@ const RevisionsDetails = () => {
             <div
               className={`${
                 file == null ? "hidden" : ""
-              } w-[40%] mx-auto h-[18rem] bg-gray-200 flex items-center
+              } w-[91%] md:w-[40%] mx-auto h-[18rem] bg-gray-200 flex items-center
            justify-between flex-col py-14 gap-2 rounded-xl`}
             >
               <File

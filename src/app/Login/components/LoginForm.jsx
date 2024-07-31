@@ -7,8 +7,8 @@ import { createNewCookie } from "../../../Cookies/Cookie";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 
 const LoginForm = () => {
-  const [registrationNumber, setRegistrationNumber] = useState("TW60012");
-  const [password, setPassword] = useState("lastone447");
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const { success, setSuccess, setDarkMode } = useStateShareContext();

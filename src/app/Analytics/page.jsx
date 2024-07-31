@@ -141,14 +141,6 @@ const Analytics = () => {
               qualityIssues={analytics && analytics.quality_issues}
             />
           </div>
-          <div className="">
-            <PieActiveArc
-              successfulWork={
-                analytics && analytics.assigned_work + analytics.uptaken_work
-              }
-              qualityIssues={analytics && analytics.quality_issues}
-            />
-          </div>
         </div>
         <div
           className="h-[14rem] md:h-[18.6rem] p-5 w-full rounded-lg shadow-[2px_2px_10px_rgba(0,0,0,0.17)]

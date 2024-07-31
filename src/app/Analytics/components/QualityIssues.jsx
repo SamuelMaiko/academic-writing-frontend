@@ -3,10 +3,12 @@ import ListComponent from "./ListComponent";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
 import formatDate from "../../Home/components/datetime/formatDate";
+import { useNavigate } from "react-router-dom";
 
 const QualityIssues = () => {
   const [loading, setLoading] = useState(false);
   const [qualityIssuesWork, setQualityIssuesWork] = useState([]);
+  const navigate = useNavigate();
 
   const getQualityIssuesWork = async () => {
     setLoading(true);
@@ -57,7 +59,13 @@ const QualityIssues = () => {
                 index={index}
                 content={
                   <p>
-                    Poor quality for work <strong>{item.work.work_code}</strong>{" "}
+                    Poor quality for work{" "}
+                    <strong
+                      className="cursor-pointer hover:underline"
+                      onClick={() => navigate(`/work/${item.work.id}`)}
+                    >
+                      {item.work.work_code}
+                    </strong>{" "}
                     on <i> {formatDate(item.created_at)}.</i>
                   </p>
                 }

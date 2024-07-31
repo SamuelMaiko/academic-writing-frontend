@@ -37,8 +37,6 @@ const LoginForm = () => {
         password: password,
       });
 
-      console.log(response.data);
-
       createNewCookie("temporaryEmail", response.data.user.temporary_email);
 
       createNewCookie("access_token", response.data.access);

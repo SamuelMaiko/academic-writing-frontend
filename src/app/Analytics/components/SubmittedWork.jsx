@@ -3,9 +3,11 @@ import ListComponent from "./ListComponent";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
 import formatDate from "../../Home/components/datetime/formatDate";
+import { useNavigate } from "react-router-dom";
 
 const SubmittedWork = ({ submittedWork, setSubmittedWork }) => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -29,7 +31,16 @@ const SubmittedWork = ({ submittedWork, setSubmittedWork }) => {
                 index={index}
                 content={
                   <p>
-                    Work <strong>{item.work_code}</strong> submitted on{" "}
+                    Work{" "}
+                    <strong
+                      className="cursor-pointer hover:underline"
+                      onClick={() =>
+                        navigate(`/work/${item.submission.work.id}`)
+                      }
+                    >
+                      {item.work_code}
+                    </strong>{" "}
+                    submitted on{" "}
                     <i> {formatDate(item.submission.created_at)}.</i>
                   </p>
                 }

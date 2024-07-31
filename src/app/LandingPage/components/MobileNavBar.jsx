@@ -1,5 +1,5 @@
 import { X } from "phosphor-react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useStateShareContext } from "../../../Context/StateContext";
 
@@ -27,8 +27,24 @@ const MobileNavBar = () => {
     },
   ];
 
+  const mobNavBarRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (mobNavBarRef.current && !mobNavBarRef.current.contains(event.target)) {
+      setShowMobileNavBar(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      ref={mobNavBarRef}
       className={`${showMobileNavBar ? "" : "translate-x-[23rem]"} ${
         AreasToHideMobileNavBar ? "hidden" : ""
       }  transition-transform duration-500 absolute lg:hidden z-20

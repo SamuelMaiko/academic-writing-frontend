@@ -32,6 +32,7 @@ const SubmissionCard = ({
           <span
             onClick={(e) => {
               e.stopPropagation();
+              navigate(`/work/${work.id}`);
             }}
             className="ml-1 font-semibold hover:underline hover:text-blue-500
            transition-colors duration-300 cursor-pointer"

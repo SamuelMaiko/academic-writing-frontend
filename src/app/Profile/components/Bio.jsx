@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Bio = ({ bio }) => {
+  useEffect(() => {
+    console.log(bio);
+  }, []);
   return (
     <div
       className="mt-[10.8rem] min-h-[6rem] mx-auto flex flex-col justify-center
@@ -11,7 +14,8 @@ const Bio = ({ bio }) => {
     >
       <h1 className="text-[16px] md:text-lg font-semibold">Bio</h1>
       <p id="contact" className=""></p>
-      <p className="text-[14px] leading-6">{bio}</p>
+      {/* <p className="text-[14px] leading-6">{bio}</p> */}
+      <div dangerouslySetInnerHTML={{ __html: bio }} />
       {/* contact tracking */}
     </div>
   );

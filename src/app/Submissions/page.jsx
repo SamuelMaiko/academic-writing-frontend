@@ -8,6 +8,7 @@ import { useProgressBarContext } from "../../Context/ProgressBarContext";
 import { useStateShareContext } from "../../Context/StateContext";
 import UnavailableDark from "../../assets/UnavailableDark.png";
 import UnavailableLight from "../../assets/UnavailableLight.png";
+import Loader from "../../SharedComponents/Loader";
 
 const Submissions = () => {
   const { submissions, setSubmissions } = useProgressBarContext();
@@ -53,14 +54,18 @@ const Submissions = () => {
             "Manage your submissions. Edit, delete, and check review status along with reviewer details."
           }
         />
-
-        <div>
+        <Loader loading={loading} />
+        <div className={`${loading ? "hidden" : ""}`}>
           {submissions &&
             submissions.map((item, index) => {
               return <SubmissionCard key={index} {...item} />;
             })}
         </div>
-        <div className="pb-[8rem]">
+        <div
+          className={`pb-[8rem] ${
+            loading || submissions.length > 0 ? "hidden" : ""
+          }`}
+        >
           <img
             className="mx-auto w-[16rem]"
             src={darkMode ? UnavailableDark : UnavailableLight}

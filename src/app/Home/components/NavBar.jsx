@@ -9,9 +9,16 @@ import { useNotificationContext } from "../../../Context/NotificationContext";
 const NavBar = () => {
   const navigate = useNavigate();
   const [greeting, setGreeting] = useState("");
-  const { setSettingsOpen, setShowMobileSideBar, imageURL, firstName } =
-    useStateShareContext();
-  const { notificationsCount } = useNotificationContext();
+  const {
+    setSettingsOpen,
+    setShowMobileSideBar,
+    imageURL,
+    firstName,
+    lastName,
+    getDetails,
+  } = useStateShareContext();
+  const { notificationsCount, getNotificationsCount } =
+    useNotificationContext();
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -21,6 +28,14 @@ const NavBar = () => {
       setGreeting("Afternoon");
     } else {
       setGreeting("Evening");
+    }
+
+    // getting latest notification count on page load
+    getNotificationsCount();
+
+    // getting details if cleared from LOCAL STORAGE
+    if (firstName === "" || lastName === "") {
+      getDetails();
     }
   }, []);
 

@@ -84,6 +84,7 @@ const ChangePasswordForm = () => {
             // Step 3: Bind state to input
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
+            required
           />
         </div>
       </div>
@@ -102,6 +103,7 @@ const ChangePasswordForm = () => {
             // Step 3: Bind state to input
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
+            required
           />
         </div>
       </div>
@@ -120,6 +122,7 @@ const ChangePasswordForm = () => {
             // Step 3: Bind state to input
             value={retypePassword}
             onChange={(e) => setRetypePassword(e.target.value)}
+            required
           />
         </div>
       </div>

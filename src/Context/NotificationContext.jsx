@@ -10,7 +10,7 @@ const NotificationContext = ({ children }) => {
   // getting the notification COUNT
   const [notificationsCount, setNotificationsCount] = useState({});
 
-  const getNotifications = async () => {
+  const getNotificationsCount = async () => {
     try {
       const response = await instance.get(
         `/notifications/unread-notifications-count/`
@@ -35,12 +35,13 @@ const NotificationContext = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    getNotifications();
-  }, []);
   return (
     <createdNotifContext.Provider
-      value={{ notificationsCount, setNotificationsCount }}
+      value={{
+        notificationsCount,
+        setNotificationsCount,
+        getNotificationsCount,
+      }}
     >
       {children}
     </createdNotifContext.Provider>

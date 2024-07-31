@@ -50,8 +50,12 @@ const EnterEmailForm = () => {
   };
 
   useEffect(() => {
-    const storedEmail = getCookie("email");
-    setEmail(storedEmail);
+    const storedEmail = getCookie("temporaryEmail");
+    if (storedEmail == null) {
+      setEmail("");
+    } else {
+      setEmail(storedEmail);
+    }
   }, []);
 
   return (

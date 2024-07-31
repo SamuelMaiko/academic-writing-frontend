@@ -3,13 +3,14 @@ import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
+import { createNewCookie, getCookie } from "../../../Cookies/Cookie";
 
 const EnterVerificationCodeForm = () => {
-  const { setVerifyDone } = useProgressBarContext();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const { setVerifyDone } = useProgressBarContext();
 
   const navigate = useNavigate();
 
@@ -26,8 +27,29 @@ const EnterVerificationCodeForm = () => {
 
       setSuccess(response.data.message);
       toast.success("Email verified successfully.");
+
+      // updating the cookie to show they have completed the step
+      createNewCookie("verifyDone", true);
       setVerifyDone(true);
-      navigate("/onboarding/fill-details");
+
+      // conditionally navigate
+      if (getCookie("verifyDone") === "true") {
+        if (getCookie("fillDetailsDone") === "true") {
+          if (getCookie("profileDone") === "true") {
+            if (getCookie("changePasswordDone") === "true") {
+              navigate("/onboarding/success");
+            } else {
+              navigate("/onboarding/change-password");
+            }
+          } else {
+            navigate("/onboarding/complete-profile");
+          }
+        } else {
+          navigate("/onboarding/fill-details");
+        }
+      } else {
+        navigate("/onboarding/verify-email");
+      }
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;

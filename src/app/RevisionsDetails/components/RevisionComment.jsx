@@ -20,6 +20,7 @@ const RevisionComment = ({
   created_at,
   is_read,
   is_mine,
+  emoji_message,
   revisionMessages,
   setRevisionMessages,
   setDeleting,
@@ -63,7 +64,7 @@ const RevisionComment = ({
       }
     } finally {
       setLoading(false);
-      setDeleting(false);
+      // setDeleting(false);
     }
   };
 
@@ -136,7 +137,8 @@ const RevisionComment = ({
             </div>
           </div>
           <p className="p-2 text-[13px] font-opensans text-wrap font-medium">
-            {message}
+            {/* {message} */}
+            {emoji_message}
           </p>
           <div className="flex justify-between px-2">
             <div></div>
@@ -169,7 +171,7 @@ const RevisionComment = ({
               alert("downloaded");
               e.stopPropagation();
             }}
-            className="text-sm py-2 text-left w-full bg-white text-white dark:hover:bg-darkMode-cardHover 
+            className="text-sm py-2 text-left w-full bg-white dark:text-white dark:hover:bg-darkMode-cardHover 
               hover:bg-gray-200
              dark:bg-darkMode-body flex items-center gap-1 px-4 transition-colors duration-300 "
           >
@@ -183,7 +185,7 @@ const RevisionComment = ({
               e.stopPropagation();
               deleteMessage();
             }}
-            className={`text-sm py-2 text-left w-full bg-white text-white dark:hover:bg-darkMode-cardHover 
+            className={`text-sm py-2 text-left w-full bg-white dark:text-white dark:hover:bg-darkMode-cardHover 
              dark:bg-darkMode-body flex items-center gap-1 px-4 transition-colors duration-300 ${
                !is_mine ? "hidden" : ""
              }`}

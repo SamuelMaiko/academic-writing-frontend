@@ -23,7 +23,7 @@ const WorkImages = ({ images, zipUrl, zipName }) => {
             <span>
               <CloudArrowDown size={20} />{" "}
             </span>
-            <span>Download all</span>
+            <span>Download all images</span>
           </button>
         </a>
       </div>

@@ -4,19 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import instance from "../../../axios/instance";
 import { useStateShareContext } from "../../../Context/StateContext";
+import { createNewCookie, getCookie } from "../../../Cookies/Cookie";
 
 const CompleteProfileForm = () => {
-  const { setProfileDone } = useProgressBarContext();
   const navigate = useNavigate();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
 
   const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const { setImageURL } = useStateShareContext();
+  const [file, setFile] = useState(null);
+  const { setProfileDone } = useProgressBarContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,50 +24,78 @@ const CompleteProfileForm = () => {
     setSuccess("");
 
     const formData = new FormData();
-    formData.append("profile_picture", file);
+
+    if (file) {
+      formData.append("profile_picture", file);
+    }
     formData.append("bio", bio);
 
-    try {
-      const response = await instance.put(
-        "/onboarding/complete-profile/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+    if (bio === "") {
+      toast.warning("Bio required");
+    } else {
+      try {
+        const response = await instance.put(
+          "/onboarding/complete-profile/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-      // setSuccess(response.data.message);
-      toast.success("Profile updated successfully.");
-      setProfileDone(true);
-      setImageURL(response.data.profile_picture_absolute);
-      navigate("/onboarding/change-password");
-    } catch (error) {
-      if (error.response && error.response.status) {
-        const status = error.response.status;
-        const message = error.response.data.error;
+        // setSuccess(response.data.message);
+        toast.success("Profile updated successfully.");
 
-        switch (status) {
-          case 400:
-            setError(`${message}`);
-            break;
-          case 500:
-            setError(`Server Error: ${message}`);
-            break;
-          default:
-            setError(`Error: ${message}`);
-            break;
+        // updating the cookie to show they have completed the step
+        createNewCookie("profileDone", true);
+        setProfileDone(true)
+
+        setImageURL(response.data.profile_picture_absolute);
+
+        // conditionally navigate
+        if (getCookie("verifyDone") === "true") {
+          if (getCookie("fillDetailsDone") === "true") {
+            if (getCookie("profileDone") === "true") {
+              if (getCookie("changePasswordDone") === "true") {
+                navigate("/onboarding/success");
+              } else {
+                navigate("/onboarding/change-password");
+              }
+            } else {
+              navigate("/onboarding/complete-profile");
+            }
+          } else {
+            navigate("/onboarding/fill-details");
+          }
+        } else {
+          navigate("/onboarding/verify-email");
         }
-      } else {
-        setError("An unexpected error occurred. Please try again later.");
+      } catch (error) {
+        if (error.response && error.response.status) {
+          const status = error.response.status;
+          const message = error.response.data.error;
+
+          switch (status) {
+            case 400:
+              setError(`${message}`);
+              console.log(error.response.data);
+              break;
+            case 500:
+              setError(`Server Error: ${message}`);
+              break;
+            default:
+              setError(`Error: ${message}`);
+              break;
+          }
+        } else {
+          setError("An unexpected error occurred. Please try again later.");
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } finally {
-      setIsLoading(false);
     }
   };
-
-  const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]); // Save the first selected file

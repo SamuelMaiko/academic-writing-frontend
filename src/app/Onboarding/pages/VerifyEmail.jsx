@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EnterVerificationCodeForm from "../components/EnterVerificationCodeForm";
 import EnterEmailForm from "../components/EnterEmailForm";
+import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../../Cookies/Cookie";
 
 const VerifyEmail = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie("verifyDone") === "true") {
+      if (getCookie("fillDetailsDone") === "true") {
+        if (getCookie("profileDone") === "true") {
+          if (getCookie("changePasswordDone") === "true") {
+            navigate("/onboarding/success");
+          } else {
+            navigate("/onboarding/change-password");
+          }
+        } else {
+          navigate("/onboarding/complete-profile");
+        }
+      } else {
+        navigate("/onboarding/fill-details");
+      }
+      // navigate("/onboarding/success");
+    } else {
+      // navigate("/onboarding/change-password");
+    }
+  }, []);
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center">

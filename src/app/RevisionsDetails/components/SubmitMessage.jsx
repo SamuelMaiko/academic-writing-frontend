@@ -30,6 +30,8 @@ const SubmitMessage = ({
     if (image) formData.append("image", image);
     formData.append("message", message);
 
+    console.log(message);
+
     try {
       const response = await instance.post(
         `/revisions/${id}/send-message/`,
@@ -40,6 +42,7 @@ const SubmitMessage = ({
           },
         }
       );
+      console.log(response.data);
       setMessage("");
       setFile(null);
       setImage(null);
@@ -111,7 +114,10 @@ const SubmitMessage = ({
           id="image-upload"
           type="file"
           accept="image/*"
-          onChange={handleImageChange}
+          onChange={(e) => {
+            handleImageChange(e);
+            e.target.value = "";
+          }}
           className="hidden"
         />
       </div>
@@ -130,7 +136,10 @@ const SubmitMessage = ({
         <input
           id="file-upload"
           type="file"
-          onChange={handleFileChange}
+          onChange={(e) => {
+            handleFileChange(e);
+            e.target.value = "";
+          }}
           className="hidden"
         />
       </div>

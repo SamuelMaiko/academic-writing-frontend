@@ -3,13 +3,10 @@ import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
+import { createNewCookie, getCookie } from "../../../Cookies/Cookie";
 
 const NewPasswordForm = () => {
-  const { setChangePasswordDone } = useProgressBarContext();
   const navigate = useNavigate();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
 
   const [isLoading, setIsLoading] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
@@ -17,6 +14,7 @@ const NewPasswordForm = () => {
   const [retypedNewPassword, setRetypedNewPassword] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { setChangePasswordDone } = useProgressBarContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,13 +43,33 @@ const NewPasswordForm = () => {
 
         // setSuccess(response.data.message);
         toast.success("Password updated successfully.");
+
+        // updating the cookie to show they have completed the step
+        createNewCookie("changePasswordDone", true);
         setChangePasswordDone(true);
-        navigate("/onboarding/success");
+
+        // conditionally navigate
+        if (getCookie("verifyDone") === "true") {
+          if (getCookie("fillDetailsDone") === "true") {
+            if (getCookie("profileDone") === "true") {
+              if (getCookie("changePasswordDone") === "true") {
+                navigate("/onboarding/success");
+              } else {
+                navigate("/onboarding/change-password");
+              }
+            } else {
+              navigate("/onboarding/complete-profile");
+            }
+          } else {
+            navigate("/onboarding/fill-details");
+          }
+        } else {
+          navigate("/onboarding/verify-email");
+        }
       } catch (error) {
         if (error.response && error.response.status) {
           const status = error.response.status;
           const message = error.response.data;
-          console.log(error.response.data);
 
           switch (status) {
             case 400:

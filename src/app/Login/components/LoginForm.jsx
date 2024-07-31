@@ -123,7 +123,7 @@ const LoginForm = () => {
           type="text"
           value={registrationNumber}
           name="username"
-          placeholder="Enter Employee No."
+          placeholder="Enter Registration No."
         ></input>
       </div>
       <div className="mb-3 mt-5">

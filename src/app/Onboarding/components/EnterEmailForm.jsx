@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
 import { getCookie } from "../../../Cookies/Cookie";
+import { toast } from "react-toastify";
 
 const EnterEmailForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,19 +24,20 @@ const EnterEmailForm = () => {
       });
 
       setSuccess("Check your email for an OTP to verify your email!");
-      // toast.success("success");
+      toast.success("Check your email for an OTP to verify your email!");
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data.error;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:
             setError(` ${message}`);
+            toast.warning(message);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error("Internal Server error");
             break;
           default:
             setError(`Error: ${message}`);
@@ -50,8 +52,12 @@ const EnterEmailForm = () => {
   };
 
   useEffect(() => {
-    const storedEmail = getCookie("email");
-    setEmail(storedEmail);
+    const storedEmail = getCookie("temporaryEmail");
+    if (storedEmail == null) {
+      setEmail("");
+    } else {
+      setEmail(storedEmail);
+    }
   }, []);
 
   return (
@@ -59,8 +65,12 @@ const EnterEmailForm = () => {
       onSubmit={handleGetOTP}
       className="relative py-[1rem] md:py-[5rem] flex flex-col items-center flex-1 border-r-0 md:border-r-[1px] md:border-gray-300"
     >
-      {error && <p className="text-red-500 absolute top-8">{error}</p>}
-      {success && <p className="text-green-500 absolute top-8">{success}</p>}
+      {error && (
+        <p className="text-red-500 hidden absolute -top-4 md:top-8">{error}</p>
+      )}
+      {success && (
+        <p className="text-green-500 hidden absolute top-8">{success}</p>
+      )}
       <div className="relative inline">
         <input
           type="email"

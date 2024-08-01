@@ -237,6 +237,7 @@ const RevisionsDetails = () => {
           revisionMessages={revisionMessages}
           setRevisionMessages={setRevisionMessages}
           messageEndRef={messageEndRef}
+          setDeleting={setDeleting}
         />
       </div>
     </div>

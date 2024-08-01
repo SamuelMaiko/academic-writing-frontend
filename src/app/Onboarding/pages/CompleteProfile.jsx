@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import CompleteProfileForm from "../components/CompleteProfileForm";
+import { getCookie } from "../../../Cookies/Cookie";
+import { useNavigate } from "react-router-dom";
 
 const CompleteProfile = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie("profileDone") === "true") {
+      if (getCookie("changePasswordDone") === "true") {
+        navigate("/onboarding/success");
+      } else {
+        navigate("/onboarding/change-password");
+      }
+    } else {
+      navigate("/onboarding/complete-profile");
+    }
+  }, []);
+
   return (
     <div className="flex flex-col ">
       <div className="flex flex-col md:pl-[13rem] md:pr-[13rem]">

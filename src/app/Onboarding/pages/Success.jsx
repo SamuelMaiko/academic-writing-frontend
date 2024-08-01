@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import success from "../../../assets/success.png";
+import { getCookie } from "../../../Cookies/Cookie";
 
 const Success = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    // conditionally navigate
+    if (getCookie("verifyDone") === "true") {
+      if (getCookie("fillDetailsDone") === "true") {
+        if (getCookie("profileDone") === "true") {
+          if (getCookie("changePasswordDone") === "true") {
+            navigate("/onboarding/success");
+          } else {
+            navigate("/onboarding/change-password");
+          }
+        } else {
+          navigate("/onboarding/complete-profile");
+        }
+      } else {
+        navigate("/onboarding/fill-details");
+      }
+    } else {
+      navigate("/onboarding/verify-email");
+    }
+  }, []);
   return (
     <div>
       <div className=" flex justify-center h-[14rem] overflow-hidden">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Bio = ({ bio }) => {
   return (
@@ -12,7 +12,6 @@ const Bio = ({ bio }) => {
       <h1 className="text-[16px] md:text-lg font-semibold">Bio</h1>
       <p id="contact" className=""></p>
       <p className="text-[14px] leading-6">{bio}</p>
-      {/* contact tracking */}
     </div>
   );
 };

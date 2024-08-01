@@ -12,6 +12,7 @@ const ContactInfoDetail = ({ icon, title, detail }) => {
         ) : detail !== "Not available" ? (
           <a
             href={detail}
+            target="_blank"
             className="text-sm text-blue-500 hover:text-blue-700 underline"
           >
             {detail}

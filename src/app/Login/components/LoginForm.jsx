@@ -5,6 +5,7 @@ import { useStateShareContext } from "../../../Context/StateContext";
 import instance from "../../../axios/instance";
 import { createNewCookie } from "../../../Cookies/Cookie";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
+import Vini from "../../../assets/Default_pfp.jpg";
 
 const LoginForm = () => {
   const [registrationNumber, setRegistrationNumber] = useState("");
@@ -36,7 +37,7 @@ const LoginForm = () => {
         password: password,
       });
 
-      createNewCookie("email", response.data.user.email);
+      createNewCookie("temporaryEmail", response.data.user.temporary_email);
 
       createNewCookie("access_token", response.data.access);
       createNewCookie("refresh_token", response.data.refresh);
@@ -44,7 +45,7 @@ const LoginForm = () => {
       // setting first name, last name and imageURL in LOCAL STORAGE
       setFirstName(response.data.user.first_name);
       setLastName(response.data.user.last_name);
-      setImageURL(response.data.user.profile_picture_absolute);
+      setImageURL(response.data.user.profile_picture_absolute ?? Vini);
       setDarkMode(response.data.user.dark_mode);
 
       // navigating to onboarding

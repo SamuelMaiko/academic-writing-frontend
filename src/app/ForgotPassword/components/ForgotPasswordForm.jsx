@@ -30,17 +30,19 @@ const ForgotPasswordForm = () => {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:
             setError(` ${message.error}`);
+            toast.warning(` ${message.error}`);
             break;
           case 404:
+            toast.warning(` ${message.message}`);
             setError(` ${message.message}`);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error("Internal Server Error.");
             break;
           default:
             setError(`Error: ${message}`);
@@ -59,8 +61,12 @@ const ForgotPasswordForm = () => {
       onSubmit={handleSubmit}
       className="md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)] relative"
     >
-      {error && <p className="text-red-500 absolute -top-12 ">{error}</p>}
-      {success && <p className="text-green-500 absolute -top-12">{success}</p>}
+      {error && (
+        <p className="text-red-500 hidden absolute -top-12 ">{error}</p>
+      )}
+      {success && (
+        <p className="text-green-500 hidden absolute -top-12">{success}</p>
+      )}
       <h1 className="text-[25px] font-semibold mb-2">Forgot password</h1>
       <div className="">
         <label className=" text-sm text-neutral-500 dark:text-darkMode-gray">

@@ -15,6 +15,7 @@ const SubmitMessage = ({
   revisionMessages,
   setRevisionMessages,
   messageEndRef,
+  setDeleting,
 }) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,6 +24,7 @@ const SubmitMessage = ({
   const { id } = useParams();
 
   const handleSubmitMessage = async () => {
+    setDeleting(false);
     setLoading(true);
 
     const formData = new FormData();
@@ -111,7 +113,10 @@ const SubmitMessage = ({
           id="image-upload"
           type="file"
           accept="image/*"
-          onChange={handleImageChange}
+          onChange={(e) => {
+            handleImageChange(e);
+            e.target.value = "";
+          }}
           className="hidden"
         />
       </div>
@@ -130,7 +135,10 @@ const SubmitMessage = ({
         <input
           id="file-upload"
           type="file"
-          onChange={handleFileChange}
+          onChange={(e) => {
+            handleFileChange(e);
+            e.target.value = "";
+          }}
           className="hidden"
         />
       </div>

@@ -34,24 +34,26 @@ const VerifyCodeForm = () => {
       });
       toast.success("OTP verified successfully!");
       createNewCookie("tempToken", response.data.temp_token);
-      // deleting to prevent user accessing this page after moving forward or using this route. Reason: useEffect checks its available
+      // deleting to prevent user accessing this page after moving forward or using this route. Reason: useEffect checks its availability
       deleteCookie("forgotEmail");
       navigate("/new-password");
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:
             setError(` ${message.error}`);
+            toast.warning(` ${message.error}`);
             break;
           case 404:
             setError(` ${message.error}`);
+            toast.warning(` ${message.error}`);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error("Internal Server Error.");
             break;
           default:
             setError(`Error: ${message}`);
@@ -77,8 +79,12 @@ const VerifyCodeForm = () => {
         onSubmit={handleSubmit}
         className="relative w-full md:w-[27%] p-6 rounded-lg md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
       >
-        {error && <p className="text-red-500 absolute -top-8">{error}</p>}
-        {success && <p className="text-green-500 absolute -top-8">{success}</p>}
+        {error && (
+          <p className="text-red-500 hidden absolute -top-8">{error}</p>
+        )}
+        {success && (
+          <p className="text-green-500 hidden absolute -top-8">{success}</p>
+        )}
         <p
           className={`${
             showResendSuccess ? "" : "hidden"

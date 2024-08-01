@@ -7,6 +7,7 @@ const BarContext = createContext();
 export const useProgressBarContext = () => useContext(BarContext);
 
 const ProgressBarContext = ({ children }) => {
+  // The progress bar depends on them to show the current step
   const [verifyDone, setVerifyDone] = useCookies("verifyDone", false);
   const [fillDetailsDone, setFillDetailsDone] = useCookies(
     "fillDetailsDone",

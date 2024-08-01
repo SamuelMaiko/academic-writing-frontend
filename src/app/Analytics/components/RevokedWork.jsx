@@ -3,10 +3,12 @@ import ListComponent from "./ListComponent";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
 import formatDate from "../../Home/components/datetime/formatDate";
+import { useNavigate } from "react-router-dom";
 
 const RevokedWork = () => {
   const [loading, setLoading] = useState(false);
   const [revokedWork, setRevokedWork] = useState(false);
+  const navigate = useNavigate();
 
   const getRevokedWork = async () => {
     setLoading(true);
@@ -46,7 +48,7 @@ const RevokedWork = () => {
             revokedWork && revokedWork.length == 0 ? "" : "hidden"
           } text-gray-600 dark:text-gray-200`}
         >
-          No such work found.
+          No work found.
         </p>
         {revokedWork &&
           revokedWork.map((item, index) => {
@@ -56,8 +58,14 @@ const RevokedWork = () => {
                 index={index}
                 content={
                   <p>
-                    Work <strong>{item.work.work_code}</strong> revoked on{" "}
-                    <i> {formatDate(item.created_at)}.</i>
+                    Work{" "}
+                    <strong
+                      className="cursor-pointer hover:underline"
+                      onClick={() => navigate(`/work/${item.work.id}`)}
+                    >
+                      {item.work.work_code}
+                    </strong>{" "}
+                    revoked on <i> {formatDate(item.created_at)}.</i>
                   </p>
                 }
               />

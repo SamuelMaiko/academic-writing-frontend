@@ -88,7 +88,7 @@ const Analytics = () => {
     <div className="w-full dark:bg-darkMode-body min-h-screen overflow-hidden">
       <div className="px-[1rem] md:px-[2rem]">
         <PageHeader
-          title={"Analytics"}
+          title={"Dashboard"}
           subTitle={
             "View your analytics on the system such as written words, submitted work, quality issues."
           }
@@ -149,12 +149,15 @@ const Analytics = () => {
           <h1 className=" font-semibold ">Quality score</h1>
           <div className="h-[10rem] md:h-[14rem] pt-4">
             <CircularProgressbar
-              value={percentage}
-              text={`${percentage === 0 ? 100 : percentage}%`}
+              value={isNaN(percentage) ? 100 : percentage}
+              // value={100}
+              // text={`${percentage === 0 ? 100 : percentage}%`}
+              text={`${isNaN(percentage) ? 100 : percentage}%`}
+              // text={`${percentage === 0 ? 100 : percentage}%`}
               className="h-full "
               styles={buildStyles({
                 pathColor: `rgba(10, 199, 10, ${
-                  percentage === 0 ? 100 : percentage / 100
+                  isNaN(percentage) ? 100 / 100 : percentage / 100
                 })`,
                 textColor: "rgba(10, 220, 10,1)",
                 backgroundColor: "red",

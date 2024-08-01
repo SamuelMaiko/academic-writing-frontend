@@ -32,7 +32,6 @@ const SaveButton = ({
         country,
         county,
       });
-      console.log(response.data);
       setProfile((current) => ({ ...current, ...response.data }));
       setContactInfo((current) => ({ ...current, ...response.data }));
       setFirstName(response.data.first_name);

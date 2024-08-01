@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import FilterDropDownBlock from "./FilterDropDownBlock";
 import { useStateShareContext } from "../../../Context/StateContext";
 
 const FilterDropDown = ({ showDropDown, setShowDropDown }) => {
   const { filters } = useStateShareContext();
+  const filterRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (filterRef.current && !filterRef.current.contains(event.target)) {
+      setShowDropDown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
+      ref={filterRef}
       className={`${
         showDropDown ? "" : "hidden"
       } absolute top-[95%] left-0  z-50 bg-gray-50 dark:bg-darkMode-bars border-[1px] dark:border-gray-500

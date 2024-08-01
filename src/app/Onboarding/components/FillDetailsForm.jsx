@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
+import { createNewCookie, getCookie } from "../../../Cookies/Cookie";
 
 const FillDetailsForm = () => {
-  const { setFillDetailsDone } = useProgressBarContext();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +16,7 @@ const FillDetailsForm = () => {
   const [county, setCounty] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { setFillDetailsDone } = useProgressBarContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,10 +35,32 @@ const FillDetailsForm = () => {
 
       // setSuccess(response.data.message);
       toast.success("Details updated successfully.");
+
+      // updating the cookie to show they have completed the step
+      createNewCookie("fillDetailsDone", true);
       setFillDetailsDone(true);
+
       setFirstName(response.data.first_name);
       setLastName(response.data.last_name);
-      navigate("/onboarding/complete-profile");
+
+      // conditionally navigate
+      if (getCookie("verifyDone") === "true") {
+        if (getCookie("fillDetailsDone") === "true") {
+          if (getCookie("profileDone") === "true") {
+            if (getCookie("changePasswordDone") === "true") {
+              navigate("/onboarding/success");
+            } else {
+              navigate("/onboarding/change-password");
+            }
+          } else {
+            navigate("/onboarding/complete-profile");
+          }
+        } else {
+          navigate("/onboarding/fill-details");
+        }
+      } else {
+        navigate("/onboarding/verify-email");
+      }
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
@@ -47,9 +70,11 @@ const FillDetailsForm = () => {
         switch (status) {
           case 400:
             setError(`${message}`);
+            toast.warning(`${message}`);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error("Internal Server Error.");
             break;
           default:
             setError(`Error: ${message}`);
@@ -82,8 +107,8 @@ const FillDetailsForm = () => {
       onSubmit={handleSubmit}
       className="relative flex flex-col items-center flex-1 "
     >
-      {error && <p className="text-red-500  mb-3">{error}</p>}
-      {success && <p className="text-green-500 mb-3">{success}</p>}
+      {error && <p className="text-red-500 hidden mb-3">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-3">{success}</p>}
       <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"

@@ -5,7 +5,7 @@ import PageHeader from "../../SharedComponents/PageHeader";
 
 const ChangePassword = () => {
   return (
-    <div className="w-full px-[2rem] dark:bg-darkMode-body pb-[4rem]">
+    <div className="w-full px-[2rem] h-full dark:bg-darkMode-body pb-[4rem]">
       <PageHeader
         title={"Change Password"}
         subTitle={"Password should be atleast 8 characters long."}

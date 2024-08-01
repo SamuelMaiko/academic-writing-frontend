@@ -3,13 +3,10 @@ import { useProgressBarContext } from "../../../Context/ProgressBarContext";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
+import { createNewCookie, getCookie } from "../../../Cookies/Cookie";
 
 const NewPasswordForm = () => {
-  const { setChangePasswordDone } = useProgressBarContext();
   const navigate = useNavigate();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
 
   const [isLoading, setIsLoading] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
@@ -17,6 +14,7 @@ const NewPasswordForm = () => {
   const [retypedNewPassword, setRetypedNewPassword] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { setChangePasswordDone } = useProgressBarContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,12 +24,15 @@ const NewPasswordForm = () => {
 
     if (oldPassword == newPassword) {
       setError("New password cannot be the same as old password.");
+      toast.warning("New password cannot be the same as old password.");
       setIsLoading(false);
     } else if (newPassword.length <= 8) {
       setError("New password length should 8 digits or more.");
+      toast.warning("New password length should 8 digits or more.");
       setIsLoading(false);
     } else if (newPassword !== retypedNewPassword) {
       setError("New password and retyped password should be similar.");
+      toast.warning("New password and retyped password should be similar.");
       setIsLoading(false);
     } else {
       try {
@@ -45,20 +46,42 @@ const NewPasswordForm = () => {
 
         // setSuccess(response.data.message);
         toast.success("Password updated successfully.");
+
+        // updating the cookie to show they have completed the step
+        createNewCookie("changePasswordDone", true);
         setChangePasswordDone(true);
-        navigate("/onboarding/success");
+
+        // conditionally navigate
+        if (getCookie("verifyDone") === "true") {
+          if (getCookie("fillDetailsDone") === "true") {
+            if (getCookie("profileDone") === "true") {
+              if (getCookie("changePasswordDone") === "true") {
+                navigate("/onboarding/success");
+              } else {
+                navigate("/onboarding/change-password");
+              }
+            } else {
+              navigate("/onboarding/complete-profile");
+            }
+          } else {
+            navigate("/onboarding/fill-details");
+          }
+        } else {
+          navigate("/onboarding/verify-email");
+        }
       } catch (error) {
         if (error.response && error.response.status) {
           const status = error.response.status;
           const message = error.response.data;
-          console.log(error.response.data);
 
           switch (status) {
             case 400:
               setError(`${message.old_password[0]}`);
+              toast.warning(`${message.old_password[0]}`);
               break;
             case 500:
               setError(`Server Error: ${message}`);
+              toast.error("Internal Server Error.");
               break;
             default:
               setError(`Error: ${message}`);
@@ -78,8 +101,8 @@ const NewPasswordForm = () => {
       onSubmit={handleSubmit}
       className=" flex flex-col items-center flex-1 "
     >
-      {error && <p className="text-red-500 mb-5">{error}</p>}
-      {success && <p className="text-green-500 mb-5">{success}</p>}
+      {error && <p className="text-red-500 hidden mb-5">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-5">{success}</p>}
       <div className="relative w-[97%] md:w-[50%] mb-5">
         <input
           type="password"

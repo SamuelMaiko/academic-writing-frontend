@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useStateShareContext } from "../../Context/StateContext";
 import Button from "../../app/Home/components/ui/Button";
 import {
@@ -21,8 +21,24 @@ const MobileSideBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const sideBarRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
+      setShowMobileSideBar(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      ref={sideBarRef}
       className={`${
         showMobileSideBar ? "delay-75 translate-x-[27rem]" : ""
       } absolute left-[5%]  bg-white dark:bg-darkMode-bars w-[60%] h-[96%]

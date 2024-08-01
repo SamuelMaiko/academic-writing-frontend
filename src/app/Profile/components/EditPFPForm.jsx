@@ -6,6 +6,7 @@ import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
 
 const EditPFPForm = () => {
+  const [uploadLoading, setUploadLoading] = useState(false);
   useEffect(() => {
     setUpload(imageURL);
   }, []);
@@ -28,7 +29,10 @@ const EditPFPForm = () => {
       setUpload(url);
     }
   };
+
   const handleUpload = async () => {
+    setUploadLoading(false);
+
     if (selectedFile) {
       try {
         const formData = new FormData();
@@ -61,8 +65,10 @@ const EditPFPForm = () => {
           toast.error("An unexpected error occurred. Please try again later.");
         }
       } finally {
-        // setting to NULL because I want to hide the buttons: "Upload","Delete"
+        // setting to NULL because I want to hide the buttons: "Upload","Remove"
         setSelectedFile(null);
+
+        setUploadLoading(false);
       }
     } else {
       toast.warning("No file selected!");
@@ -90,7 +96,10 @@ const EditPFPForm = () => {
         </div>
         {/* display the profile picture */}
         <div className="h-[16rem] md:h-[21.4rem] flex justify-center">
-          <div className="size-[14rem] md:size-[19rem] rounded-full overflow-hidden border-2 border-gray-300 flex items-center justify-center">
+          <div
+            className="size-[14rem] md:size-[19rem] rounded-full overflow-hidden border-2
+           border-gray-300 flex items-center justify-center"
+          >
             <img
               className="h-full w-full object-cover object-center"
               src={!selectedFile ? imageURL : upload}
@@ -109,7 +118,10 @@ const EditPFPForm = () => {
               id="fileInput"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={handleFileChange}
+              onChange={(e) => {
+                handleFileChange(e);
+                e.target.value = "";
+              }}
             />
             <button
               onClick={() => document.getElementById("fileInput").click()}
@@ -125,15 +137,18 @@ const EditPFPForm = () => {
                 <button
                   onClick={handleUpload}
                   className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                  disabled={uploadLoading}
                 >
-                  Upload
+                  {uploadLoading ? "Uploading..." : "Upload"}
                 </button>
                 <button
                   onClick={() => {
                     setUpload(imageURL);
                     setSelectedFile(null);
                   }}
-                  className="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
+                  className={`bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600 ${
+                    uploadLoading ? "hidden" : ""
+                  }`}
                 >
                   Remove
                 </button>

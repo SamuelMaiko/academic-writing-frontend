@@ -20,11 +20,6 @@ const Home = () => {
 
   useEffect(() => {
     getWork();
-
-    // getting details if cleared from LOCAL STORAGE
-    if (firstName === "" || lastName === "") {
-      getDetails();
-    }
   }, []);
 
   const getWork = async () => {

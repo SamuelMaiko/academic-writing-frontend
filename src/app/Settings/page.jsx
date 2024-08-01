@@ -1,5 +1,5 @@
 import { X } from "phosphor-react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useStateShareContext } from "../../Context/StateContext";
 import ProfileInformation from "./components/ProfileInformation";
 import AccountManagement from "./components/AccountManagement";
@@ -7,8 +7,25 @@ import DarkModeSetting from "./components/DarkModeSetting";
 
 const Settings = () => {
   const { settingsOpen, setSettingsOpen } = useStateShareContext();
+
+  const settingsRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+      setSettingsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      ref={settingsRef}
       className={`${
         settingsOpen ? "" : "translate-x-[22rem] "
       }  transition-transform duration-500 bg-white w-[20rem] shadow-[-2px_-2px_11px_rgba(0,0,0,0.3)]

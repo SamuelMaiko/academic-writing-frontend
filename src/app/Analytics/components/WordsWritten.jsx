@@ -1,8 +1,11 @@
 import React from "react";
 import ListComponent from "./ListComponent";
 import formatDate from "../../Home/components/datetime/formatDate";
+import { useNavigate } from "react-router-dom";
 
 const WordsWritten = ({ submittedWork, setSubmittedWork }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="flex flex-col pt-[1rem] bg-gray-100 dark:bg-darkMode-bars 
@@ -15,7 +18,7 @@ const WordsWritten = ({ submittedWork, setSubmittedWork }) => {
             submittedWork && submittedWork.length == 0 ? "" : "hidden"
           } text-gray-600 dark:text-gray-200`}
         >
-          No such work found.
+          No work found.
         </p>
 
         {submittedWork &&
@@ -27,8 +30,15 @@ const WordsWritten = ({ submittedWork, setSubmittedWork }) => {
                 content={
                   <p>
                     <strong>{item.words}</strong> words of Work{" "}
-                    <strong>{item.work_code}</strong> on{" "}
-                    <i> {formatDate(item.submission.created_at)}.</i>
+                    <strong
+                      className="cursor-pointer hover:underline"
+                      onClick={() =>
+                        navigate(`/work/${item.submission.work.id}`)
+                      }
+                    >
+                      {item.work_code}
+                    </strong>{" "}
+                    on <i> {formatDate(item.submission.created_at)}.</i>
                   </p>
                 }
               />

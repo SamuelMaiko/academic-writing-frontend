@@ -24,12 +24,15 @@ const NewPasswordForm = () => {
 
     if (oldPassword == newPassword) {
       setError("New password cannot be the same as old password.");
+      toast.warning("New password cannot be the same as old password.");
       setIsLoading(false);
     } else if (newPassword.length <= 8) {
       setError("New password length should 8 digits or more.");
+      toast.warning("New password length should 8 digits or more.");
       setIsLoading(false);
     } else if (newPassword !== retypedNewPassword) {
       setError("New password and retyped password should be similar.");
+      toast.warning("New password and retyped password should be similar.");
       setIsLoading(false);
     } else {
       try {
@@ -74,9 +77,11 @@ const NewPasswordForm = () => {
           switch (status) {
             case 400:
               setError(`${message.old_password[0]}`);
+              toast.warning(`${message.old_password[0]}`);
               break;
             case 500:
               setError(`Server Error: ${message}`);
+              toast.error("Internal Server Error.");
               break;
             default:
               setError(`Error: ${message}`);
@@ -96,8 +101,8 @@ const NewPasswordForm = () => {
       onSubmit={handleSubmit}
       className=" flex flex-col items-center flex-1 "
     >
-      {error && <p className="text-red-500 mb-5">{error}</p>}
-      {success && <p className="text-green-500 mb-5">{success}</p>}
+      {error && <p className="text-red-500 hidden mb-5">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-5">{success}</p>}
       <div className="relative w-[97%] md:w-[50%] mb-5">
         <input
           type="password"

@@ -18,7 +18,7 @@ const WordsWritten = ({ submittedWork, setSubmittedWork }) => {
             submittedWork && submittedWork.length == 0 ? "" : "hidden"
           } text-gray-600 dark:text-gray-200`}
         >
-          No such work found.
+          No work found.
         </p>
 
         {submittedWork &&

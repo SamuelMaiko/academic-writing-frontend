@@ -27,7 +27,6 @@ const SubmitForm = () => {
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
   }, []);
 
   const handleSubmitWork = async () => {
@@ -38,13 +37,15 @@ const SubmitForm = () => {
     formData.append("message", comment);
     if ((file == null) & (comment == "")) {
       setError("Please provide a file and a comment.");
+      toast.warning("Please provide a file and a comment.");
       setLoading(false);
     } else if (file == null) {
       setError("Please provide a file.");
+      toast.warning("Please provide a file.");
       setLoading(false);
     } else if (comment == "") {
       toast.warning("Please provide a comment.");
-      // setError("Please provide a comment.");
+      setError("Please provide a comment.");
       setLoading(false);
     } else {
       try {
@@ -65,9 +66,11 @@ const SubmitForm = () => {
           switch (status) {
             case 400:
               setError("Please provide a comment.");
+              toast.warning("Please provide a comment.");
               break;
             case 500:
               setError(`Server Error: ${message}`);
+              toast.error("Internal Server Error.");
               break;
             default:
               setError(`Error: ${message}`);
@@ -84,7 +87,7 @@ const SubmitForm = () => {
 
   return (
     <div className="w-full h-full bg-neutral-100 dark:bg-neutral-200 px-3 py-4">
-      {error && <p className="text-red-500 mt-3">{error}</p>}
+      {error && <p className="text-red-500 hidden mt-3">{error}</p>}
       <h1 className="text-xl font-semibold text-center">Submit Work</h1>
 
       <div className="my-4">

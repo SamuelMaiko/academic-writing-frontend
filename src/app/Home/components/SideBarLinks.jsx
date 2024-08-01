@@ -10,6 +10,7 @@ import {
   House,
   Pen,
 } from "phosphor-react";
+import { LayoutDashboard } from "lucide-react";
 import { useNotificationContext } from "../../../Context/NotificationContext";
 // import { FileCheck } from "lucide-react";
 
@@ -38,6 +39,27 @@ const SideBarLinks = () => {
           title={"Home"}
           className={`${
             pathname === "/home" ? "text-sidebartext-hover" : ""
+          } w-full`}
+        />
+      </div>
+      {/* writer dashboard  button */}
+      <div>
+        <Button
+          onClick={() => navigate("/analytics")}
+          icon={
+            pathname === "/analytics" ? (
+              <LayoutDashboard
+                size={20}
+                weight="fill"
+                style={{ fill: "currentColor", stroke: "none" }}
+              />
+            ) : (
+              <LayoutDashboard size={20} weight="fill" />
+            )
+          }
+          title={"My Dashboard"}
+          className={`${
+            pathname === "/analytics" ? "text-sidebartext-hover" : ""
           } w-full`}
         />
       </div>

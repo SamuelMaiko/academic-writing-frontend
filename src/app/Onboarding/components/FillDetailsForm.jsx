@@ -70,9 +70,11 @@ const FillDetailsForm = () => {
         switch (status) {
           case 400:
             setError(`${message}`);
+            toast.warning(`${message}`);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error("Internal Server Error.");
             break;
           default:
             setError(`Error: ${message}`);
@@ -105,8 +107,8 @@ const FillDetailsForm = () => {
       onSubmit={handleSubmit}
       className="relative flex flex-col items-center flex-1 "
     >
-      {error && <p className="text-red-500  mb-3">{error}</p>}
-      {success && <p className="text-green-500 mb-3">{success}</p>}
+      {error && <p className="text-red-500 hidden mb-3">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-3">{success}</p>}
       <div className="relative w-[97%] md:w-[60%] mb-5">
         <input
           type="text"

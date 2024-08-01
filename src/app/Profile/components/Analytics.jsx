@@ -19,7 +19,7 @@ const Analytics = () => {
      dark:shadow-gray-600 bg-white md:w-[95%] md:rounded-[1rem] dark:bg-darkMode-body
       dark:text-darkMode-text  px-6 md:px-5"
     >
-      <h1 className="text-lg font-semibold mb-1">Analytics</h1>
+      <h1 className="text-lg font-semibold mb-1">Performance preview</h1>
       <p
         onClick={() => navigate("/analytics")}
         className="mb-3 flex text-sm gap-2 items-center text-gray-600 underline w-fit
@@ -28,7 +28,7 @@ const Analytics = () => {
         <span>
           <Eye size={20} weight="fill" />
         </span>
-        Click here to view analytics
+        Click here to view
       </p>
       {/* <p className="mb-3 flex text-sm gap-2 items-center text-neutral-500 dark:text-darkMode-gray">
         <span>

@@ -92,8 +92,10 @@ const TableRowAssignedWork = ({
       <TableCell>
         <p>{words}</p>
       </TableCell>
-      <TableCell>{formatDate(deadline)}</TableCell>
-      <TableCell className="lowercase">
+      <TableCell className="whitespace-nowrap">
+        {formatDate(deadline)}
+      </TableCell>
+      <TableCell className="lowercase whitespace-nowrap">
         <CountdownToDate deadline={deadline} />
       </TableCell>
       <TableCell>

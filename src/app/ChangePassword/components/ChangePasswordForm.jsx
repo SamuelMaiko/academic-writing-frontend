@@ -22,12 +22,15 @@ const ChangePasswordForm = () => {
 
     if (currentPassword == newPassword) {
       setError("New password cannot be the same as old password.");
+      toast.warning("New password cannot be the same as old password.");
       setLoading(false);
     } else if (newPassword.length <= 8) {
       setError("New password length should 8 digits or more.");
+      toast.warning("New password length should 8 digits or more.");
       setLoading(false);
     } else if (newPassword !== retypePassword) {
       setError("New password and retyped password should be similar.");
+      toast.warning("New password and retyped password should be similar.");
       setLoading(false);
     } else {
       try {
@@ -49,9 +52,13 @@ const ChangePasswordForm = () => {
           switch (status) {
             case 400:
               setError(`${message.old_password[0] || message.new_password[0]}`);
+              toast.warning(
+                `${message.old_password[0] || message.new_password[0]}`
+              );
               break;
             case 500:
               setError(`Server Error: ${message}`);
+              toast.error("Internal Server Error.");
               break;
             default:
               setError(`Error: ${message}`);
@@ -67,8 +74,8 @@ const ChangePasswordForm = () => {
   };
   return (
     <form onSubmit={handleSubmit} className="w-full md:w-[35%] mt-[2rem]">
-      {error && <p className="text-red-500 mb-5">{error}</p>}
-      {success && <p className="text-green-500 mb-5">{success}</p>}
+      {error && <p className="text-red-500 hidden mb-5">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-5">{success}</p>}
       <div className="mb-8">
         <label className="text-sm text-neutral-500 dark:text-darkMode-gray">
           Type your current password*

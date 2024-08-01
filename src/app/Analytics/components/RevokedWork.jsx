@@ -48,7 +48,7 @@ const RevokedWork = () => {
             revokedWork && revokedWork.length == 0 ? "" : "hidden"
           } text-gray-600 dark:text-gray-200`}
         >
-          No such work found.
+          No work found.
         </p>
         {revokedWork &&
           revokedWork.map((item, index) => {

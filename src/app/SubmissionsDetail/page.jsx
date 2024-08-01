@@ -17,16 +17,6 @@ const SubmissionsDetail = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
 
-  const handleUploadFile = (e) => {
-    e.preventDefault();
-    setFile("hello");
-  };
-
-  const handleDeleteFile = (e) => {
-    e.preventDefault();
-    setFile(null);
-  };
-
   const getSubmissionDetails = async () => {
     setLoading(true);
     try {
@@ -60,7 +50,7 @@ const SubmissionsDetail = () => {
   }, []);
 
   return (
-    <div className="w-full px-[2rem] pb-[37%] md:pb-[5rem] dark:bg-darkMode-body ">
+    <div className="w-full px-[2rem] pb-[44%] md:pb-[5rem] dark:bg-darkMode-body ">
       <PageHeader
         title={"Submission Details"}
         subTitle={"View all the details of a submission."}
@@ -74,12 +64,22 @@ const SubmissionsDetail = () => {
         />
         <div className="flex flex-col gap-5 mt-[3rem] ">
           <h3 className="font-medium ">File</h3>
-          <div className={`flex gap-8 ${!file ? "hidden" : ""}`}>
-            {file && <FileLink file_name={file && file.split("/").at(-1)} />}
+          <div className={`flex gap-8 ${!file ? "hidden" : ""} md:w-fit`}>
+            {file && (
+              <FileLink
+                file_name={file && file.split("/").at(-1)}
+                download_url={details.file_download_link}
+              />
+            )}
             <DeleteFileButton work={details.work} setFile={setFile} />
           </div>
           {/* file upload form */}
-          <FileForm file={file} setFile={setFile} work={details.work} />
+          <FileForm
+            file={file}
+            setFile={setFile}
+            work={details.work}
+            setDetails={setDetails}
+          />
         </div>
       </div>
     </div>

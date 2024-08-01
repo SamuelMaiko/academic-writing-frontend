@@ -37,9 +37,12 @@ const VerifyEmail = () => {
           Your Email will be used to verify your identity and added to your
           details after.
         </p>
-        <p className="text-sm md:text-md">
+        <p className="text-sm md:text-md hidden md:block">
           We&#39;ll send a verification code to your email. Enter a valid email.
           remember you won&#39;t be able to change it later.
+        </p>
+        <p className="text-sm md:text-md block md:hidden text-blue-400 text-left">
+          Enter a valid email.
         </p>
       </div>
       <div className="flex md:flex-row flex-col w-full mt-4">

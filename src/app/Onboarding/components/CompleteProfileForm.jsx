@@ -49,7 +49,7 @@ const CompleteProfileForm = () => {
 
         // updating the cookie to show they have completed the step
         createNewCookie("profileDone", true);
-        setProfileDone(true)
+        setProfileDone(true);
 
         setImageURL(response.data.profile_picture_absolute);
 
@@ -79,10 +79,11 @@ const CompleteProfileForm = () => {
           switch (status) {
             case 400:
               setError(`${message}`);
-              console.log(error.response.data);
+              toast.warning(message);
               break;
             case 500:
               setError(`Server Error: ${message}`);
+              toast.error("Internal Server Error.");
               break;
             default:
               setError(`Error: ${message}`);
@@ -103,8 +104,8 @@ const CompleteProfileForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full ">
-      {error && <p className="text-red-500 mt-3">{error}</p>}
-      {success && <p className="text-green-500 mb-3">{success}</p>}
+      {error && <p className="text-red-500 hidden mt-3">{error}</p>}
+      {success && <p className="text-green-500 hidden mb-3">{success}</p>}
       <div className="grid w-full max-w-xs items-center gap-1.5">
         <p className="text-sm">Profile picture</p>
         <input

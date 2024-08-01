@@ -88,7 +88,7 @@ const Analytics = () => {
     <div className="w-full dark:bg-darkMode-body min-h-screen overflow-hidden">
       <div className="px-[1rem] md:px-[2rem]">
         <PageHeader
-          title={"Analytics"}
+          title={"Dashboard"}
           subTitle={
             "View your analytics on the system such as written words, submitted work, quality issues."
           }

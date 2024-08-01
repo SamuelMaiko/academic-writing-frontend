@@ -23,7 +23,7 @@ const SubmissionCard = ({
   return (
     <>
       <div
-        className=" relative pt-5 pb-12 px-[0.7rem] hover:bg-[#f1f1f1] dark:hover:bg-darkMode-cardHover
+        className=" relative pt-2 pb-16 px-[0.7rem] hover:bg-[#f1f1f1] dark:hover:bg-darkMode-cardHover
          transition-colors duration-300 dark:bg-darkMode-cardBg  "
         onClick={() => navigate(`/submissions/${id}`)}
       >

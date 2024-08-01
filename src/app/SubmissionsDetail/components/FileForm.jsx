@@ -3,7 +3,7 @@ import instance from "../../../axios/instance";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
-const FileForm = ({ file, setFile, work }) => {
+const FileForm = ({ file, setFile, work, setDetails }) => {
   const [uploadFile, setUploadFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const myInputRef = useRef(null);
@@ -28,8 +28,10 @@ const FileForm = ({ file, setFile, work }) => {
             },
           }
         );
+        setDetails(response.data);
         setFile(uploadFile.name);
         setUploadFile(null);
+
         myInputRef.current.value = "";
       } catch (error) {
         if (error.response && error.response.status) {
@@ -67,7 +69,6 @@ const FileForm = ({ file, setFile, work }) => {
           type="file"
           onChange={(e) => {
             setUploadFile(e.target.files[0]);
-            console.log(e.target.files[0]);
           }}
           className="flex h-10 w-full rounded-md border border-input bg-blue-100 px-3 py-2 text-sm
                  text-gray-400 file:border-0 file:bg-white file:text-gray-600 file:text-sm file:font-medium"

@@ -54,14 +54,16 @@ const EnterVerificationCodeForm = () => {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data.error;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:
             setError(`${message}`);
+            toast.warning(`${message}`);
+
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.warning("Internal Server error.");
             break;
           default:
             setError(`Error: ${message}`);
@@ -74,18 +76,18 @@ const EnterVerificationCodeForm = () => {
       setIsLoading(false);
     }
   };
-  // const handleVerifyEmail = async (e) => {
-  //   e.preventDefault();
-  //   setVerifyDone(true);
-  //   navigate("/onboarding/fill-details");
-  // };
+
   return (
     <form
       onSubmit={handleVerifyEmail}
       className="relative flex flex-col pt-[3rem] md:pt-[5rem] flex-1 items-center "
     >
-      {error && <p className="text-red-500 absolute top-8">{error}</p>}
-      {success && <p className="text-green-500 absolute top-8">{success}</p>}
+      {error && (
+        <p className="text-red-500 absolute hidden top-4 md:top-8">{error}</p>
+      )}
+      {success && (
+        <p className="text-green-500 absolute hidden top-8">{success}</p>
+      )}
       <div className="relative inline">
         <input
           type="text"

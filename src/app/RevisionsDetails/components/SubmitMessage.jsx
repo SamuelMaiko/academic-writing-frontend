@@ -15,6 +15,7 @@ const SubmitMessage = ({
   revisionMessages,
   setRevisionMessages,
   messageEndRef,
+  setDeleting,
 }) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,14 +24,13 @@ const SubmitMessage = ({
   const { id } = useParams();
 
   const handleSubmitMessage = async () => {
+    setDeleting(false);
     setLoading(true);
 
     const formData = new FormData();
     if (file) formData.append("file", file);
     if (image) formData.append("image", image);
     formData.append("message", message);
-
-    console.log(message);
 
     try {
       const response = await instance.post(
@@ -42,7 +42,6 @@ const SubmitMessage = ({
           },
         }
       );
-      console.log(response.data);
       setMessage("");
       setFile(null);
       setImage(null);

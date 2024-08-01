@@ -26,7 +26,7 @@ const EditInfoForm = () => {
 
       setFirstName(response.data.first_name);
       setLastName(response.data.last_name);
-      setBio(response.data.bio);
+      setBio(response.data.bio_with_emojis);
       setPhoneNumber(response.data.phone_number);
       setEmail(response.data.email);
       setLinkedIn(response.data.linkedin);

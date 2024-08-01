@@ -50,7 +50,7 @@ const Profile = () => {
           role={profile.role}
         />
       </div>
-      <Bio bio={profile.bio} />
+      <Bio bio={profile.bio_with_emojis} />
       <Analytics />
       <ContactInfo />
     </div>

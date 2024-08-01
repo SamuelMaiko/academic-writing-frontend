@@ -27,23 +27,28 @@ const SignUpForm = () => {
       setSuccess(
         "Registration successful! Check your email for credentials in a few seconds."
       );
+      toast.success(
+        "Registration successful! Check your email for credentials in a few seconds."
+      );
       // toast.success("success");
       navigate("/login");
     } catch (error) {
       if (error.response && error.response.status) {
         const status = error.response.status;
         const message = error.response.data.error;
-        console.log(error.response.data);
 
         switch (status) {
           case 400:
             setError(`Bad Request: ${message}`);
+            toast.warning(`${message}`);
             break;
           case 404:
             setError(`Not Found: ${message}`);
+            toast.warning(` ${message}`);
             break;
           case 500:
             setError(`Server Error: ${message}`);
+            toast.error(`Internal Server Error.`);
             break;
           default:
             setError(`Error: ${message}`);
@@ -58,7 +63,17 @@ const SignUpForm = () => {
   };
   return (
     <form onSubmit={handleUserSignUp} className="w-[35rem] px-5">
-      {error && <p className="text-red-500">{error}</p>}
+      <p className="text-blue-500 font-bold">
+        For testing purposes:{" "}
+        <a
+          className="text-green-500 font-normal underline"
+          target="_blank"
+          href="https://techwavewriters.pythonanywhere.com/api/auth/test-registration-codes/"
+        >
+          Get Registration code
+        </a>
+      </p>
+      {error && <p className="text-red-500 hidden">{error}</p>}
       <h1 className="text-center text-[2.3rem] font-prompt">SignUp</h1>
       <div className="mb-3 mt-5">
         <label className=" text-[1rem] font-semibold">
@@ -92,7 +107,6 @@ const SignUpForm = () => {
           added to your account.
         </small>
       </div>
-
       <div className="pb-5">
         <button
           type="submit"
